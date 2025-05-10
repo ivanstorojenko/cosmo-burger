@@ -13,3 +13,12 @@
 	text-align: center;
 	list-style-type: none;
 }
+
+.ingredients_group_list {
+	display: flex;
+	flex-direction: column;
+	gap: 40px;
+	padding: 0;
+	overflow-y: auto;
+	list-style: none;
+}
