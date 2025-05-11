@@ -5,9 +5,9 @@ import {
 	CurrencyIcon,
 } from '@ya.praktikum/react-developer-burger-ui-components';
 
-export const IngredientItem = ({ key, name, price, image }) => {
+export const IngredientItem = ({ name, price, image }) => {
 	return (
-		<li key={key} className={styles.ingredient_item}>
+		<li className={styles.ingredient_item}>
 			<Counter count={1} size='default' extraClass='m-1' />
 			<img src={image} alt={name} className={`${styles.image}`} />
 			<div className={styles.price}>
