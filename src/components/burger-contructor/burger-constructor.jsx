@@ -28,10 +28,9 @@ export const BurgerConstructor = ({ ingredients }) => {
 			/>
 			<ul className={`${styles.filling_list} custom-scroll`}>
 				{restIngredients.map((ingredient) => (
-					<li className={`${styles.filling_item}`}>
+					<li key={ingredient._id} className={`${styles.filling_item}`}>
 						<DragIcon type='primary' />
 						<ConstructorElement
-							key={ingredient._id}
 							text={ingredient.name}
 							thumbnail={ingredient.image}
 							price={ingredient.price}

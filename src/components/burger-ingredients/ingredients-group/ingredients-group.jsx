@@ -2,7 +2,11 @@ import React from 'react';
 import { IngredientItem } from '../ingredient-item/ingredient-item';
 import styles from './ingredients-group.module.css';
 
-export const IngredientsGroup = ({ type, ingredients }) => {
+export const IngredientsGroup = ({
+	type,
+	ingredients,
+	setCurrentIngredient,
+}) => {
 	const ingredientsInType = ingredients.filter(
 		(ingredient) => ingredient.type === type
 	);
@@ -21,6 +25,7 @@ export const IngredientsGroup = ({ type, ingredients }) => {
 						name={ingredient.name}
 						price={ingredient.price}
 						image={ingredient.image}
+						setCurrentIngredient={() => setCurrentIngredient(ingredient._id)}
 					/>
 				))}
 			</ul>
