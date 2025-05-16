@@ -15,9 +15,11 @@
 	justify-content: space-between;
 	align-items: center;
 	gap: 32px;
+	height: 64px;
 }
 
 .close_btn {
+	padding: 0;
 	background: none;
 	border: none;
 	cursor: pointer;

@@ -43,7 +43,8 @@ export const BurgerIngredients = ({ ingredients }) => {
 			{currentIngredient && (
 				<Modal
 					currentIngredient={currentIngredient}
-					setCurrentIngredient={() => setCurrentIngredient(null)}>
+					handleClose={() => setCurrentIngredient(null)}
+					title={'Детали ингредиента'}>
 					<IngredientDetails
 						ingredient={ingredients.find(
 							(ingredient) => ingredient._id === currentIngredient

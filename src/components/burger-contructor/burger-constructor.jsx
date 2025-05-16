@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styles from './burger-constructor.module.css';
 import * as PropTypes from 'prop-types';
 import { ingredientPropType } from '@utils/prop-types.js';
@@ -8,8 +8,11 @@ import {
 	CurrencyIcon,
 	Button,
 } from '@ya.praktikum/react-developer-burger-ui-components';
+import { Modal } from '../modal/modal';
+import { OrderDetail } from '../order-detail/order-detail';
 
 export const BurgerConstructor = ({ ingredients }) => {
+	const [showOrderDetail, setShowOrderDetail] = useState(false);
 	const bun = ingredients.filter((ingredient) => ingredient.type === 'bun')[0];
 	const restIngredients = ingredients.filter(
 		(ingredient) => ingredient.type !== 'bun'
@@ -52,10 +55,20 @@ export const BurgerConstructor = ({ ingredients }) => {
 					<span className='text text_type_digits-medium mr-2'>610</span>
 					<CurrencyIcon type='primary' />
 				</div>
-				<Button htmlType='button' type='primary' size='medium'>
+				<Button
+					htmlType='button'
+					type='primary'
+					size='medium'
+					onClick={() => setShowOrderDetail(true)}>
 					Оформить заказ
 				</Button>
 			</div>
+
+			{showOrderDetail && (
+				<Modal handleClose={() => setShowOrderDetail(false)}>
+					<OrderDetail />
+				</Modal>
+			)}
 		</section>
 	);
 };

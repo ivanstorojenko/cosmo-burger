@@ -1,8 +1,6 @@
 import React from 'react';
 import styles from './modal-overlay.module.css';
 
-export const ModalOverlay = ({ setCurrentIngredient }) => {
-	return (
-		<button onClick={setCurrentIngredient} className={styles.overlay}></button>
-	);
+export const ModalOverlay = ({ handleClose }) => {
+	return <button onClick={handleClose} className={styles.overlay}></button>;
 };
