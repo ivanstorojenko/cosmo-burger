@@ -1,6 +1,8 @@
 import React from 'react';
 import { IngredientItem } from '../ingredient-item/ingredient-item';
 import styles from './ingredients-group.module.css';
+import * as PropTypes from 'prop-types';
+import { ingredientPropType } from '@utils/prop-types.js';
 
 export const IngredientsGroup = ({
 	type,
@@ -31,4 +33,10 @@ export const IngredientsGroup = ({
 			</ul>
 		</li>
 	);
+};
+
+IngredientsGroup.propTypes = {
+	type: PropTypes.oneOf(['bun', 'main', 'sauce']),
+	ingredients: PropTypes.arrayOf(ingredientPropType.isRequired).isRequired,
+	setCurrentIngredient: PropTypes.func.isRequired,
 };
