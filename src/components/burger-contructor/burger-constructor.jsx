@@ -22,7 +22,7 @@ export const BurgerConstructor = ({ ingredients }) => {
 		<section className={`${styles.burger_constructor}  mt-25`}>
 			<ConstructorElement
 				key='top'
-				text={bun.name}
+				text={`${bun.name} (верх)`}
 				thumbnail={bun.image}
 				price={bun.price}
 				type='top'
@@ -43,7 +43,7 @@ export const BurgerConstructor = ({ ingredients }) => {
 			</ul>
 			<ConstructorElement
 				key='bottom'
-				text={bun.name}
+				text={`${bun.name} (низ)`}
 				thumbnail={bun.image}
 				price={bun.price}
 				type='bottom'

@@ -14,6 +14,9 @@ export const App = () => {
 		(async () => {
 			try {
 				const ingredientsRes = await fetch(ingredientsApiUrl);
+				if (!ingredientsRes.ok) {
+					throw new Error(ingredientsRes.status);
+				}
 				const ingredientsJson = await ingredientsRes.json();
 
 				setIngredients(ingredientsJson.data);
@@ -21,6 +24,7 @@ export const App = () => {
 			} catch (err) {
 				setLoading(false);
 				setError(err);
+				console.error('Fetch ingredients', err);
 			}
 		})();
 	}, []);
