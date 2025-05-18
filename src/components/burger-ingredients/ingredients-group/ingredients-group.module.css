@@ -1,0 +1,12 @@
+.ingredient_group {
+	display: flex;
+	flex-direction: column;
+	gap: 24px;
+}
+
+.ingredient_list {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 24px;
+	list-style: none;
+}

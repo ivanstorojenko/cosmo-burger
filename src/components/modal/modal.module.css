@@ -1,0 +1,29 @@
+.modal {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	display: flex;
+	flex-direction: column;
+	box-sizing: border-box;
+	min-width: 720px;
+	padding: 40px 40px 60px;
+	background: #1c1c21;
+	border: 1px solid rgb(76 76 255 / 20%);
+	border-radius: 40px;
+	transform: translate(-50%, -50%);
+}
+
+.header {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	gap: 32px;
+	height: 64px;
+}
+
+.close_btn {
+	padding: 0;
+	background: none;
+	border: none;
+	cursor: pointer;
+}
