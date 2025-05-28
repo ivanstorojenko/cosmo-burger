@@ -1,17 +1,18 @@
-import React, { useState } from 'react';
+import { useSelector } from 'react-redux';
 import styles from './burger-ingredients.module.css';
-import * as PropTypes from 'prop-types';
 import { Tab } from '@ya.praktikum/react-developer-burger-ui-components';
 import { IngredientsGroup } from '../burger-ingredients/ingredients-group/ingredients-group';
 import { Modal } from '../modal/modal';
 import { IngredientDetails } from './ingredient-details/ingredient-details';
-import { ingredientPropType } from '@utils/prop-types.js';
+import { getAllIngredients } from '@services/burger-ingredients/reducer';
+import { getCurrentIngredient } from '@services/ingredient-detail/reducer';
 
-export const BurgerIngredients = ({ ingredients }) => {
+export const BurgerIngredients = () => {
+	const ingredients = useSelector(getAllIngredients);
 	const ingredientTypes = [
 		...new Set(ingredients.map((ingredient) => ingredient.type)),
 	];
-	const [currentIngredient, setCurrentIngredient] = useState(null);
+	const currentIngredient = useSelector(getCurrentIngredient);
 
 	return (
 		<section className={styles.burger_ingredients}>
@@ -31,19 +32,13 @@ export const BurgerIngredients = ({ ingredients }) => {
 
 			<ul className={`${styles.ingredients_group_list} custom-scroll mt-10`}>
 				{ingredientTypes.map((type, index) => (
-					<IngredientsGroup
-						key={index}
-						type={type}
-						ingredients={ingredients}
-						setCurrentIngredient={setCurrentIngredient}
-					/>
+					<IngredientsGroup key={index} type={type} ingredients={ingredients} />
 				))}
 			</ul>
 
 			{currentIngredient && (
 				<Modal
 					currentIngredient={currentIngredient}
-					handleClose={() => setCurrentIngredient(null)}
 					title={'Детали ингредиента'}>
 					<IngredientDetails
 						ingredient={ingredients.find(
@@ -54,8 +49,4 @@ export const BurgerIngredients = ({ ingredients }) => {
 			)}
 		</section>
 	);
-};
-
-BurgerIngredients.propTypes = {
-	ingredients: PropTypes.arrayOf(ingredientPropType.isRequired).isRequired,
 };

@@ -1,7 +1,6 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
+import { useSelector } from 'react-redux';
 import styles from './burger-constructor.module.css';
-import * as PropTypes from 'prop-types';
-import { ingredientPropType } from '@utils/prop-types.js';
 import {
 	ConstructorElement,
 	DragIcon,
@@ -10,8 +9,10 @@ import {
 } from '@ya.praktikum/react-developer-burger-ui-components';
 import { Modal } from '../modal/modal';
 import { OrderDetail } from '../order-detail/order-detail';
+import { getAllIngredients } from '../../services/burger-ingredients/reducer';
 
-export const BurgerConstructor = ({ ingredients }) => {
+export const BurgerConstructor = () => {
+	const ingredients = useSelector(getAllIngredients);
 	const [showOrderDetail, setShowOrderDetail] = useState(false);
 	const bun = ingredients.filter((ingredient) => ingredient.type === 'bun')[0];
 	const restIngredients = ingredients.filter(
@@ -71,8 +72,4 @@ export const BurgerConstructor = ({ ingredients }) => {
 			)}
 		</section>
 	);
-};
-
-BurgerConstructor.propTypes = {
-	ingredients: PropTypes.arrayOf(ingredientPropType.isRequired).isRequired,
 };

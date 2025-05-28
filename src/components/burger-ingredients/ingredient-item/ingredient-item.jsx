@@ -1,20 +1,24 @@
-import React from 'react';
 import styles from './ingredient-item.module.css';
 import {
 	Counter,
 	CurrencyIcon,
 } from '@ya.praktikum/react-developer-burger-ui-components';
 import * as PropTypes from 'prop-types';
+import { useDispatch } from 'react-redux';
+import { setCurrentIngredient } from '@services/ingredient-detail/actions';
 
-export const IngredientItem = ({
-	name,
-	price,
-	image,
-	setCurrentIngredient,
-}) => {
+export const IngredientItem = ({ id, name, price, image }) => {
+	const dispatch = useDispatch();
+
+	const handleSetCurrentIngredient = () => {
+		dispatch(setCurrentIngredient(id));
+	};
+
 	return (
 		<li className={styles.ingredient_item_wrapper}>
-			<button className={styles.ingredient_item} onClick={setCurrentIngredient}>
+			<button
+				className={styles.ingredient_item}
+				onClick={handleSetCurrentIngredient}>
 				<Counter count={1} size='default' extraClass='m-1' />
 				<img src={image} alt={name} className={`${styles.image}`} />
 				<div className={styles.price}>
@@ -28,8 +32,8 @@ export const IngredientItem = ({
 };
 
 IngredientItem.propTypes = {
+	id: PropTypes.string.isRequired,
 	name: PropTypes.string.isRequired,
 	price: PropTypes.number.isRequired,
 	image: PropTypes.string.isRequired,
-	setCurrentIngredient: PropTypes.func.isRequired,
 };

@@ -1,32 +1,24 @@
-import React, { useState, useEffect } from 'react';
+import { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import styles from './app.module.css';
 import { BurgerIngredients } from '@components/burger-ingredients/burger-ingredients.jsx';
 import { BurgerConstructor } from '@components/burger-contructor/burger-constructor.jsx';
 import { AppHeader } from '@components/app-header/app-header.jsx';
+import { loadIngredients } from '../../services/burger-ingredients/actions';
+import {
+	getAllIngredients,
+	getIngredientsLoading,
+	getIngredientsError,
+} from '../../services/burger-ingredients/reducer';
 
 export const App = () => {
-	const ingredientsApiUrl = 'https://norma.nomoreparties.space/api/ingredients';
-	const [loading, setLoading] = useState(true);
-	const [error, setError] = useState(null);
-	const [ingredients, setIngredients] = useState([]);
+	const dispatch = useDispatch();
+	const ingredients = useSelector(getAllIngredients);
+	const loading = useSelector(getIngredientsLoading);
+	const error = useSelector(getIngredientsError);
 
 	useEffect(() => {
-		(async () => {
-			try {
-				const ingredientsRes = await fetch(ingredientsApiUrl);
-				if (!ingredientsRes.ok) {
-					throw new Error(ingredientsRes.status);
-				}
-				const ingredientsJson = await ingredientsRes.json();
-
-				setIngredients(ingredientsJson.data);
-				setLoading(false);
-			} catch (err) {
-				setLoading(false);
-				setError(err);
-				console.error('Fetch ingredients', err);
-			}
-		})();
+		dispatch(loadIngredients());
 	}, []);
 
 	return (
@@ -45,8 +37,8 @@ export const App = () => {
 					</span>
 				) : ingredients && ingredients.length > 0 ? (
 					<>
-						<BurgerIngredients ingredients={ingredients} />
-						<BurgerConstructor ingredients={ingredients} />
+						<BurgerIngredients />
+						<BurgerConstructor />
 					</>
 				) : (
 					<span className='text text_type_main-medium'>Нет ингредиентов</span>

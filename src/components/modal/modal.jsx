@@ -1,13 +1,20 @@
-import React, { useEffect } from 'react';
+import { useEffect } from 'react';
 import { createPortal } from 'react-dom';
 import { ModalOverlay } from './modal-overlay/modal-overlay';
 import styles from './modal.module.css';
 import { CloseIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import * as PropTypes from 'prop-types';
+import { useDispatch } from 'react-redux';
+import { deleteCurrentIngredient } from '@services/ingredient-detail/actions';
 
 const modalRoot = document.getElementById('modal-root');
 
-export const Modal = ({ handleClose, title, children }) => {
+export const Modal = ({ title, children }) => {
+	const dispatch = useDispatch();
+	const handleClose = () => {
+		dispatch(deleteCurrentIngredient());
+	};
+
 	useEffect(() => {
 		const handleEscClose = (e) => {
 			if (e.key === 'Escape' && !e.shiftKey && !e.ctrlKey && !e.altKey) {
@@ -43,7 +50,6 @@ export const Modal = ({ handleClose, title, children }) => {
 };
 
 Modal.propTypes = {
-	handleClose: PropTypes.func.isRequired,
 	title: PropTypes.string,
 	children: PropTypes.element.isRequired,
 };

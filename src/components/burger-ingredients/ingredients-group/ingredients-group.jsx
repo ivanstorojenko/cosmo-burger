@@ -1,14 +1,11 @@
-import React from 'react';
+import { useSelector } from 'react-redux';
 import { IngredientItem } from '../ingredient-item/ingredient-item';
 import styles from './ingredients-group.module.css';
 import * as PropTypes from 'prop-types';
-import { ingredientPropType } from '@utils/prop-types.js';
+import { getAllIngredients } from '@services/burger-ingredients/reducer';
 
-export const IngredientsGroup = ({
-	type,
-	ingredients,
-	setCurrentIngredient,
-}) => {
+export const IngredientsGroup = ({ type }) => {
+	const ingredients = useSelector(getAllIngredients);
 	const ingredientsInType = ingredients.filter(
 		(ingredient) => ingredient.type === type
 	);
@@ -24,10 +21,10 @@ export const IngredientsGroup = ({
 				{ingredientsInType.map((ingredient) => (
 					<IngredientItem
 						key={ingredient._id}
+						id={ingredient._id}
 						name={ingredient.name}
 						price={ingredient.price}
 						image={ingredient.image}
-						setCurrentIngredient={() => setCurrentIngredient(ingredient._id)}
 					/>
 				))}
 			</ul>
@@ -37,6 +34,4 @@ export const IngredientsGroup = ({
 
 IngredientsGroup.propTypes = {
 	type: PropTypes.oneOf(['bun', 'main', 'sauce']),
-	ingredients: PropTypes.arrayOf(ingredientPropType.isRequired).isRequired,
-	setCurrentIngredient: PropTypes.func.isRequired,
 };
