@@ -14,6 +14,19 @@ export const constructorSlice = createSlice({
 	reducers: {},
 	selectors: {
 		getConstructorIngredients: (state) => state.constructorIngredients,
+		getOrderPrice: (state) => {
+			const bunsPrice = state.constructorIngredients.bun
+				? state.constructorIngredients.bun.price * 2
+				: 0;
+			const ingredientsPrice = state.constructorIngredients.ingredients.reduce(
+				function (acc, ingredient) {
+					return acc + +ingredient.price;
+				},
+				0
+			);
+
+			return bunsPrice + ingredientsPrice;
+		},
 	},
 	extraReducers: (builder) => {
 		builder
@@ -40,4 +53,5 @@ export const constructorSlice = createSlice({
 });
 
 export const { actions, reducer } = constructorSlice;
-export const { getConstructorIngredients } = constructorSlice.selectors;
+export const { getConstructorIngredients, getOrderPrice } =
+	constructorSlice.selectors;

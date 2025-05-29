@@ -9,7 +9,10 @@ import {
 } from '@ya.praktikum/react-developer-burger-ui-components';
 import { Modal } from '../modal/modal';
 import { OrderDetail } from '../order-detail/order-detail';
-import { getConstructorIngredients } from '@services/burger-constructor/reducer';
+import {
+	getConstructorIngredients,
+	getOrderPrice,
+} from '@services/burger-constructor/reducer';
 
 import {
 	addIngredient,
@@ -18,6 +21,7 @@ import {
 import { useDrop } from 'react-dnd';
 
 export const BurgerConstructor = () => {
+	const orderPrice = useSelector(getOrderPrice);
 	const ingredients = useSelector(getConstructorIngredients);
 	const bun = ingredients.bun;
 	const restIngredients = ingredients.ingredients;
@@ -97,9 +101,11 @@ export const BurgerConstructor = () => {
 				)}
 			</div>
 
-			<div className={`${styles.complete_order} mt-10`}>
+			<div className={`${styles.complete_order} mt-10 mr-8`}>
 				<div>
-					<span className='text text_type_digits-medium mr-2'>610</span>
+					<span className='text text_type_digits-medium mr-2'>
+						{orderPrice}
+					</span>
 					<CurrencyIcon type='primary' />
 				</div>
 				<Button
