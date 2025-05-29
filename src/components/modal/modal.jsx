@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useCallback, useEffect } from 'react';
 import { createPortal } from 'react-dom';
 import { ModalOverlay } from './modal-overlay/modal-overlay';
 import styles from './modal.module.css';
@@ -11,9 +11,9 @@ const modalRoot = document.getElementById('modal-root');
 
 export const Modal = ({ title, children }) => {
 	const dispatch = useDispatch();
-	const handleClose = () => {
+	const handleClose = useCallback(() => {
 		dispatch(deleteCurrentIngredient());
-	};
+	}, [dispatch]);
 
 	useEffect(() => {
 		const handleEscClose = (e) => {

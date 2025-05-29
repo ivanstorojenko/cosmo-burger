@@ -4,12 +4,14 @@ import styles from './app.module.css';
 import { BurgerIngredients } from '@components/burger-ingredients/burger-ingredients.jsx';
 import { BurgerConstructor } from '@components/burger-contructor/burger-constructor.jsx';
 import { AppHeader } from '@components/app-header/app-header.jsx';
-import { loadIngredients } from '../../services/burger-ingredients/actions';
+import { loadIngredients } from '@services/burger-ingredients/actions';
 import {
 	getAllIngredients,
 	getIngredientsLoading,
 	getIngredientsError,
-} from '../../services/burger-ingredients/reducer';
+} from '@services/burger-ingredients/reducer';
+import { DndProvider } from 'react-dnd';
+import { HTML5Backend } from 'react-dnd-html5-backend';
 
 export const App = () => {
 	const dispatch = useDispatch();
@@ -19,7 +21,7 @@ export const App = () => {
 
 	useEffect(() => {
 		dispatch(loadIngredients());
-	}, []);
+	}, [dispatch]);
 
 	return (
 		<div className={styles.app}>
@@ -36,10 +38,10 @@ export const App = () => {
 						Произошла ошибка при загрузке ингредиентов
 					</span>
 				) : ingredients && ingredients.length > 0 ? (
-					<>
+					<DndProvider backend={HTML5Backend}>
 						<BurgerIngredients />
 						<BurgerConstructor />
-					</>
+					</DndProvider>
 				) : (
 					<span className='text text_type_main-medium'>Нет ингредиентов</span>
 				)}

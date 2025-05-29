@@ -3,19 +3,26 @@ import {
 	Counter,
 	CurrencyIcon,
 } from '@ya.praktikum/react-developer-burger-ui-components';
-import * as PropTypes from 'prop-types';
 import { useDispatch } from 'react-redux';
 import { setCurrentIngredient } from '@services/ingredient-detail/actions';
+import { useDrag } from 'react-dnd';
+import { ingredientPropType } from '@utils/prop-types';
 
-export const IngredientItem = ({ id, name, price, image }) => {
+export const IngredientItem = ({ ingredient }) => {
+	const { _id, name, price, image } = ingredient;
 	const dispatch = useDispatch();
 
 	const handleSetCurrentIngredient = () => {
-		dispatch(setCurrentIngredient(id));
+		dispatch(setCurrentIngredient(_id));
 	};
 
+	const [, dragRef] = useDrag({
+		type: 'ingredient',
+		item: { ...ingredient },
+	});
+
 	return (
-		<li className={styles.ingredient_item_wrapper}>
+		<li ref={dragRef} draggable className={styles.ingredient_item_wrapper}>
 			<button
 				className={styles.ingredient_item}
 				onClick={handleSetCurrentIngredient}>
@@ -32,8 +39,5 @@ export const IngredientItem = ({ id, name, price, image }) => {
 };
 
 IngredientItem.propTypes = {
-	id: PropTypes.string.isRequired,
-	name: PropTypes.string.isRequired,
-	price: PropTypes.number.isRequired,
-	image: PropTypes.string.isRequired,
+	ingredient: ingredientPropType.isRequired,
 };

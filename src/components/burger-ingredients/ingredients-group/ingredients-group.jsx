@@ -19,13 +19,7 @@ export const IngredientsGroup = ({ type }) => {
 			</h2>
 			<ul className={`${styles.ingredient_list} pr-4 pl-4`}>
 				{ingredientsInType.map((ingredient) => (
-					<IngredientItem
-						key={ingredient._id}
-						id={ingredient._id}
-						name={ingredient.name}
-						price={ingredient.price}
-						image={ingredient.image}
-					/>
+					<IngredientItem key={ingredient._id} ingredient={ingredient} />
 				))}
 			</ul>
 		</li>

@@ -1,4 +1,4 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { createSlice, nanoid } from '@reduxjs/toolkit';
 import { addIngredient, deleteIngredient, sortIngredient } from './actions';
 
 const initialState = {
@@ -18,16 +18,20 @@ export const constructorSlice = createSlice({
 	extraReducers: (builder) => {
 		builder
 			.addCase(addIngredient, (state, action) => {
-				if (action.payload.type === 'bun') {
-					state.constructorIngredients.bun = action.payload;
+				const ingredient = { ...action.payload };
+				ingredient.id = nanoid();
+
+				if (ingredient.type === 'bun') {
+					state.constructorIngredients.bun = ingredient;
 				} else {
-					state.constructorIngredients.ingredients.push(action.payload);
+					state.constructorIngredients.ingredients.push(ingredient);
 				}
 			})
 			.addCase(deleteIngredient, (state, action) => {
-				state.constructorIngredients.ingredients.filter(
-					(ingredient) => ingredient.id !== action.payload
-				);
+				state.constructorIngredients.ingredients =
+					state.constructorIngredients.ingredients.filter(
+						(ingredient) => ingredient.id !== action.payload
+					);
 			})
 			.addCase(sortIngredient, () => {
 				// сортировка внутри массива по DnD

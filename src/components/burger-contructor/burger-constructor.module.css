@@ -1,10 +1,21 @@
 .burger_constructor {
-	display: flex;
-	flex-direction: column;
-	gap: 16px;
 	width: 600px;
 	padding-bottom: 20px;
 	color: var(--text-primary-color);
+}
+
+.ingredients {
+	display: flex;
+	flex-direction: column;
+	gap: 16px;
+	box-sizing: border-box;
+	border: 1px dashed transparent;
+	border-radius: 54px;
+	transition: all 0.3s;
+}
+
+.onHover {
+	border: 1px dashed #4c4cff;
 }
 
 .filling_list {
