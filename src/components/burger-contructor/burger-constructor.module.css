@@ -1,4 +1,7 @@
 .burger_constructor {
+	display: flex;
+	flex-direction: column;
+	gap: 16px;
 	width: 600px;
 	padding-bottom: 20px;
 	color: var(--text-primary-color);
@@ -9,6 +12,7 @@
 	flex-direction: column;
 	gap: 16px;
 	box-sizing: border-box;
+	overflow-y: auto;
 	border: 1px dashed transparent;
 	border-radius: 54px;
 	transition: all 0.3s;
@@ -16,29 +20,6 @@
 
 .onHover {
 	border: 1px dashed #4c4cff;
-}
-
-.filling_list {
-	display: flex;
-	flex-direction: column;
-	gap: 16px;
-	margin: 0;
-	padding: 0;
-	overflow-y: auto;
-	list-style: none;
-}
-
-.filling_item {
-	display: flex;
-	align-items: center;
-	gap: 8px;
-}
-
-.complete_order {
-	display: flex;
-	align-items: center;
-	gap: 40px;
-	margin-left: auto;
 }
 
 .empty_bun_box {
@@ -63,4 +44,28 @@
 .empty_bun_bottom {
 	composes: empty_bun_box;
 	border-radius: 40px 40px 88px 88px;
+}
+
+.filling_list {
+	display: flex;
+	flex-direction: column;
+	gap: 16px;
+	margin: 0;
+	padding: 0;
+	overflow-y: auto;
+	list-style: none;
+}
+
+.filling_item {
+	display: flex;
+	align-items: center;
+	gap: 8px;
+}
+
+.complete_order {
+	display: flex;
+	justify-content: flex-end;
+	align-items: center;
+	gap: 40px;
+	margin-left: auto;
 }

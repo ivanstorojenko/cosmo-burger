@@ -49,7 +49,7 @@ export const BurgerConstructor = () => {
 				ref={dropRef}
 				className={`${styles.ingredients} ${isHover ? styles.onHover : ''}`}>
 				{bun === null ? (
-					<div className={`${styles.empty_bun_top}`}></div>
+					<div className={`${styles.empty_bun_top} ml-8 mr-8`}></div>
 				) : (
 					<ConstructorElement
 						key='top'
@@ -63,7 +63,7 @@ export const BurgerConstructor = () => {
 				)}
 				<ul className={`${styles.filling_list} custom-scroll`}>
 					{restIngredients.length === 0 ? (
-						<div className={`${styles.empty_bun_middle}`}>
+						<div className={`${styles.empty_bun_middle} ml-8 mr-8`}>
 							<span className='text text_type_main-default'>
 								Перетащите ингредиенты в эту область
 							</span>
@@ -83,7 +83,7 @@ export const BurgerConstructor = () => {
 					)}
 				</ul>
 				{bun === null ? (
-					<div className={`${styles.empty_bun_bottom}`}></div>
+					<div className={`${styles.empty_bun_bottom} ml-8 mr-8`}></div>
 				) : (
 					<ConstructorElement
 						key='bottom'
