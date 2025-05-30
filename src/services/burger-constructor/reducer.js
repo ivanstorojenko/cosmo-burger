@@ -1,5 +1,5 @@
 import { createSlice, nanoid } from '@reduxjs/toolkit';
-import { addIngredient, deleteIngredient, sortIngredient } from './actions';
+import { addIngredient, deleteIngredient, moveIngredient } from './actions';
 
 const initialState = {
 	constructorIngredients: {
@@ -46,8 +46,13 @@ export const constructorSlice = createSlice({
 						(ingredient) => ingredient.id !== action.payload
 					);
 			})
-			.addCase(sortIngredient, () => {
-				// сортировка внутри массива по DnD
+			.addCase(moveIngredient, (state, action) => {
+				const dragIngredient =
+					state.constructorIngredients.ingredients[action.payload.dragIndex];
+				const ingredients = state.constructorIngredients.ingredients;
+				ingredients.splice(action.payload.dragIndex, 1);
+				ingredients.splice(action.payload.hoverIndex, 0, dragIngredient);
+				state.constructorIngredients.ingredients = ingredients;
 			});
 	},
 });

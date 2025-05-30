@@ -56,12 +56,6 @@
 	list-style: none;
 }
 
-.filling_item {
-	display: flex;
-	align-items: center;
-	gap: 8px;
-}
-
 .complete_order {
 	display: flex;
 	justify-content: flex-end;

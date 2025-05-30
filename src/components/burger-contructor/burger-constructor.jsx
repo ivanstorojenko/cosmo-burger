@@ -3,7 +3,6 @@ import { useSelector, useDispatch } from 'react-redux';
 import styles from './burger-constructor.module.css';
 import {
 	ConstructorElement,
-	DragIcon,
 	CurrencyIcon,
 	Button,
 } from '@ya.praktikum/react-developer-burger-ui-components';
@@ -14,11 +13,9 @@ import {
 	getOrderPrice,
 } from '@services/burger-constructor/reducer';
 
-import {
-	addIngredient,
-	deleteIngredient,
-} from '@services/burger-constructor/actions';
+import { addIngredient } from '@services/burger-constructor/actions';
 import { useDrop } from 'react-dnd';
+import { DraggableElement } from './draggable-element/draggable-element';
 
 export const BurgerConstructor = () => {
 	const orderPrice = useSelector(getOrderPrice);
@@ -29,10 +26,6 @@ export const BurgerConstructor = () => {
 
 	const handleDrop = (item) => {
 		dispatch(addIngredient(item));
-	};
-
-	const handleDelete = (id) => {
-		dispatch(deleteIngredient(id));
 	};
 
 	const [{ isHover }, dropRef] = useDrop({
@@ -73,16 +66,12 @@ export const BurgerConstructor = () => {
 							</span>
 						</div>
 					) : (
-						restIngredients.map((ingredient) => (
-							<li key={ingredient.id} className={`${styles.filling_item}`}>
-								<DragIcon type='primary' />
-								<ConstructorElement
-									text={ingredient.name}
-									thumbnail={ingredient.image}
-									price={ingredient.price}
-									handleClose={() => handleDelete(ingredient.id)}
-								/>
-							</li>
+						restIngredients.map((ingredient, index) => (
+							<DraggableElement
+								key={ingredient.id}
+								ingredient={ingredient}
+								index={index}
+							/>
 						))
 					)}
 				</ul>
