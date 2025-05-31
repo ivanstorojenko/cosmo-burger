@@ -40,7 +40,13 @@ export const IngredientItem = ({ ingredient }) => {
 				{counter !== 0 && (
 					<Counter count={counter} size='default' extraClass='m-1' />
 				)}
-				<img src={image} alt={name} className={`${styles.image}`} />
+				<img
+					src={image}
+					alt={name}
+					className={`${styles.image}`}
+					width='211'
+					height='106'
+				/>
 				<div className={styles.price}>
 					<span className='text text_type_digits-default mr-2'>{price}</span>
 					<CurrencyIcon />
