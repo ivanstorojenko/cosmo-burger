@@ -79,7 +79,7 @@ export const BurgerConstructor = () => {
 					) : (
 						restIngredients.map((ingredient, index) => (
 							<DraggableElement
-								key={ingredient.id}
+								key={ingredient.uid}
 								ingredient={ingredient}
 								index={index}
 							/>

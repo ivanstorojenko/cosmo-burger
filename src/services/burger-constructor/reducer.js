@@ -1,4 +1,4 @@
-import { createSlice, nanoid } from '@reduxjs/toolkit';
+import { createSlice } from '@reduxjs/toolkit';
 import { addIngredient, deleteIngredient, moveIngredient } from './actions';
 
 const initialState = {
@@ -44,8 +44,7 @@ export const constructorSlice = createSlice({
 	extraReducers: (builder) => {
 		builder
 			.addCase(addIngredient, (state, action) => {
-				const ingredient = { ...action.payload };
-				ingredient.id = nanoid();
+				const ingredient = action.payload;
 
 				if (ingredient.type === 'bun') {
 					state.constructorIngredients.bun = ingredient;
@@ -56,7 +55,7 @@ export const constructorSlice = createSlice({
 			.addCase(deleteIngredient, (state, action) => {
 				state.constructorIngredients.ingredients =
 					state.constructorIngredients.ingredients.filter(
-						(ingredient) => ingredient.id !== action.payload
+						(ingredient) => ingredient.uid !== action.payload
 					);
 			})
 			.addCase(moveIngredient, (state, action) => {

@@ -13,12 +13,12 @@ import { useDrag, useDrop } from 'react-dnd';
 import { ingredientPropType } from '@utils/prop-types';
 
 export const DraggableElement = ({ ingredient, index }) => {
-	const { id, name, image, price } = ingredient;
+	const { uid, name, image, price } = ingredient;
 	const dispatch = useDispatch();
 	const ref = useRef(null);
 
-	const handleDelete = (id) => {
-		dispatch(deleteIngredient(id));
+	const handleDelete = (uid) => {
+		dispatch(deleteIngredient(uid));
 	};
 
 	const [, dropRef] = useDrop({
@@ -57,7 +57,7 @@ export const DraggableElement = ({ ingredient, index }) => {
 	const [{ isDragging }, dragRef] = useDrag({
 		type: 'constructor_ingredient',
 		item: () => {
-			return { id, index };
+			return { uid, index };
 		},
 		collect: (monitor) => ({
 			isDragging: monitor.isDragging(),
@@ -74,7 +74,7 @@ export const DraggableElement = ({ ingredient, index }) => {
 				text={name}
 				thumbnail={image}
 				price={price}
-				handleClose={() => handleDelete(id)}
+				handleClose={() => handleDelete(uid)}
 			/>
 		</li>
 	);
