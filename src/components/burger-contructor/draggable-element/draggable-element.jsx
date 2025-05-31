@@ -11,6 +11,7 @@ import {
 } from '@services/burger-constructor/actions';
 import { useDrag, useDrop } from 'react-dnd';
 import { ingredientPropType } from '@utils/prop-types';
+import * as PropTypes from 'prop-types';
 
 export const DraggableElement = ({ ingredient, index }) => {
 	const { uid, name, image, price } = ingredient;
@@ -82,4 +83,5 @@ export const DraggableElement = ({ ingredient, index }) => {
 
 DraggableElement.propTypes = {
 	ingredient: ingredientPropType.isRequired,
+	index: PropTypes.number.isRequired,
 };

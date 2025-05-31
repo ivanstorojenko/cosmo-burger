@@ -45,4 +45,5 @@ export const Modal = ({ title, children, handleClose }) => {
 Modal.propTypes = {
 	title: PropTypes.string,
 	children: PropTypes.element.isRequired,
+	handleClose: PropTypes.func.isRequired,
 };
