@@ -1,14 +1,14 @@
 import { constructorSlice } from './burger-constructor/reducer';
 import { ingredientDetailSlice } from './ingredient-detail/reducer';
 import { burgerIngredientsSlice } from './burger-ingredients/reducer';
-// import { orderSlice } from "./orderSlice/reducer";
+import { orderSlice } from './order/reducer';
 import { combineSlices, configureStore as createStore } from '@reduxjs/toolkit';
 
 const rootReducer = combineSlices(
 	constructorSlice,
 	ingredientDetailSlice,
-	burgerIngredientsSlice
-	// orderSlice
+	burgerIngredientsSlice,
+	orderSlice
 );
 
 export const configureStore = (initialState) => {

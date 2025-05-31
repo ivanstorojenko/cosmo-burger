@@ -1,4 +1,5 @@
-import { useSelector } from 'react-redux';
+import { useCallback } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
 import styles from './burger-ingredients.module.css';
 import { Tab } from '@ya.praktikum/react-developer-burger-ui-components';
 import { IngredientsGroup } from '../burger-ingredients/ingredients-group/ingredients-group';
@@ -6,6 +7,7 @@ import { Modal } from '../modal/modal';
 import { IngredientDetails } from './ingredient-details/ingredient-details';
 import { getAllIngredients } from '@services/burger-ingredients/reducer';
 import { getCurrentIngredient } from '@services/ingredient-detail/reducer';
+import { deleteCurrentIngredient } from '@services/ingredient-detail/actions';
 
 export const BurgerIngredients = () => {
 	const ingredients = useSelector(getAllIngredients);
@@ -13,6 +15,11 @@ export const BurgerIngredients = () => {
 		...new Set(ingredients.map((ingredient) => ingredient.type)),
 	];
 	const currentIngredient = useSelector(getCurrentIngredient);
+	const dispatch = useDispatch();
+
+	const handleDeleteCurrentIngredient = useCallback(() => {
+		dispatch(deleteCurrentIngredient());
+	}, [dispatch]);
 
 	return (
 		<section className={styles.burger_ingredients}>
@@ -39,7 +46,8 @@ export const BurgerIngredients = () => {
 			{currentIngredient && (
 				<Modal
 					currentIngredient={currentIngredient}
-					title={'Детали ингредиента'}>
+					title={'Детали ингредиента'}
+					handleClose={() => handleDeleteCurrentIngredient()}>
 					<IngredientDetails
 						ingredient={ingredients.find(
 							(ingredient) => ingredient._id === currentIngredient

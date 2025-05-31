@@ -14,6 +14,19 @@ export const constructorSlice = createSlice({
 	reducers: {},
 	selectors: {
 		getConstructorIngredients: (state) => state.constructorIngredients,
+		getIntgredientsIdArray: (state) => {
+			if (
+				state.constructorIngredients.bun &&
+				state.constructorIngredients.ingredients.length > 0
+			) {
+				return [
+					state.constructorIngredients.bun._id,
+					...state.constructorIngredients.ingredients.map((item) => item._id),
+				];
+			} else {
+				return null;
+			}
+		},
 		getOrderPrice: (state) => {
 			const bunsPrice = state.constructorIngredients.bun
 				? state.constructorIngredients.bun.price * 2
@@ -58,5 +71,8 @@ export const constructorSlice = createSlice({
 });
 
 export const { actions, reducer } = constructorSlice;
-export const { getConstructorIngredients, getOrderPrice } =
-	constructorSlice.selectors;
+export const {
+	getConstructorIngredients,
+	getIntgredientsIdArray,
+	getOrderPrice,
+} = constructorSlice.selectors;

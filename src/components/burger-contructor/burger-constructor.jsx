@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import styles from './burger-constructor.module.css';
 import {
@@ -10,18 +9,21 @@ import { Modal } from '../modal/modal';
 import { OrderDetail } from '../order-detail/order-detail';
 import {
 	getConstructorIngredients,
+	getIntgredientsIdArray,
 	getOrderPrice,
 } from '@services/burger-constructor/reducer';
-
 import { addIngredient } from '@services/burger-constructor/actions';
 import { useDrop } from 'react-dnd';
 import { DraggableElement } from './draggable-element/draggable-element';
+import { getOrderLoading, getShowOrderDetails } from '@services/order/reducer';
+import { hideOrderDetails, placeOrder } from '../../services/order/actions';
 
 export const BurgerConstructor = () => {
 	const orderPrice = useSelector(getOrderPrice);
 	const ingredients = useSelector(getConstructorIngredients);
 	const bun = ingredients.bun;
 	const restIngredients = ingredients.ingredients;
+	const ingredientsId = useSelector(getIntgredientsIdArray);
 	const dispatch = useDispatch();
 
 	const handleDrop = (item) => {
@@ -38,7 +40,16 @@ export const BurgerConstructor = () => {
 		},
 	});
 
-	const [showOrderDetail, setShowOrderDetail] = useState(false);
+	const showOrderDetails = useSelector(getShowOrderDetails);
+	const orderLoading = useSelector(getOrderLoading);
+
+	const handlePlaceOrder = (ingredientsId) => {
+		dispatch(placeOrder(ingredientsId));
+	};
+
+	const handleHideOrderDetails = () => {
+		dispatch(hideOrderDetails());
+	};
 
 	return (
 		<section className={`${styles.burger_constructor}  mt-25`}>
@@ -101,13 +112,14 @@ export const BurgerConstructor = () => {
 					htmlType='button'
 					type='primary'
 					size='medium'
-					onClick={() => setShowOrderDetail(true)}>
+					onClick={() => handlePlaceOrder(ingredientsId)}
+					disabled={!ingredientsId || orderLoading}>
 					Оформить заказ
 				</Button>
 			</div>
 
-			{showOrderDetail && (
-				<Modal handleClose={() => setShowOrderDetail(false)}>
+			{showOrderDetails && (
+				<Modal handleClose={() => handleHideOrderDetails()}>
 					<OrderDetail />
 				</Modal>
 			)}

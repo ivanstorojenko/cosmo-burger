@@ -1,20 +1,13 @@
-import { useCallback, useEffect } from 'react';
+import { useEffect } from 'react';
 import { createPortal } from 'react-dom';
 import { ModalOverlay } from './modal-overlay/modal-overlay';
 import styles from './modal.module.css';
 import { CloseIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import * as PropTypes from 'prop-types';
-import { useDispatch } from 'react-redux';
-import { deleteCurrentIngredient } from '@services/ingredient-detail/actions';
 
 const modalRoot = document.getElementById('modal-root');
 
-export const Modal = ({ title, children }) => {
-	const dispatch = useDispatch();
-	const handleClose = useCallback(() => {
-		dispatch(deleteCurrentIngredient());
-	}, [dispatch]);
-
+export const Modal = ({ title, children, handleClose }) => {
 	useEffect(() => {
 		const handleEscClose = (e) => {
 			if (e.key === 'Escape' && !e.shiftKey && !e.ctrlKey && !e.altKey) {
