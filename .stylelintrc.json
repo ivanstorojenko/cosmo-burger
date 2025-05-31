@@ -11,7 +11,7 @@
 		"property-no-unknown": [
 			true,
 			{
-				"ignoreProperties": ["print-color-adjust"]
+				"ignoreProperties": ["print-color-adjust", "composes"]
 			}
 		],
 		"declaration-block-no-shorthand-property-overrides": true,
