@@ -1,6 +1,9 @@
 module.exports = {
 	root: true,
 	env: { browser: true, es2020: true },
+	globals: {
+        process: "readonly", // Позволить использовать process как глобальную переменную
+    },
 	extends: [
 		'eslint:recommended',
 		'plugin:@typescript-eslint/recommended',
