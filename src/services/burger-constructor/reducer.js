@@ -1,5 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { addIngredient, deleteIngredient, moveIngredient } from './actions';
+import { placeOrder } from '../order/actions';
 
 const initialState = {
 	constructorIngredients: {
@@ -65,7 +66,13 @@ export const constructorSlice = createSlice({
 				ingredients.splice(action.payload.dragIndex, 1);
 				ingredients.splice(action.payload.hoverIndex, 0, dragIngredient);
 				state.constructorIngredients.ingredients = ingredients;
-			});
+			})
+			.addCase(placeOrder.fulfilled, () => ({
+				constructorIngredients: {
+					bun: null,
+					ingredients: [],
+				},
+			}));
 	},
 });
 
