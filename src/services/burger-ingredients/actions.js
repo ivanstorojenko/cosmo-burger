@@ -3,9 +3,7 @@ import { getBurgerIngredients } from '../../utils/api';
 
 export const loadIngredients = createAsyncThunk(
 	'burgerIngredients/loadIngredients',
-	async () => {
-		return getBurgerIngredients();
-	}
+	getBurgerIngredients
 );
 
 export const setActiveTab = createAction('burgerIngredients/setActiveTab');
