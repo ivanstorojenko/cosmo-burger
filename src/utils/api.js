@@ -13,16 +13,20 @@ const getResponse = (res) => {
 	return Promise.reject(`Ошибка ${res.status}`);
 };
 
+const request = (endpoint, options) => {
+	return fetch(`${apiConfig.baseUrl}${endpoint}`, options).then(getResponse);
+};
+
 export const getBurgerIngredients = () => {
-	return fetch(`${apiConfig.baseUrl}/ingredients`).then(getResponse);
+	return request('/ingredients');
 };
 
 export const createOrder = (ingredients) => {
-	return fetch(`${apiConfig.baseUrl}/orders`, {
+	return request('/orders', {
 		method: 'POST',
 		headers: apiConfig.headers,
 		body: JSON.stringify({
 			ingredients: ingredients,
 		}),
-	}).then(getResponse);
+	});
 };
