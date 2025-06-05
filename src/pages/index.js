@@ -1,4 +1,5 @@
 import { HomePage } from './home';
 import { LoginPage } from './login';
+import { RegisterPage } from './register';
 
-export { HomePage, LoginPage };
+export { HomePage, LoginPage, RegisterPage };

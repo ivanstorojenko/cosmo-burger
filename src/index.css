@@ -40,6 +40,18 @@ a:hover {
 	color: #4c4cff;
 }
 
+.form {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	gap: 24px;
+}
+
+.text_row {
+	display: flex;
+	gap: 8px;
+}
+
 /* Fix for scrollbar */
 
 @supports (scrollbar-color: auto) {

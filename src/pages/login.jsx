@@ -4,7 +4,6 @@ import {
 	PasswordInput,
 	Button,
 } from '@ya.praktikum/react-developer-burger-ui-components';
-import styles from './login.module.css';
 import { Link } from 'react-router';
 
 export const LoginPage = () => {
@@ -15,7 +14,7 @@ export const LoginPage = () => {
 		<div className='container padding-top-180'>
 			<div className='centered'>
 				<h1 className='text text_type_main-medium mb-6'>Вход</h1>
-				<form className={`${styles.form} mb-20`}>
+				<form className='form mb-20'>
 					<Input
 						type={'email'}
 						placeholder={'E-mail'}
@@ -25,20 +24,20 @@ export const LoginPage = () => {
 						error={false}
 						errorText={'Введите корректный e-mail'}
 						size={'default'}
-						extraClass='ml-1 mb-6'
+						extraClass=''
 					/>
 					<PasswordInput
 						onChange={(e) => setPass(e.target.value)}
 						value={pass}
 						name={'password'}
-						extraClass='mb-2 mb-6'
+						extraClass=''
 					/>
 					<Button htmlType='submit' type='primary' size='medium'>
 						Войти
 					</Button>
 				</form>
 				<section className='centered'>
-					<div className={`${styles.text_row} mb-4`}>
+					<div className='text_row mb-4'>
 						<span className='text text_type_main-default text_color_inactive'>
 							Вы — новый пользователь?
 						</span>
@@ -48,7 +47,7 @@ export const LoginPage = () => {
 							Зарегистрироваться
 						</Link>
 					</div>
-					<div className={`${styles.text_row}`}>
+					<div className='text_row'>
 						<span className='text text_type_main-default text_color_inactive'>
 							Забыли пароль?
 						</span>
