@@ -1,5 +1,10 @@
 import { BrowserRouter, Routes, Route } from 'react-router';
-import { HomePage, LoginPage, RegisterPage } from '../../pages';
+import {
+	ForgotPasswordPage,
+	HomePage,
+	LoginPage,
+	RegisterPage,
+} from '../../pages';
 import styles from './app.module.css';
 import { AppHeader } from '@components/app-header/app-header.jsx';
 
@@ -12,6 +17,7 @@ export const App = () => {
 					<Route path='/' element={<HomePage />} />
 					<Route path='/login' element={<LoginPage />} />
 					<Route path='/register' element={<RegisterPage />} />
+					<Route path='/forgot-password' element={<ForgotPasswordPage />} />
 				</Routes>
 			</BrowserRouter>
 		</div>
