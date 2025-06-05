@@ -12,6 +12,12 @@ body {
 	padding: 0 20px;
 }
 
+.profile {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 60px;
+}
+
 .padding-top-120 {
 	padding-top: 120px;
 }
