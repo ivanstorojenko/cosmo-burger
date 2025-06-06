@@ -26,7 +26,28 @@ export const createOrder = (ingredients) => {
 		method: 'POST',
 		headers: apiConfig.headers,
 		body: JSON.stringify({
-			ingredients: ingredients,
+			ingredients,
+		}),
+	});
+};
+
+export const getPasswordResetCode = (email) => {
+	return request('/password-reset', {
+		method: 'POST',
+		headers: apiConfig.headers,
+		body: JSON.stringify({
+			email,
+		}),
+	});
+};
+
+export const resetPassword = (password, token) => {
+	return request('/password-reset', {
+		method: 'POST',
+		headers: apiConfig.headers,
+		body: JSON.stringify({
+			password,
+			token,
 		}),
 	});
 };

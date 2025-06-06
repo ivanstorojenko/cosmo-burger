@@ -3,12 +3,14 @@ import { ingredientDetailSlice } from './ingredient-detail/reducer';
 import { burgerIngredientsSlice } from './burger-ingredients/reducer';
 import { orderSlice } from './order/reducer';
 import { combineSlices, configureStore as createStore } from '@reduxjs/toolkit';
+import { resetPasswordSlice } from './reset-password/reducer';
 
 const rootReducer = combineSlices(
 	constructorSlice,
 	ingredientDetailSlice,
 	burgerIngredientsSlice,
-	orderSlice
+	orderSlice,
+	resetPasswordSlice
 );
 
 export const configureStore = (initialState) => {
