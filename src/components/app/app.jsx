@@ -3,6 +3,7 @@ import {
 	ForgotPasswordPage,
 	HomePage,
 	LoginPage,
+	NotFoundPage,
 	ProfilePage,
 	RegisterPage,
 	ResetPasswordPage,
@@ -22,6 +23,7 @@ export const App = () => {
 					<Route path='/forgot-password' element={<ForgotPasswordPage />} />
 					<Route path='/reset-password' element={<ResetPasswordPage />} />
 					<Route path='/profile' element={<ProfilePage />} />
+					<Route path='*' element={<NotFoundPage />} />
 				</Routes>
 			</BrowserRouter>
 		</div>
