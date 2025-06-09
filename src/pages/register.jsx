@@ -6,7 +6,7 @@ import {
 } from '@ya.praktikum/react-developer-burger-ui-components';
 import { Link, Navigate } from 'react-router';
 import { useDispatch, useSelector } from 'react-redux';
-import { registration } from '../services/auth/actions';
+import { registration } from '@services/auth/actions';
 import { userInfo, loading, error } from '@services/auth/reducer';
 
 export const RegisterPage = () => {

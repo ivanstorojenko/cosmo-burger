@@ -57,13 +57,28 @@ export const saveTokensToLocalStorage = (accessToken, refreshToken) => {
 	window.localStorage.setItem('refreshToken', refreshToken);
 };
 
+export const deleteTokensFromLocalStorage = (accessToken, refreshToken) => {
+	window.localStorage.removeItem('accessToken', accessToken);
+	window.localStorage.removeItem('refreshToken', refreshToken);
+};
+
 export const register = ({ name, email, password }) => {
-	console.log;
 	return request('/auth/register', {
 		method: 'POST',
 		headers: apiConfig.headers,
 		body: JSON.stringify({
 			name,
+			email,
+			password,
+		}),
+	});
+};
+
+export const authorize = ({ email, password }) => {
+	return request('/auth/login', {
+		method: 'POST',
+		headers: apiConfig.headers,
+		body: JSON.stringify({
 			email,
 			password,
 		}),
@@ -101,4 +116,12 @@ export const fetchWithRefresh = async (url, options) => {
 			return Promise.reject(err);
 		}
 	}
+};
+
+export const getUserInfo = () => {
+	return fetchWithRefresh('/auth/user', {
+		headers: {
+			authorization: localStorage.getItem('accessToken'),
+		},
+	});
 };

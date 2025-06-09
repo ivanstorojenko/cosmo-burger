@@ -9,7 +9,7 @@ const initialState = {
 };
 
 export const resetPasswordSlice = createSlice({
-	name: 'user',
+	name: 'resetPassword',
 	initialState,
 	reducers: {},
 	selectors: {

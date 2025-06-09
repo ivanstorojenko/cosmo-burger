@@ -10,10 +10,22 @@ import {
 } from '../../pages';
 import styles from './app.module.css';
 import { AppHeader } from '@components/app-header/app-header.jsx';
+import { useDispatch } from 'react-redux';
+import { checkAuth } from '../../services/auth/actions';
+import { useEffect } from 'react';
 
 export const App = () => {
-	// check accessToken in LS
-	// if exist - check authorization and save userInfo to redux
+	const dispatch = useDispatch();
+
+	useEffect(() => {
+		const accessToken = window.localStorage.getItem('accessToken');
+		const refreshToken = window.localStorage.getItem('refreshToken');
+
+		if (accessToken && refreshToken) {
+			dispatch(checkAuth());
+		}
+	}, []);
+
 	return (
 		<div className={styles.app}>
 			<AppHeader />
