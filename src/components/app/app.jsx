@@ -12,6 +12,8 @@ import styles from './app.module.css';
 import { AppHeader } from '@components/app-header/app-header.jsx';
 
 export const App = () => {
+	// check accessToken in LS
+	// if exist - check authorization and save userInfo to redux
 	return (
 		<div className={styles.app}>
 			<AppHeader />

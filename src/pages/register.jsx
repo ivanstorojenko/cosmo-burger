@@ -4,18 +4,34 @@ import {
 	PasswordInput,
 	Button,
 } from '@ya.praktikum/react-developer-burger-ui-components';
-import { Link } from 'react-router';
+import { Link, Navigate } from 'react-router';
+import { useDispatch, useSelector } from 'react-redux';
+import { registration } from '../services/auth/actions';
+import { userInfo, loading, error } from '@services/auth/reducer';
 
 export const RegisterPage = () => {
 	const [name, setName] = useState('');
 	const [email, setEmail] = useState('');
-	const [pass, setPass] = useState('');
+	const [password, setPassword] = useState('');
+	const user = useSelector(userInfo);
+	const registrationPending = useSelector(loading);
+	const registrationError = useSelector(error);
+	const dispatch = useDispatch();
+
+	const handleSubmit = (e) => {
+		e.preventDefault();
+		dispatch(registration({ name, email, password }));
+	};
+
+	if (user) {
+		return <Navigate to='/' replace />;
+	}
 
 	return (
 		<div className='container padding-top-180'>
 			<div className='centered'>
 				<h1 className='text text_type_main-medium mb-6'>Регистрация</h1>
-				<form className='form mb-20'>
+				<form className='form mb-20' onSubmit={(e) => handleSubmit(e)}>
 					<Input
 						type={'text'}
 						placeholder={'Имя'}
@@ -25,7 +41,6 @@ export const RegisterPage = () => {
 						error={false}
 						errorText={'Введите имя'}
 						size={'default'}
-						extraClass=''
 					/>
 					<Input
 						type={'email'}
@@ -36,17 +51,24 @@ export const RegisterPage = () => {
 						error={false}
 						errorText={'Введите корректный e-mail'}
 						size={'default'}
-						extraClass=''
 					/>
 					<PasswordInput
-						onChange={(e) => setPass(e.target.value)}
-						value={pass}
+						onChange={(e) => setPassword(e.target.value)}
+						value={password}
 						name={'password'}
-						extraClass=''
 					/>
-					<Button htmlType='submit' type='primary' size='medium'>
-						Войти
+					<Button
+						htmlType='submit'
+						type='primary'
+						size='medium'
+						disabled={registrationPending}>
+						Зарегистрироваться
 					</Button>
+					{registrationError && (
+						<span className='text text_type_main-default'>
+							При регистрации возникла ошибка, повторите попытку
+						</span>
+					)}
 				</form>
 				<section className='centered'>
 					<div className='text_row'>
