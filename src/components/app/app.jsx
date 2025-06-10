@@ -24,7 +24,7 @@ export const App = () => {
 		if (accessToken && refreshToken) {
 			dispatch(checkAuth());
 		}
-	}, []);
+	}, [dispatch]);
 
 	return (
 		<div className={styles.app}>

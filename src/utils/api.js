@@ -102,16 +102,18 @@ export const refreshToken = () => {
 	});
 };
 
-export const fetchWithRefresh = async (url, options) => {
+export const fetchWithRefresh = async (endpoint, options) => {
 	try {
-		const res = await fetch(url, options);
-		return await getResponse(res);
+		return request(endpoint, options);
+		// const res = await fetch(url, options);
+		// return await getResponse(res);
 	} catch (err) {
 		if (err.message === 'jwt expired') {
 			const refreshData = await refreshToken(); //обновляем токен
 			options.headers.authorization = refreshData.accessToken;
-			const res = await fetch(url, options); //повторяем запрос
-			return await getResponse(res);
+			return request(endpoint, options);
+			// const res = await fetch(`${apiConfig.baseUrl}${endpoint}`, options); //повторяем запрос
+			// return await getResponse(res);
 		} else {
 			return Promise.reject(err);
 		}
