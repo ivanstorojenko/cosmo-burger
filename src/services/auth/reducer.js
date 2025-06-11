@@ -1,9 +1,9 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { registration, checkAuth, login } from './actions';
+import { registration, login } from './actions';
 import {
 	saveTokensToLocalStorage,
 	deleteTokensFromLocalStorage,
-} from '../../utils/api';
+} from '@utils/api';
 
 const initialState = {
 	user: null,
@@ -39,12 +39,23 @@ const handleRejected = (state, action) => {
 export const authSlice = createSlice({
 	name: 'auth',
 	initialState,
-	reducers: {},
+	reducers: {
+		setUser: (state, action) => {
+			if (action.payload.success) {
+				state.user = action.payload.user;
+			} else {
+				deleteTokensFromLocalStorage();
+			}
+		},
+		setIsAuthChecked: (state, action) => {
+			state.isAuthChecked = action.payload;
+		},
+	},
 	selectors: {
-		userInfo: (state) => state.user,
-		isAuthChecked: (state) => state.isAuthChecked,
-		loading: (state) => state.loading,
-		error: (state) => state.error,
+		getUserInfo: (state) => state.user,
+		getIsAuthChecked: (state) => state.isAuthChecked,
+		getLoading: (state) => state.loading,
+		getError: (state) => state.error,
 	},
 	extraReducers: (builder) => {
 		builder
@@ -65,26 +76,10 @@ export const authSlice = createSlice({
 			})
 			.addCase(login.rejected, (state, action) => {
 				handleRejected(state, action);
-			})
-			.addCase(checkAuth.pending, (state) => {
-				handlePending(state);
-			})
-			.addCase(checkAuth.fulfilled, (state, action) => {
-				console.log(action);
-				state.loading = false;
-				state.isAuthChecked = true;
-
-				if (action.payload.success) {
-					state.user = action.payload.user;
-				} else {
-					deleteTokensFromLocalStorage();
-				}
-			})
-			.addCase(checkAuth.rejected, (state) => {
-				state.loading = false;
-				deleteTokensFromLocalStorage();
 			});
 	},
 });
 
-export const { userInfo, isAuthChecked, loading, error } = authSlice.selectors;
+export const { setUser, setIsAuthChecked } = authSlice.actions;
+export const { getUserInfo, getIsAuthChecked, getLoading, getError } =
+	authSlice.selectors;

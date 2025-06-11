@@ -7,15 +7,15 @@ import {
 import { Link, Navigate } from 'react-router';
 import { useDispatch, useSelector } from 'react-redux';
 import { registration } from '@services/auth/actions';
-import { userInfo, loading, error } from '@services/auth/reducer';
+import { getUserInfo, getLoading, getError } from '@services/auth/reducer';
 
 export const RegisterPage = () => {
 	const [name, setName] = useState('');
 	const [email, setEmail] = useState('');
 	const [password, setPassword] = useState('');
-	const user = useSelector(userInfo);
-	const registrationPending = useSelector(loading);
-	const registrationError = useSelector(error);
+	const user = useSelector(getUserInfo);
+	const registrationPending = useSelector(getLoading);
+	const registrationError = useSelector(getError);
 	const dispatch = useDispatch();
 
 	const handleSubmit = (e) => {

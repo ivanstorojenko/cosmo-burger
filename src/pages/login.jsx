@@ -7,15 +7,15 @@ import {
 import { Link, Navigate } from 'react-router';
 import { useDispatch, useSelector } from 'react-redux';
 import { login } from '@services/auth/actions';
-import { userInfo, loading, error } from '@services/auth/reducer';
+import { getUserInfo, getLoading, getError } from '@services/auth/reducer';
 
 export const LoginPage = () => {
 	const [email, setEmail] = useState('');
 	const [password, setPassword] = useState('');
 	const dispatch = useDispatch();
-	const user = useSelector(userInfo);
-	const loginPending = useSelector(loading);
-	const loginError = useSelector(error);
+	const user = useSelector(getUserInfo);
+	const loginPending = useSelector(getLoading);
+	const loginError = useSelector(getError);
 
 	const handleSubmit = (e) => {
 		e.preventDefault();
