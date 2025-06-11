@@ -1,11 +1,16 @@
 import styles from './order-detail.module.css';
 import doneIcon from './done.png';
 import { useSelector } from 'react-redux';
-import { getOrderError, getOrderInfo } from '../../services/order/reducer';
+import {
+	getOrderError,
+	getOrderInfo,
+	getOrderLoading,
+} from '../../services/order/reducer';
 
 export const OrderDetail = () => {
 	const orderError = useSelector(getOrderError);
 	const orderInfo = useSelector(getOrderInfo);
+	const orderLoading = useSelector(getOrderLoading);
 
 	return (
 		<div className={styles.content}>
@@ -13,6 +18,8 @@ export const OrderDetail = () => {
 				<p className='text text_type_main-medium mb-15'>
 					При отправке заказа возникла ошибка
 				</p>
+			) : orderLoading ? (
+				<p className='text text_type_main-medium mb-15'>Создаем заказ...</p>
 			) : (
 				<>
 					<h3 className={`${styles.number} text text_type_digits-large mb-8`}>

@@ -24,7 +24,10 @@ export const getBurgerIngredients = () => {
 export const createOrder = (ingredients) => {
 	return request('/orders', {
 		method: 'POST',
-		headers: apiConfig.headers,
+		headers: {
+			...apiConfig.headers,
+			authorization: localStorage.getItem('accessToken'),
+		},
 		body: JSON.stringify({
 			ingredients,
 		}),
