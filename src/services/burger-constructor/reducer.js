@@ -15,19 +15,6 @@ export const constructorSlice = createSlice({
 	reducers: {},
 	selectors: {
 		getConstructorIngredients: (state) => state.constructorIngredients,
-		// getIntgredientsIdArray: (state) => {
-		// 	if (
-		// 		state.constructorIngredients.bun &&
-		// 		state.constructorIngredients.ingredients.length > 0
-		// 	) {
-		// 		return [
-		// 			state.constructorIngredients.bun._id,
-		// 			...state.constructorIngredients.ingredients.map((item) => item._id),
-		// 		];
-		// 	} else {
-		// 		return null;
-		// 	}
-		// },
 		getIntgredientsIdArray: createSelector(
 			(state) => state.constructorIngredients.bun,
 			(state) => state.constructorIngredients.ingredients,

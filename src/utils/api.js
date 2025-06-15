@@ -45,7 +45,7 @@ export const getPasswordResetCode = (email) => {
 };
 
 export const resetPassword = (password, token) => {
-	return request('/password-reset', {
+	return request('/password-reset/reset', {
 		method: 'POST',
 		headers: apiConfig.headers,
 		body: JSON.stringify({
@@ -108,15 +108,11 @@ export const refreshToken = () => {
 export const fetchWithRefresh = async (endpoint, options) => {
 	try {
 		return request(endpoint, options);
-		// const res = await fetch(url, options);
-		// return await getResponse(res);
 	} catch (err) {
 		if (err.message === 'jwt expired') {
-			const refreshData = await refreshToken(); //обновляем токен
+			const refreshData = await refreshToken();
 			options.headers.authorization = refreshData.accessToken;
 			return request(endpoint, options);
-			// const res = await fetch(`${apiConfig.baseUrl}${endpoint}`, options); //повторяем запрос
-			// return await getResponse(res);
 		} else {
 			return Promise.reject(err);
 		}

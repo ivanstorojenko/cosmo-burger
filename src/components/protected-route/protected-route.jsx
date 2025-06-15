@@ -8,7 +8,13 @@ const Protected = ({ onlyUnAuth = false, component }) => {
 	const location = useLocation();
 
 	if (!isAuthChecked) {
-		return <span className='text text_type_main-medium'>Загрузка...</span>;
+		return (
+			<div className='container padding-top-180'>
+				<div className='centered'>
+					<span className='text text_type_main-medium'>Загрузка...</span>
+				</div>
+			</div>
+		);
 	}
 
 	if (!onlyUnAuth && !user) {
