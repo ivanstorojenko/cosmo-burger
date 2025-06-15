@@ -9,13 +9,15 @@ import { setUser, setIsAuthChecked } from './reducer';
 
 export const registration = createAsyncThunk('auth/registration', register);
 
-// export const checkAuth = createAsyncThunk('auth/checkAuth', getUserInfo);
 export const checkAuth = createAsyncThunk(
 	'auth/checkAuth',
 	async (_, { dispatch }) => {
 		if (localStorage.getItem('accessToken')) {
 			getUserInfo()
-				.then((res) => dispatch(setUser(res)))
+				.then(
+					(res) => dispatch(setUser(res)),
+					() => deleteTokensFromLocalStorage()
+				)
 				.finally(() => dispatch(setIsAuthChecked(true)));
 		} else {
 			dispatch(setIsAuthChecked(true));
