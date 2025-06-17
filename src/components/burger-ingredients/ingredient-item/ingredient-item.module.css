@@ -10,8 +10,13 @@
 	gap: 4px;
 	color: inherit;
 	font-family: inherit;
+	text-decoration: none;
 	background: none;
 	border: none;
+}
+
+.ingredient_item:hover {
+	text-decoration: none;
 }
 
 .image {

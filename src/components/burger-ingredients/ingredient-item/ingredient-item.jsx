@@ -3,16 +3,16 @@ import {
 	Counter,
 	CurrencyIcon,
 } from '@ya.praktikum/react-developer-burger-ui-components';
-import { useDispatch, useSelector } from 'react-redux';
-import { setCurrentIngredient } from '@services/ingredient-detail/actions';
+import { useSelector } from 'react-redux';
 import { useDrag } from 'react-dnd';
 import { ingredientPropType } from '@utils/prop-types';
 import { getConstructorIngredients } from '@services/burger-constructor/reducer';
+import { useLocation, Link } from 'react-router';
 
 export const IngredientItem = ({ ingredient }) => {
 	const { _id, type, name, price, image } = ingredient;
-	const dispatch = useDispatch();
 	const constructorIngredients = useSelector(getConstructorIngredients);
+	const location = useLocation();
 
 	let counter = 0;
 	if (type === 'bun') {
@@ -23,10 +23,6 @@ export const IngredientItem = ({ ingredient }) => {
 		).length;
 	}
 
-	const handleSetCurrentIngredient = () => {
-		dispatch(setCurrentIngredient(_id));
-	};
-
 	const [, dragRef] = useDrag({
 		type: 'ingredient',
 		item: { ...ingredient },
@@ -34,9 +30,10 @@ export const IngredientItem = ({ ingredient }) => {
 
 	return (
 		<li ref={dragRef} draggable className={styles.ingredient_item_wrapper}>
-			<button
-				className={styles.ingredient_item}
-				onClick={handleSetCurrentIngredient}>
+			<Link
+				to={`/ingredients/${_id}`}
+				state={{ background: location }}
+				className={styles.ingredient_item}>
 				{counter !== 0 && (
 					<Counter count={counter} size='default' extraClass='m-1' />
 				)}
@@ -52,7 +49,7 @@ export const IngredientItem = ({ ingredient }) => {
 					<CurrencyIcon />
 				</div>
 				<h3 className={styles.title}>{name}</h3>
-			</button>
+			</Link>
 		</li>
 	);
 };

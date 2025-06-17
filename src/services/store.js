@@ -1,5 +1,4 @@
 import { constructorSlice } from './burger-constructor/reducer';
-import { ingredientDetailSlice } from './ingredient-detail/reducer';
 import { burgerIngredientsSlice } from './burger-ingredients/reducer';
 import { orderSlice } from './order/reducer';
 import { authSlice } from './auth/reducer';
@@ -8,7 +7,6 @@ import { resetPasswordSlice } from './reset-password/reducer';
 
 const rootReducer = combineSlices(
 	constructorSlice,
-	ingredientDetailSlice,
 	burgerIngredientsSlice,
 	orderSlice,
 	resetPasswordSlice,

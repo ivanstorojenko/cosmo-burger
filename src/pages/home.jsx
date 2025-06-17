@@ -1,9 +1,7 @@
-import { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import styles from './home.module.css';
 import { BurgerIngredients } from '@components/burger-ingredients/burger-ingredients.jsx';
 import { BurgerConstructor } from '@components/burger-contructor/burger-constructor.jsx';
-import { loadIngredients } from '@services/burger-ingredients/actions';
 import {
 	getAllIngredients,
 	getIngredientsLoading,
@@ -13,14 +11,9 @@ import { DndProvider } from 'react-dnd';
 import { HTML5Backend } from 'react-dnd-html5-backend';
 
 export const HomePage = () => {
-	const dispatch = useDispatch();
 	const ingredients = useSelector(getAllIngredients);
 	const loading = useSelector(getIngredientsLoading);
 	const error = useSelector(getIngredientsError);
-
-	useEffect(() => {
-		dispatch(loadIngredients());
-	}, [dispatch]);
 
 	return (
 		<>
