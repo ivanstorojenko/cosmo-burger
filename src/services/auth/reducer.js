@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { registration, login } from './actions';
+import { registration, login, changeInfo } from './actions';
 import {
 	saveTokensToLocalStorage,
 	deleteTokensFromLocalStorage,
@@ -27,13 +27,13 @@ const handleFulfilled = (state, action) => {
 			action.payload.refreshToken
 		);
 	} else {
-		state.error = action.error?.message || 'Ошибка авторизации';
+		state.error = action.error?.message || 'Ошибка';
 	}
 };
 
 const handleRejected = (state, action) => {
 	state.loading = false;
-	state.error = action.error?.message || 'Ошибка авторизации';
+	state.error = action.error?.message || 'Ошибка';
 };
 
 export const authSlice = createSlice({
@@ -75,6 +75,21 @@ export const authSlice = createSlice({
 				handleFulfilled(state, action);
 			})
 			.addCase(login.rejected, (state, action) => {
+				handleRejected(state, action);
+			})
+			.addCase(changeInfo.pending, (state) => {
+				handlePending(state);
+			})
+			.addCase(changeInfo.fulfilled, (state, action) => {
+				state.loading = false;
+
+				if (action.payload.success) {
+					state.user = action.payload.user;
+				} else {
+					state.error = action.error?.message || 'Ошибка авторизации';
+				}
+			})
+			.addCase(changeInfo.rejected, (state, action) => {
 				handleRejected(state, action);
 			});
 	},

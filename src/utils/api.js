@@ -126,3 +126,17 @@ export const getUserInfo = () => {
 		},
 	});
 };
+
+export const changeUserInfo = ({ name, email, password }) => {
+	return fetchWithRefresh('/auth/user', {
+		method: 'PATCH',
+		headers: {
+			authorization: localStorage.getItem('accessToken'),
+		},
+		body: JSON.stringify({
+			name,
+			email,
+			password,
+		}),
+	});
+};

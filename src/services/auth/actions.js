@@ -4,6 +4,7 @@ import {
 	authorize,
 	getUserInfo,
 	deleteTokensFromLocalStorage,
+	changeUserInfo,
 } from '@utils/api';
 import { setUser, setIsAuthChecked } from './reducer';
 
@@ -27,3 +28,5 @@ export const checkAuth = createAsyncThunk(
 );
 
 export const login = createAsyncThunk('auth/login', authorize);
+
+export const changeInfo = createAsyncThunk('auth/changeInfo', changeUserInfo);
