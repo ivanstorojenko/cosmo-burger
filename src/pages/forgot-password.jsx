@@ -5,6 +5,7 @@ import {
 } from '@ya.praktikum/react-developer-burger-ui-components';
 import { Link, useNavigate } from 'react-router';
 import { getPasswordResetCode } from '../utils/api';
+import { Preloader } from '@components/preloader/preloader';
 
 export const ForgotPasswordPage = () => {
 	const [email, setEmail] = useState('');
@@ -47,13 +48,13 @@ export const ForgotPasswordPage = () => {
 						size={'default'}
 						extraClass=''
 					/>
-					<Button
-						htmlType='submit'
-						type='primary'
-						size='medium'
-						disabled={loading}>
-						Восстановить
-					</Button>
+					{loading ? (
+						<Preloader />
+					) : (
+						<Button htmlType='submit' type='primary' size='medium'>
+							Восстановить
+						</Button>
+					)}
 					{error && (
 						<span className='text text_type_main-default'>
 							При отправке кода для сброса пароля возникла ошибка, повторите

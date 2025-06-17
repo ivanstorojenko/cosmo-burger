@@ -8,6 +8,7 @@ import { Link, Navigate } from 'react-router';
 import { useDispatch, useSelector } from 'react-redux';
 import { login } from '@services/auth/actions';
 import { getUserInfo, getLoading, getError } from '@services/auth/reducer';
+import { Preloader } from '@components/preloader/preloader';
 
 export const LoginPage = () => {
 	const [email, setEmail] = useState('');
@@ -48,13 +49,13 @@ export const LoginPage = () => {
 						name={'password'}
 						extraClass=''
 					/>
-					<Button
-						htmlType='submit'
-						type='primary'
-						size='medium'
-						disabled={loginPending}>
-						Войти
-					</Button>
+					{loginPending ? (
+						<Preloader />
+					) : (
+						<Button htmlType='submit' type='primary' size='medium'>
+							Войти
+						</Button>
+					)}
 					{loginError && (
 						<span className='text text_type_main-default'>
 							При авторизации возникла ошибка, повторите попытку

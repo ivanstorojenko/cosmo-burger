@@ -9,6 +9,7 @@ import {
 } from '@services/burger-ingredients/reducer';
 import { DndProvider } from 'react-dnd';
 import { HTML5Backend } from 'react-dnd-html5-backend';
+import { Preloader } from '@components/preloader/preloader';
 
 export const HomePage = () => {
 	const ingredients = useSelector(getAllIngredients);
@@ -23,7 +24,7 @@ export const HomePage = () => {
 			</h1>
 			<main className={`${styles.main} pl-5 pr-5`}>
 				{loading ? (
-					<span className='text text_type_main-medium'>Загрузка...</span>
+					<Preloader />
 				) : error ? (
 					<span className='text text_type_main-medium'>
 						Произошла ошибка при загрузке ингредиентов

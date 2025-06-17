@@ -6,6 +6,7 @@ import {
 	getOrderInfo,
 	getOrderLoading,
 } from '../../services/order/reducer';
+import { Preloader } from '@components/preloader/preloader';
 
 export const OrderDetail = () => {
 	const orderError = useSelector(getOrderError);
@@ -19,7 +20,10 @@ export const OrderDetail = () => {
 					При отправке заказа возникла ошибка
 				</p>
 			) : orderLoading ? (
-				<p className='text text_type_main-medium mb-15'>Создаем заказ...</p>
+				<>
+					<Preloader />
+					<p className='text text_type_main-medium mt-8'>Создаем заказ...</p>
+				</>
 			) : (
 				<>
 					<h3 className={`${styles.number} text text_type_digits-large mb-8`}>

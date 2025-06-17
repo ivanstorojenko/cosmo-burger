@@ -6,6 +6,7 @@ import {
 } from '@ya.praktikum/react-developer-burger-ui-components';
 import { Link, Navigate, useNavigate } from 'react-router';
 import { resetPassword } from '../utils/api';
+import { Preloader } from '@components/preloader/preloader';
 
 export const ResetPasswordPage = () => {
 	const [isCodeSent, setIsCodeSent] = useState(null);
@@ -21,9 +22,6 @@ export const ResetPasswordPage = () => {
 			: setIsCodeSent(false);
 	}, []);
 
-	//отправить запрос на эндпоинт
-	//if success - redirect to login
-	//if error - show
 	const handleSubmit = (e) => {
 		e.preventDefault();
 		setLoading(true);
@@ -46,9 +44,7 @@ export const ResetPasswordPage = () => {
 	return (
 		<div className='container padding-top-180'>
 			<div className='centered'>
-				{isCodeSent === null && (
-					<span className='text text_type_main-medium'>Загрузка...</span>
-				)}
+				{isCodeSent === null && <Preloader />}
 				{isCodeSent === false && <Navigate to='/forgot-password' replace />}
 				{isCodeSent && (
 					<>
@@ -74,13 +70,13 @@ export const ResetPasswordPage = () => {
 								size={'default'}
 								extraClass=''
 							/>
-							<Button
-								htmlType='submit'
-								type='primary'
-								size='medium'
-								disabled={loading}>
-								Сохранить
-							</Button>
+							{loading ? (
+								<Preloader />
+							) : (
+								<Button htmlType='submit' type='primary' size='medium'>
+									Сохранить
+								</Button>
+							)}
 							{error && (
 								<span className='text text_type_main-default'>{error}</span>
 							)}

@@ -8,6 +8,7 @@ import { Link, Navigate } from 'react-router';
 import { useDispatch, useSelector } from 'react-redux';
 import { registration } from '@services/auth/actions';
 import { getUserInfo, getLoading, getError } from '@services/auth/reducer';
+import { Preloader } from '@components/preloader/preloader';
 
 export const RegisterPage = () => {
 	const [name, setName] = useState('');
@@ -57,13 +58,13 @@ export const RegisterPage = () => {
 						value={password}
 						name={'password'}
 					/>
-					<Button
-						htmlType='submit'
-						type='primary'
-						size='medium'
-						disabled={registrationPending}>
-						Зарегистрироваться
-					</Button>
+					{registrationPending ? (
+						<Preloader />
+					) : (
+						<Button htmlType='submit' type='primary' size='medium'>
+							Зарегистрироваться
+						</Button>
+					)}
 					{registrationError && (
 						<span className='text text_type_main-default'>
 							При регистрации возникла ошибка, повторите попытку
