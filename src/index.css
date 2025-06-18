@@ -58,6 +58,10 @@ a:hover {
 	gap: 8px;
 }
 
+.sidebar {
+	width: 320px;
+}
+
 /* Fix for scrollbar */
 
 @supports (scrollbar-color: auto) {

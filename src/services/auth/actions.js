@@ -2,6 +2,7 @@ import { createAsyncThunk } from '@reduxjs/toolkit';
 import {
 	register,
 	authorize,
+	unauthorize,
 	getUserInfo,
 	deleteTokensFromLocalStorage,
 	changeUserInfo,
@@ -28,5 +29,19 @@ export const checkAuth = createAsyncThunk(
 );
 
 export const login = createAsyncThunk('auth/login', authorize);
+
+export const logout = createAsyncThunk(
+	'auth/logout',
+	async (_, { rejectWithValue }) => {
+		try {
+			await unauthorize();
+			deleteTokensFromLocalStorage();
+			return null;
+		} catch (error) {
+			deleteTokensFromLocalStorage();
+			return rejectWithValue(error.message);
+		}
+	}
+);
 
 export const changeInfo = createAsyncThunk('auth/changeInfo', changeUserInfo);

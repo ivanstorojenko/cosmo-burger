@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { registration, login, changeInfo } from './actions';
+import { registration, login, logout, changeInfo } from './actions';
 import {
 	saveTokensToLocalStorage,
 	deleteTokensFromLocalStorage,
@@ -76,6 +76,18 @@ export const authSlice = createSlice({
 			})
 			.addCase(login.rejected, (state, action) => {
 				handleRejected(state, action);
+			})
+			.addCase(logout.pending, (state) => {
+				handlePending(state);
+			})
+			.addCase(logout.fulfilled, (state) => {
+				state.loading = false;
+				state.user = null;
+			})
+			.addCase(logout.rejected, (state, action) => {
+				state.loading = false;
+				state.error = action.payload;
+				state.user = null;
 			})
 			.addCase(changeInfo.pending, (state) => {
 				handlePending(state);

@@ -1,9 +1,16 @@
 import { NavLink } from 'react-router';
 import styles from './profile-menu.module.css';
+import { useDispatch } from 'react-redux';
+import { logout } from '../../services/auth/actions';
 
 export const ProfileMenu = () => {
 	const navLinkClass = `${styles.menu_item} text text_type_main-medium text_color_inactive`;
 	const navLinkActiveClass = `${styles.menu_item} text text_type_main-medium text_color_primary`;
+	const dispatch = useDispatch();
+
+	const handleLogout = () => {
+		dispatch(logout());
+	};
 
 	return (
 		<nav className='mb-20'>
@@ -11,6 +18,7 @@ export const ProfileMenu = () => {
 				<li>
 					<NavLink
 						to='/profile'
+						end
 						className={({ isActive }) =>
 							isActive ? navLinkActiveClass : navLinkClass
 						}>
@@ -27,9 +35,12 @@ export const ProfileMenu = () => {
 					</NavLink>
 				</li>
 				<li>
-					<NavLink to='/' className={navLinkClass}>
+					<button
+						type='button'
+						className={`${navLinkClass} ${styles.nav_link_button}`}
+						onClick={handleLogout}>
 						Выход
-					</NavLink>
+					</button>
 				</li>
 			</ul>
 		</nav>

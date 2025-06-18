@@ -43,7 +43,7 @@ export const ProfilePage = () => {
 
 	return (
 		<div className='container padding-top-120 profile'>
-			<section className={styles.sidebar}>
+			<section className='sidebar'>
 				<ProfileMenu />
 				<p className='text text_type_main-default text_color_inactive'>
 					В этом разделе вы можете изменить свои персональные данные

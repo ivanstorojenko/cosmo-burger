@@ -88,6 +88,19 @@ export const authorize = ({ email, password }) => {
 	});
 };
 
+export const unauthorize = () => {
+	return request('/auth/logout', {
+		method: 'POST',
+		headers: {
+			...apiConfig.headers,
+			authorization: localStorage.getItem('accessToken'),
+		},
+		body: JSON.stringify({
+			token: localStorage.getItem('refreshToken'),
+		}),
+	});
+};
+
 export const refreshToken = () => {
 	return request('/auth/token', {
 		method: 'POST',

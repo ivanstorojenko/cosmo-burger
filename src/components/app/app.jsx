@@ -25,6 +25,7 @@ import {
 import { Preloader } from '../preloader/preloader';
 import { IngredientDetailsPage } from '../../pages/ingredient-details';
 import { ErrorPage } from '../../pages/error';
+import { OrdersPage } from '../../pages/orders';
 
 export const App = () => {
 	const dispatch = useDispatch();
@@ -73,6 +74,10 @@ export const App = () => {
 				<Route
 					path='/profile'
 					element={<OnlyAuth component={<ProfilePage />} />}
+				/>
+				<Route
+					path='/profile/orders'
+					element={<OnlyAuth component={<OrdersPage />} />}
 				/>
 				<Route
 					path='/ingredients/:ingredientId'

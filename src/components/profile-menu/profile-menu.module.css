@@ -8,3 +8,13 @@
 	align-items: center;
 	height: 64px;
 }
+
+.nav_link_button {
+	background: none;
+	border: none;
+	cursor: pointer;
+}
+
+.nav_link_button:hover {
+	text-decoration: underline;
+}
