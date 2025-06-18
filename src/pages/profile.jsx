@@ -26,6 +26,8 @@ export const ProfilePage = () => {
 	useEffect(() => {
 		if (name !== changedName || email !== changedEmail || password !== '') {
 			setInfoChanged(true);
+		} else {
+			setInfoChanged(false);
 		}
 	}, [name, email, changedName, changedEmail, password]);
 	// Сохранить - отправка запроса на обновление данных

@@ -144,6 +144,7 @@ export const changeUserInfo = ({ name, email, password }) => {
 	return fetchWithRefresh('/auth/user', {
 		method: 'PATCH',
 		headers: {
+			...apiConfig.headers,
 			authorization: localStorage.getItem('accessToken'),
 		},
 		body: JSON.stringify({
