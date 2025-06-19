@@ -1,9 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { registration, login, logout, changeInfo } from './actions';
-import {
-	saveTokensToLocalStorage,
-	deleteTokensFromLocalStorage,
-} from '@utils/api';
 
 const initialState = {
 	user: null,
@@ -20,12 +16,8 @@ const handlePending = (state) => {
 const handleFulfilled = (state, action) => {
 	state.loading = false;
 
-	if (action.payload.success) {
+	if (action.payload?.success) {
 		state.user = action.payload.user;
-		saveTokensToLocalStorage(
-			action.payload.accessToken,
-			action.payload.refreshToken
-		);
 	} else {
 		state.error = action.error?.message || 'Ошибка';
 	}
@@ -41,10 +33,10 @@ export const authSlice = createSlice({
 	initialState,
 	reducers: {
 		setUser: (state, action) => {
-			if (action.payload.success) {
+			if (action.payload?.success) {
 				state.user = action.payload.user;
 			} else {
-				deleteTokensFromLocalStorage();
+				state.user = null;
 			}
 		},
 		setIsAuthChecked: (state, action) => {
@@ -59,27 +51,13 @@ export const authSlice = createSlice({
 	},
 	extraReducers: (builder) => {
 		builder
-			.addCase(registration.pending, (state) => {
-				handlePending(state);
-			})
-			.addCase(registration.fulfilled, (state, action) => {
-				handleFulfilled(state, action);
-			})
-			.addCase(registration.rejected, (state, action) => {
-				handleRejected(state, action);
-			})
-			.addCase(login.pending, (state) => {
-				handlePending(state);
-			})
-			.addCase(login.fulfilled, (state, action) => {
-				handleFulfilled(state, action);
-			})
-			.addCase(login.rejected, (state, action) => {
-				handleRejected(state, action);
-			})
-			.addCase(logout.pending, (state) => {
-				handlePending(state);
-			})
+			.addCase(registration.pending, handlePending)
+			.addCase(registration.fulfilled, handleFulfilled)
+			.addCase(registration.rejected, handleRejected)
+			.addCase(login.pending, handlePending)
+			.addCase(login.fulfilled, handleFulfilled)
+			.addCase(login.rejected, handleRejected)
+			.addCase(logout.pending, handlePending)
 			.addCase(logout.fulfilled, (state) => {
 				state.loading = false;
 				state.user = null;
@@ -89,21 +67,16 @@ export const authSlice = createSlice({
 				state.error = action.payload;
 				state.user = null;
 			})
-			.addCase(changeInfo.pending, (state) => {
-				handlePending(state);
-			})
+			.addCase(changeInfo.pending, handlePending)
 			.addCase(changeInfo.fulfilled, (state, action) => {
 				state.loading = false;
-
-				if (action.payload.success) {
+				if (action.payload?.success) {
 					state.user = action.payload.user;
 				} else {
 					state.error = action.error?.message || 'Ошибка авторизации';
 				}
 			})
-			.addCase(changeInfo.rejected, (state, action) => {
-				handleRejected(state, action);
-			});
+			.addCase(changeInfo.rejected, handleRejected);
 	},
 });
 

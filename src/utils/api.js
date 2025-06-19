@@ -5,12 +5,12 @@ const apiConfig = {
 	},
 };
 
-const getResponse = (res) => {
+const getResponse = async (res) => {
+	const data = await res.json();
 	if (res.ok) {
-		return res.json();
+		return data;
 	}
-
-	return Promise.reject(`Ошибка ${res.status}`);
+	return Promise.reject(data); // Передаем весь объект ошибки
 };
 
 const request = (endpoint, options) => {
@@ -53,16 +53,6 @@ export const resetPassword = (password, token) => {
 			token,
 		}),
 	});
-};
-
-export const saveTokensToLocalStorage = (accessToken, refreshToken) => {
-	window.localStorage.setItem('accessToken', accessToken);
-	window.localStorage.setItem('refreshToken', refreshToken);
-};
-
-export const deleteTokensFromLocalStorage = (accessToken, refreshToken) => {
-	window.localStorage.removeItem('accessToken', accessToken);
-	window.localStorage.removeItem('refreshToken', refreshToken);
 };
 
 export const register = ({ name, email, password }) => {
@@ -120,8 +110,9 @@ export const refreshToken = () => {
 
 export const fetchWithRefresh = async (endpoint, options) => {
 	try {
-		return request(endpoint, options);
+		return await request(endpoint, options);
 	} catch (err) {
+		// Проверяем как строковую ошибку, так и объект с полем message
 		if (err.message === 'jwt expired') {
 			const refreshData = await refreshToken();
 			options.headers.authorization = refreshData.accessToken;

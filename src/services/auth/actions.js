@@ -4,12 +4,34 @@ import {
 	authorize,
 	unauthorize,
 	getUserInfo,
-	deleteTokensFromLocalStorage,
 	changeUserInfo,
 } from '@utils/api';
 import { setUser, setIsAuthChecked } from './reducer';
 
-export const registration = createAsyncThunk('auth/registration', register);
+const saveTokensToLocalStorage = (accessToken, refreshToken) => {
+	localStorage.setItem('accessToken', accessToken);
+	localStorage.setItem('refreshToken', refreshToken);
+};
+
+const deleteTokensFromLocalStorage = () => {
+	localStorage.removeItem('accessToken');
+	localStorage.removeItem('refreshToken');
+};
+
+export const registration = createAsyncThunk(
+	'auth/registration',
+	async (data, { rejectWithValue }) => {
+		try {
+			const response = await register(data);
+			if (response.success) {
+				saveTokensToLocalStorage(response.accessToken, response.refreshToken);
+			}
+			return response;
+		} catch (error) {
+			return rejectWithValue(error.message);
+		}
+	}
+);
 
 export const checkAuth = createAsyncThunk(
 	'auth/checkAuth',
@@ -28,7 +50,20 @@ export const checkAuth = createAsyncThunk(
 	}
 );
 
-export const login = createAsyncThunk('auth/login', authorize);
+export const login = createAsyncThunk(
+	'auth/login',
+	async (data, { rejectWithValue }) => {
+		try {
+			const response = await authorize(data);
+			if (response.success) {
+				saveTokensToLocalStorage(response.accessToken, response.refreshToken);
+			}
+			return response;
+		} catch (error) {
+			return rejectWithValue(error.message);
+		}
+	}
+);
 
 export const logout = createAsyncThunk(
 	'auth/logout',
@@ -44,4 +79,14 @@ export const logout = createAsyncThunk(
 	}
 );
 
-export const changeInfo = createAsyncThunk('auth/changeInfo', changeUserInfo);
+export const changeInfo = createAsyncThunk(
+	'auth/changeInfo',
+	async (data, { rejectWithValue }) => {
+		try {
+			const response = await changeUserInfo(data);
+			return response;
+		} catch (error) {
+			return rejectWithValue(error.message);
+		}
+	}
+);
