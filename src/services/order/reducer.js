@@ -22,16 +22,15 @@ export const orderSlice = createSlice({
 		builder
 			.addCase(placeOrder.pending, (state) => {
 				state.loading = true;
+				state.showOrderDetails = true;
 				state.error = null;
 			})
 			.addCase(placeOrder.fulfilled, (state, action) => {
 				state.order = action.payload;
 				state.loading = false;
-				state.showOrderDetails = true;
 			})
 			.addCase(placeOrder.rejected, (state, action) => {
 				state.loading = false;
-				state.showOrderDetails = true;
 				state.error = action.error.message;
 			})
 			.addCase(hideOrderDetails, (state) => {

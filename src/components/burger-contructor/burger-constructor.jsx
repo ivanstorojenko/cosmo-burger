@@ -17,6 +17,8 @@ import { useDrop } from 'react-dnd';
 import { DraggableElement } from './draggable-element/draggable-element';
 import { getOrderLoading, getShowOrderDetails } from '@services/order/reducer';
 import { hideOrderDetails, placeOrder } from '../../services/order/actions';
+import { getUserInfo } from '../../services/auth/reducer';
+import { useNavigate } from 'react-router';
 
 export const BurgerConstructor = () => {
 	const orderPrice = useSelector(getOrderPrice);
@@ -25,6 +27,8 @@ export const BurgerConstructor = () => {
 	const restIngredients = ingredients.ingredients;
 	const ingredientsId = useSelector(getIntgredientsIdArray);
 	const dispatch = useDispatch();
+	const user = useSelector(getUserInfo);
+	const navigate = useNavigate();
 
 	const handleDrop = (item) => {
 		dispatch(addIngredient(item));
@@ -44,7 +48,11 @@ export const BurgerConstructor = () => {
 	const orderLoading = useSelector(getOrderLoading);
 
 	const handlePlaceOrder = (ingredientsId) => {
-		dispatch(placeOrder(ingredientsId));
+		if (user) {
+			dispatch(placeOrder(ingredientsId));
+		} else {
+			navigate('/login', { state: { from: '/' } });
+		}
 	};
 
 	const handleHideOrderDetails = () => {

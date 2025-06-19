@@ -1,4 +1,4 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { createSlice, createSelector } from '@reduxjs/toolkit';
 import { addIngredient, deleteIngredient, moveIngredient } from './actions';
 import { placeOrder } from '../order/actions';
 
@@ -15,19 +15,17 @@ export const constructorSlice = createSlice({
 	reducers: {},
 	selectors: {
 		getConstructorIngredients: (state) => state.constructorIngredients,
-		getIntgredientsIdArray: (state) => {
-			if (
-				state.constructorIngredients.bun &&
-				state.constructorIngredients.ingredients.length > 0
-			) {
-				return [
-					state.constructorIngredients.bun._id,
-					...state.constructorIngredients.ingredients.map((item) => item._id),
-				];
-			} else {
-				return null;
+		getIntgredientsIdArray: createSelector(
+			(state) => state.constructorIngredients.bun,
+			(state) => state.constructorIngredients.ingredients,
+			(bun, ingredients) => {
+				if (bun && ingredients.length > 0) {
+					return [bun._id, ...ingredients.map((item) => item._id)];
+				} else {
+					return null;
+				}
 			}
-		},
+		),
 		getOrderPrice: (state) => {
 			const bunsPrice = state.constructorIngredients.bun
 				? state.constructorIngredients.bun.price * 2

@@ -3,7 +3,7 @@ import { loadIngredients, setActiveTab } from './actions';
 
 const initialState = {
 	ingredients: [],
-	loading: false,
+	loading: true,
 	error: null,
 	ingredientTypes: [
 		{ type: 'bun', name: 'Булки' },

@@ -2,6 +2,66 @@ body {
 	margin: 0;
 }
 
+.mt-45 {
+	margin-top: 180px;
+}
+
+.container {
+	width: 1240px;
+	margin: 0 auto;
+	padding: 0 20px;
+}
+
+.profile {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 60px;
+}
+
+.padding-top-120 {
+	padding-top: 120px;
+}
+
+.padding-top-180 {
+	padding-top: 180px;
+}
+
+.centered {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	width: fit-content;
+	margin: 0 auto;
+}
+
+a {
+	text-decoration: none;
+}
+
+a:hover {
+	text-decoration: underline;
+}
+
+.text_color_link {
+	color: #4c4cff;
+}
+
+.form {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	gap: 24px;
+}
+
+.text_row {
+	display: flex;
+	gap: 8px;
+}
+
+.sidebar {
+	width: 320px;
+}
+
 /* Fix for scrollbar */
 
 @supports (scrollbar-color: auto) {
