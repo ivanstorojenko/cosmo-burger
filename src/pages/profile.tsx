@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { FormEvent, useEffect, useState } from 'react';
 import {
 	Input,
 	PasswordInput,
@@ -10,17 +10,18 @@ import { useDispatch, useSelector } from 'react-redux';
 import { getError, getLoading, getUserInfo } from '../services/auth/reducer';
 import { changeInfo } from '../services/auth/actions';
 import { Preloader } from '@components/preloader/preloader';
+import { TUser } from '@/utils/types';
 
-export const ProfilePage = () => {
+export const ProfilePage = (): React.JSX.Element => {
 	// отображать в формле реальные данные
-	const { name, email } = useSelector(getUserInfo);
-	const loading = useSelector(getLoading);
-	const error = useSelector(getError);
+	const { name, email }: TUser = useSelector(getUserInfo);
+	const loading: boolean = useSelector(getLoading);
+	const error: boolean = useSelector(getError);
 	const [changedName, setChangedName] = useState(name);
 	const [changedEmail, setChangedEmail] = useState(email);
 	const [password, setPassword] = useState('');
 	// при изменении данных отображать кнопки Отменить и Сохранить
-	let [infoChanged, setInfoChanged] = useState(false);
+	const [infoChanged, setInfoChanged] = useState(false);
 	const dispatch = useDispatch();
 
 	useEffect(() => {
@@ -31,7 +32,7 @@ export const ProfilePage = () => {
 		}
 	}, [name, email, changedName, changedEmail, password]);
 	// Сохранить - отправка запроса на обновление данных
-	const handleSave = (e) => {
+	const handleSave = (e: FormEvent<HTMLFormElement>) => {
 		e.preventDefault();
 		dispatch(changeInfo({ name: changedName, email: changedEmail, password }));
 	};

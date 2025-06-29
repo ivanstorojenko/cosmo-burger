@@ -26,8 +26,9 @@ import { Preloader } from '../preloader/preloader';
 import { IngredientDetailsPage } from '../../pages/ingredient-details';
 import { ErrorPage } from '../../pages/error';
 import { OrdersPage } from '../../pages/orders';
+import { TIngredient } from '@/utils/types';
 
-export const App = () => {
+export const App = (): React.JSX.Element => {
 	const dispatch = useDispatch();
 	const location = useLocation();
 	const navigate = useNavigate();
@@ -43,7 +44,7 @@ export const App = () => {
 
 	const ingredientsLoading = useSelector(getIngredientsLoading);
 	const ingredientsError = useSelector(getIngredientsError);
-	const ingredients = useSelector(getAllIngredients);
+	const ingredients: TIngredient[] = useSelector(getAllIngredients);
 
 	const handleModalClose = () => {
 		navigate(-1);

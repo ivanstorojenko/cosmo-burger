@@ -1,6 +1,6 @@
 import { ProfileMenu } from '../components/profile-menu/profile-menu';
 
-export const OrdersPage = () => {
+export const OrdersPage = (): React.JSX.Element => {
 	return (
 		<div className='container padding-top-120 profile'>
 			<section className='sidebar'>

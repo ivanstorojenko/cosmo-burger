@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, FormEvent } from 'react';
 import {
 	Input,
 	PasswordInput,
@@ -9,16 +9,17 @@ import { useDispatch, useSelector } from 'react-redux';
 import { login } from '@services/auth/actions';
 import { getUserInfo, getLoading, getError } from '@services/auth/reducer';
 import { Preloader } from '@components/preloader/preloader';
+import { TUser } from '@/utils/types';
 
-export const LoginPage = () => {
+export const LoginPage = (): React.JSX.Element => {
 	const [email, setEmail] = useState('');
 	const [password, setPassword] = useState('');
 	const dispatch = useDispatch();
-	const user = useSelector(getUserInfo);
-	const loginPending = useSelector(getLoading);
-	const loginError = useSelector(getError);
+	const user: TUser = useSelector(getUserInfo);
+	const loginPending: boolean = useSelector(getLoading);
+	const loginError: boolean = useSelector(getError);
 
-	const handleSubmit = (e) => {
+	const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
 		e.preventDefault();
 		dispatch(login({ email, password }));
 	};

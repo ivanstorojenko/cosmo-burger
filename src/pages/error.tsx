@@ -1,6 +1,10 @@
 import * as PropTypes from 'prop-types';
 
-export const ErrorPage = ({ message }) => {
+type TErrorPageProps = {
+	message: string;
+};
+
+export const ErrorPage = ({ message }: TErrorPageProps): React.JSX.Element => {
 	return (
 		<div className='container padding-top-180'>
 			<div className='centered'>
