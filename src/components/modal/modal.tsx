@@ -5,18 +5,19 @@ import styles from './modal.module.css';
 import { CloseIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 
 const modalRoot = document.getElementById('modal-root')!;
+type TModalProps = {
+	title?: string;
+	children: React.ReactNode;
+	handleClose: () => void;
+};
 
 export const Modal = ({
 	title,
 	children,
 	handleClose,
-}: {
-	title: string;
-	children: React.ReactNode;
-	handleClose: () => void;
-}): React.JSX.Element => {
+}: TModalProps): React.JSX.Element => {
 	useEffect(() => {
-		const handleEscClose = (e: KeyboardEvent) => {
+		const handleEscClose = (e: KeyboardEvent): void => {
 			if (e.key === 'Escape' && !e.shiftKey && !e.ctrlKey && !e.altKey) {
 				handleClose();
 			}

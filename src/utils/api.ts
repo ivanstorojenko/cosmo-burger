@@ -1,4 +1,4 @@
-import { TIngredient, TIngredientWithUid } from './types';
+import { TIngredient, TIngredientWithUid, TOrder } from './types';
 
 type THeaders = {
 	headers: Record<string, string>;
@@ -39,13 +39,6 @@ type TRefreshTokenRes = Pick<
 	TAuthRes,
 	'success' | 'accessToken' | 'refreshToken'
 >;
-type TCreateOrderRes = {
-	name: string;
-	order: {
-		number: number;
-	};
-	success: boolean;
-};
 type TIngredientsRes = {
 	succcess: boolean;
 	data: Array<TIngredient>;
@@ -142,7 +135,7 @@ const getAuthizationHeader = () => {
 export const createOrder = (ingredients: Array<TIngredientWithUid>) => {
 	const headers: HeadersInit = getAuthizationHeader();
 
-	return request<TCreateOrderRes>('/orders', {
+	return request<TOrder>('/orders', {
 		method: 'POST',
 		headers: {
 			...apiConfig.headers,

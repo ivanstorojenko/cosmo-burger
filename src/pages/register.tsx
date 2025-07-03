@@ -22,7 +22,7 @@ export const RegisterPage = (): React.JSX.Element => {
 	const registrationError: boolean = useSelector(getError);
 	const dispatch = useDispatch();
 
-	const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
+	const handleSubmit = (e: FormEvent<HTMLFormElement>): void => {
 		e.preventDefault();
 		dispatch(registration({ name, email, password }));
 	};

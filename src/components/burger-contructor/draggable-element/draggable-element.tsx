@@ -6,20 +6,25 @@ import {
 import styles from './draggable-element.module.css';
 import { useDispatch } from 'react-redux';
 // @ts-expect-error: Could not find a declaration file for module '@services/burger-constructor/actions'.
-import {
-	deleteIngredient,
-	moveIngredient,
-} from '@services/burger-constructor/actions';
+import { deleteIngredient } from '@services/burger-constructor/actions';
+// @ts-expect-error: Could not find a declaration file for module '@services/burger-constructor/actions'.
+import { moveIngredient } from '@services/burger-constructor/actions';
 import { useDrag, useDrop } from 'react-dnd';
 import { TDraggableItem, TConstructorIngredient } from '@/utils/types';
+
+type TDraggableElementProps = {
+	ingredient: TConstructorIngredient;
+	index: number;
+};
+
+type TDragCollectedProps = {
+	isDragging: boolean;
+};
 
 export const DraggableElement = ({
 	ingredient,
 	index,
-}: {
-	ingredient: TConstructorIngredient;
-	index: number;
-}) => {
+}: TDraggableElementProps): React.JSX.Element => {
 	const {
 		uid,
 		name,
@@ -30,11 +35,11 @@ export const DraggableElement = ({
 	const dispatch = useDispatch();
 	const ref = useRef<HTMLLIElement>(null);
 
-	const handleDelete = (uid: string) => {
+	const handleDelete = (uid: string): void => {
 		dispatch(deleteIngredient(uid));
 	};
 
-	const [, dropRef] = useDrop({
+	const [, dropRef] = useDrop<TDraggableItem, unknown, unknown>({
 		accept: 'constructor_ingredient',
 		hover: (item: TDraggableItem, monitor) => {
 			if (!ref.current) {
@@ -70,7 +75,11 @@ export const DraggableElement = ({
 		},
 	});
 
-	const [{ isDragging }, dragRef] = useDrag({
+	const [{ isDragging }, dragRef] = useDrag<
+		TDraggableItem,
+		unknown,
+		TDragCollectedProps
+	>({
 		type: 'constructor_ingredient',
 		item: () => {
 			return { uid, index };

@@ -15,14 +15,12 @@ import { Preloader } from '@/components/preloader/preloader';
 import { TUser } from '@/utils/types';
 
 export const ProfilePage = (): React.JSX.Element => {
-	// отображать в формле реальные данные
 	const { name, email }: TUser = useSelector(getUserInfo);
 	const loading: boolean = useSelector(getLoading);
 	const error: boolean = useSelector(getError);
 	const [changedName, setChangedName] = useState(name);
 	const [changedEmail, setChangedEmail] = useState(email);
 	const [password, setPassword] = useState('');
-	// при изменении данных отображать кнопки Отменить и Сохранить
 	const [infoChanged, setInfoChanged] = useState(false);
 	const dispatch = useDispatch();
 
@@ -33,13 +31,13 @@ export const ProfilePage = (): React.JSX.Element => {
 			setInfoChanged(false);
 		}
 	}, [name, email, changedName, changedEmail, password]);
-	// Сохранить - отправка запроса на обновление данных
+
 	const handleSave = (e: FormEvent<HTMLFormElement>) => {
 		e.preventDefault();
 		dispatch(changeInfo({ name: changedName, email: changedEmail, password }));
 	};
-	// Отменить - возврат данных к реальным
-	const handleCancel = () => {
+
+	const handleCancel = (): void => {
 		setChangedName(name);
 		setChangedEmail(email);
 		setPassword('');

@@ -8,11 +8,11 @@ import {
 import { Modal } from '../modal/modal';
 import { OrderDetail } from '../order-detail/order-detail';
 // @ts-expect-error: Could not find a declaration file for module '@services/burger-constructor/reducer'.
-import {
-	getConstructorIngredients,
-	getIntgredientsIdArray,
-	getOrderPrice,
-} from '@services/burger-constructor/reducer';
+import { getConstructorIngredients } from '@services/burger-constructor/reducer';
+// @ts-expect-error: Could not find a declaration file for module '@services/burger-constructor/reducer'.
+import { getIntgredientsIdArray } from '@services/burger-constructor/reducer';
+// @ts-expect-error: Could not find a declaration file for module '@services/burger-constructor/reducer'.
+import { getOrderPrice } from '@services/burger-constructor/reducer';
 // @ts-expect-error: Could not find a declaration file for module '@services/burger-constructor/actions'.
 import { addIngredient } from '@services/burger-constructor/actions';
 import { useDrop } from 'react-dnd';
@@ -28,6 +28,7 @@ import {
 	TConstructorIngredient,
 	TConstructorIngredients,
 	TDraggableItem,
+	TUser,
 } from '@/utils/types';
 
 export const BurgerConstructor = (): React.JSX.Element => {
@@ -40,10 +41,10 @@ export const BurgerConstructor = (): React.JSX.Element => {
 		ingredients.ingredients;
 	const ingredientsId: Array<string> = useSelector(getIntgredientsIdArray);
 	const dispatch = useDispatch();
-	const user = useSelector(getUserInfo);
+	const user: TUser = useSelector(getUserInfo);
 	const navigate = useNavigate();
 
-	const handleDrop = (item: TDraggableItem) => {
+	const handleDrop = (item: TDraggableItem): void => {
 		dispatch(addIngredient(item));
 	};
 
@@ -64,7 +65,7 @@ export const BurgerConstructor = (): React.JSX.Element => {
 	const showOrderDetails: boolean = useSelector(getShowOrderDetails);
 	const orderLoading: boolean = useSelector(getOrderLoading);
 
-	const handlePlaceOrder = (ingredientsId: Array<string>) => {
+	const handlePlaceOrder = (ingredientsId: Array<string>): void => {
 		if (user) {
 			dispatch(placeOrder(ingredientsId));
 		} else {
@@ -72,7 +73,7 @@ export const BurgerConstructor = (): React.JSX.Element => {
 		}
 	};
 
-	const handleHideOrderDetails = () => {
+	const handleHideOrderDetails = (): void => {
 		dispatch(hideOrderDetails());
 	};
 

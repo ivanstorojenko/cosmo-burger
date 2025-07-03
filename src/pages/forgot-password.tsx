@@ -13,7 +13,7 @@ export const ForgotPasswordPage = (): React.JSX.Element => {
 	const [error, setError] = useState(false);
 	const navigate = useNavigate();
 
-	const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
+	const handleSubmit = (e: FormEvent<HTMLFormElement>): void => {
 		e.preventDefault();
 		setLoading(true);
 		setError(false);

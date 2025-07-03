@@ -13,6 +13,11 @@ export type TIngredient = {
 	__v: number;
 };
 
+export type TIngredientCategory = {
+	type: string;
+	name: string;
+};
+
 export type TConstructorIngredient = TIngredient & { uid: string };
 
 export type TConstructorIngredients = {
@@ -31,4 +36,25 @@ export type TUser = {
 
 export type TDraggableItem = Pick<TConstructorIngredient, 'uid'> & {
 	index: number;
+};
+
+export type TOrder = {
+	success: true;
+	name: string;
+	order: {
+		ingredients: Array<TIngredient>;
+		_id: string;
+		owner: {
+			name: string;
+			email: string;
+			createdAt: string;
+			updatedAt: string;
+		};
+		status: string;
+		name: string;
+		createdAt: string;
+		updatedAt: string;
+		number: number;
+		price: number;
+	};
 };

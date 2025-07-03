@@ -22,7 +22,7 @@ export const ResetPasswordPage = (): React.JSX.Element => {
 			: setIsCodeSent(false);
 	}, []);
 
-	const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
+	const handleSubmit = (e: FormEvent<HTMLFormElement>): void => {
 		e.preventDefault();
 		setLoading(true);
 		setError(false);

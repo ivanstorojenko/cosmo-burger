@@ -1,5 +1,3 @@
-import * as PropTypes from 'prop-types';
-
 type TErrorPageProps = {
 	message: string;
 };
@@ -12,8 +10,4 @@ export const ErrorPage = ({ message }: TErrorPageProps): React.JSX.Element => {
 			</div>
 		</div>
 	);
-};
-
-ErrorPage.propTypes = {
-	message: PropTypes.string.isRequired,
 };

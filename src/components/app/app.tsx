@@ -11,7 +11,7 @@ import {
 import styles from './app.module.css';
 import { AppHeader } from '@/components/app-header/app-header.js';
 import { Modal } from '@/components/modal/modal';
-import { IngredientDetails } from '@components/burger-ingredients/ingredient-details/ingredient-details';
+import { IngredientDetails } from '@/components/burger-ingredients/ingredient-details/ingredient-details';
 import { useDispatch, useSelector } from 'react-redux';
 // @ts-expect-error: Could not find a declaration file for module '@services/auth/actions'.
 import { checkAuth } from '@services/auth/actions';
@@ -20,11 +20,11 @@ import { OnlyAuth, OnlyUnAuth } from '../protected-route/protected-route';
 // @ts-expect-error: Could not find a declaration file for module '@services/burger-ingredients/actions'.
 import { loadIngredients } from '@services/burger-ingredients/actions';
 // @ts-expect-error: Could not find a declaration file for module '@services/burger-ingredients/reducer'.
-import {
-	getAllIngredients,
-	getIngredientsLoading,
-	getIngredientsError,
-} from '@services/burger-ingredients/reducer';
+import { getAllIngredients } from '@services/burger-ingredients/reducer';
+// @ts-expect-error: Could not find a declaration file for module '@services/burger-ingredients/reducer'.
+import { getIngredientsLoading } from '@services/burger-ingredients/reducer';
+// @ts-expect-error: Could not find a declaration file for module '@services/burger-ingredients/reducer'.
+import { getIngredientsError } from '@services/burger-ingredients/reducer';
 import { Preloader } from '../preloader/preloader';
 import { IngredientDetailsPage } from '../../pages/ingredient-details';
 import { ErrorPage } from '../../pages/error';
@@ -35,7 +35,7 @@ export const App = (): React.JSX.Element => {
 	const dispatch = useDispatch();
 	const location = useLocation();
 	const navigate = useNavigate();
-	const background = location.state && location.state.background;
+	const background: Location = location.state && location.state.background;
 
 	useEffect(() => {
 		dispatch(checkAuth());
@@ -45,11 +45,11 @@ export const App = (): React.JSX.Element => {
 		dispatch(loadIngredients());
 	}, [dispatch]);
 
-	const ingredientsLoading = useSelector(getIngredientsLoading);
-	const ingredientsError = useSelector(getIngredientsError);
+	const ingredientsLoading: boolean = useSelector(getIngredientsLoading);
+	const ingredientsError: boolean = useSelector(getIngredientsError);
 	const ingredients: TIngredient[] = useSelector(getAllIngredients);
 
-	const handleModalClose = () => {
+	const handleModalClose = (): void => {
 		navigate(-1);
 	};
 
