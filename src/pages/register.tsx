@@ -6,9 +6,11 @@ import {
 } from '@ya.praktikum/react-developer-burger-ui-components';
 import { Link, Navigate } from 'react-router';
 import { useDispatch, useSelector } from 'react-redux';
+// @ts-expect-error: Could not find a declaration file for module '@services/auth/actions'
 import { registration } from '@services/auth/actions';
+// @ts-expect-error: Could not find a declaration file for module '@services/auth/reducer'
 import { getUserInfo, getLoading, getError } from '@services/auth/reducer';
-import { Preloader } from '@components/preloader/preloader';
+import { Preloader } from '@/components/preloader/preloader';
 import { TUser } from '@/utils/types';
 
 export const RegisterPage = (): React.JSX.Element => {

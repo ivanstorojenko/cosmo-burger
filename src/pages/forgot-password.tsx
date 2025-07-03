@@ -5,7 +5,7 @@ import {
 } from '@ya.praktikum/react-developer-burger-ui-components';
 import { Link, useNavigate } from 'react-router';
 import { getPasswordResetCode } from '../utils/api';
-import { Preloader } from '@components/preloader/preloader';
+import { Preloader } from '@/components/preloader/preloader';
 
 export const ForgotPasswordPage = (): React.JSX.Element => {
 	const [email, setEmail] = useState('');
@@ -20,7 +20,7 @@ export const ForgotPasswordPage = (): React.JSX.Element => {
 		getPasswordResetCode(email)
 			.then(
 				(res) => {
-					if (res.success) {
+					if (res && res.success) {
 						localStorage.setItem('passwordResetCodeSent', 'true');
 						navigate('/reset-password');
 					}

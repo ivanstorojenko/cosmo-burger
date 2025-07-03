@@ -1,7 +1,8 @@
 import { useSelector } from 'react-redux';
 import styles from './home.module.css';
 import { BurgerIngredients } from '@components/burger-ingredients/burger-ingredients';
-import { BurgerConstructor } from '@components/burger-contructor/burger-constructor';
+import { BurgerConstructor } from '@/components/burger-contructor/burger-constructor';
+// @ts-expect-error: Could not find a declaration file for module '@services/burger-ingredients/reducer'
 import {
 	getAllIngredients,
 	getIngredientsLoading,
@@ -9,7 +10,7 @@ import {
 } from '@services/burger-ingredients/reducer';
 import { DndProvider } from 'react-dnd';
 import { HTML5Backend } from 'react-dnd-html5-backend';
-import { Preloader } from '@components/preloader/preloader';
+import { Preloader } from '@/components/preloader/preloader';
 import { TIngredient } from '@/utils/types';
 
 export const HomePage = (): React.JSX.Element => {

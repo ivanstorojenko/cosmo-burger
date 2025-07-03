@@ -7,9 +7,11 @@ import {
 import { ProfileMenu } from '../components/profile-menu/profile-menu';
 import styles from './profile.module.css';
 import { useDispatch, useSelector } from 'react-redux';
+// @ts-expect-error: Could not find a declaration file for module
 import { getError, getLoading, getUserInfo } from '../services/auth/reducer';
+// @ts-expect-error: Could not find a declaration file for module '../services/auth/actions'
 import { changeInfo } from '../services/auth/actions';
-import { Preloader } from '@components/preloader/preloader';
+import { Preloader } from '@/components/preloader/preloader';
 import { TUser } from '@/utils/types';
 
 export const ProfilePage = (): React.JSX.Element => {
