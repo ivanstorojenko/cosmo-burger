@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { FormEvent, useEffect, useState } from 'react';
 import {
 	Input,
 	PasswordInput,
@@ -7,20 +7,21 @@ import {
 import { ProfileMenu } from '../components/profile-menu/profile-menu';
 import styles from './profile.module.css';
 import { useDispatch, useSelector } from 'react-redux';
+// @ts-expect-error: Could not find a declaration file for module
 import { getError, getLoading, getUserInfo } from '../services/auth/reducer';
+// @ts-expect-error: Could not find a declaration file for module '../services/auth/actions'
 import { changeInfo } from '../services/auth/actions';
-import { Preloader } from '@components/preloader/preloader';
+import { Preloader } from '@/components/preloader/preloader';
+import { TUser } from '@/utils/types';
 
-export const ProfilePage = () => {
-	// отображать в формле реальные данные
-	const { name, email } = useSelector(getUserInfo);
-	const loading = useSelector(getLoading);
-	const error = useSelector(getError);
+export const ProfilePage = (): React.JSX.Element => {
+	const { name, email }: TUser = useSelector(getUserInfo);
+	const loading: boolean = useSelector(getLoading);
+	const error: boolean = useSelector(getError);
 	const [changedName, setChangedName] = useState(name);
 	const [changedEmail, setChangedEmail] = useState(email);
 	const [password, setPassword] = useState('');
-	// при изменении данных отображать кнопки Отменить и Сохранить
-	let [infoChanged, setInfoChanged] = useState(false);
+	const [infoChanged, setInfoChanged] = useState(false);
 	const dispatch = useDispatch();
 
 	useEffect(() => {
@@ -30,13 +31,13 @@ export const ProfilePage = () => {
 			setInfoChanged(false);
 		}
 	}, [name, email, changedName, changedEmail, password]);
-	// Сохранить - отправка запроса на обновление данных
-	const handleSave = (e) => {
+
+	const handleSave = (e: FormEvent<HTMLFormElement>) => {
 		e.preventDefault();
 		dispatch(changeInfo({ name: changedName, email: changedEmail, password }));
 	};
-	// Отменить - возврат данных к реальным
-	const handleCancel = () => {
+
+	const handleCancel = (): void => {
 		setChangedName(name);
 		setChangedEmail(email);
 		setPassword('');

@@ -7,34 +7,52 @@ import {
 } from '@ya.praktikum/react-developer-burger-ui-components';
 import { Modal } from '../modal/modal';
 import { OrderDetail } from '../order-detail/order-detail';
-import {
-	getConstructorIngredients,
-	getIntgredientsIdArray,
-	getOrderPrice,
-} from '@services/burger-constructor/reducer';
+// @ts-expect-error: Could not find a declaration file for module '@services/burger-constructor/reducer'.
+import { getConstructorIngredients } from '@services/burger-constructor/reducer';
+// @ts-expect-error: Could not find a declaration file for module '@services/burger-constructor/reducer'.
+import { getIntgredientsIdArray } from '@services/burger-constructor/reducer';
+// @ts-expect-error: Could not find a declaration file for module '@services/burger-constructor/reducer'.
+import { getOrderPrice } from '@services/burger-constructor/reducer';
+// @ts-expect-error: Could not find a declaration file for module '@services/burger-constructor/actions'.
 import { addIngredient } from '@services/burger-constructor/actions';
 import { useDrop } from 'react-dnd';
 import { DraggableElement } from './draggable-element/draggable-element';
+// @ts-expect-error: Could not find a declaration file for module '@services/order/reducer'.
 import { getOrderLoading, getShowOrderDetails } from '@services/order/reducer';
+// @ts-expect-error: Could not find a declaration file for module '../../services/order/actions'.
 import { hideOrderDetails, placeOrder } from '../../services/order/actions';
+// @ts-expect-error: Could not find a declaration file for module '../../services/auth/reducer'.
 import { getUserInfo } from '../../services/auth/reducer';
 import { useNavigate } from 'react-router';
+import {
+	TConstructorIngredient,
+	TConstructorIngredients,
+	TDraggableItem,
+	TUser,
+} from '@/utils/types';
 
-export const BurgerConstructor = () => {
-	const orderPrice = useSelector(getOrderPrice);
-	const ingredients = useSelector(getConstructorIngredients);
-	const bun = ingredients.bun;
-	const restIngredients = ingredients.ingredients;
-	const ingredientsId = useSelector(getIntgredientsIdArray);
+export const BurgerConstructor = (): React.JSX.Element => {
+	const orderPrice: number = useSelector(getOrderPrice);
+	const ingredients: TConstructorIngredients = useSelector(
+		getConstructorIngredients
+	);
+	const bun: TConstructorIngredient | null = ingredients.bun;
+	const restIngredients: Array<TConstructorIngredient> =
+		ingredients.ingredients;
+	const ingredientsId: Array<string> = useSelector(getIntgredientsIdArray);
 	const dispatch = useDispatch();
-	const user = useSelector(getUserInfo);
+	const user: TUser = useSelector(getUserInfo);
 	const navigate = useNavigate();
 
-	const handleDrop = (item) => {
+	const handleDrop = (item: TDraggableItem): void => {
 		dispatch(addIngredient(item));
 	};
 
-	const [{ isHover }, dropRef] = useDrop({
+	const [{ isHover }, dropRef] = useDrop<
+		TDraggableItem,
+		void,
+		{ isHover: boolean }
+	>({
 		accept: 'ingredient',
 		collect: (monitor) => ({
 			isHover: monitor.isOver(),
@@ -44,10 +62,10 @@ export const BurgerConstructor = () => {
 		},
 	});
 
-	const showOrderDetails = useSelector(getShowOrderDetails);
-	const orderLoading = useSelector(getOrderLoading);
+	const showOrderDetails: boolean = useSelector(getShowOrderDetails);
+	const orderLoading: boolean = useSelector(getOrderLoading);
 
-	const handlePlaceOrder = (ingredientsId) => {
+	const handlePlaceOrder = (ingredientsId: Array<string>): void => {
 		if (user) {
 			dispatch(placeOrder(ingredientsId));
 		} else {
@@ -55,7 +73,7 @@ export const BurgerConstructor = () => {
 		}
 	};
 
-	const handleHideOrderDetails = () => {
+	const handleHideOrderDetails = (): void => {
 		dispatch(hideOrderDetails());
 	};
 

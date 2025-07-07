@@ -1,17 +1,19 @@
 import styles from './order-detail.module.css';
 import doneIcon from './done.png';
 import { useSelector } from 'react-redux';
-import {
-	getOrderError,
-	getOrderInfo,
-	getOrderLoading,
-} from '../../services/order/reducer';
+// @ts-expect-error: Could not find a declaration file for module '../../services/order/reducer'.
+import { getOrderError } from '../../services/order/reducer';
+// @ts-expect-error: Could not find a declaration file for module '../../services/order/reducer'.
+import { getOrderInfo } from '../../services/order/reducer';
+// @ts-expect-error: Could not find a declaration file for module '../../services/order/reducer'.
+import { getOrderLoading } from '../../services/order/reducer';
 import { Preloader } from '@components/preloader/preloader';
+import { TOrder } from '@/utils/types';
 
-export const OrderDetail = () => {
-	const orderError = useSelector(getOrderError);
-	const orderInfo = useSelector(getOrderInfo);
-	const orderLoading = useSelector(getOrderLoading);
+export const OrderDetail = (): React.JSX.Element => {
+	const orderError: boolean = useSelector(getOrderError);
+	const orderInfo: TOrder = useSelector(getOrderInfo);
+	const orderLoading: boolean = useSelector(getOrderLoading);
 
 	return (
 		<div className={styles.content}>

@@ -1,27 +1,27 @@
-import { useState } from 'react';
+import { useState, FormEvent } from 'react';
 import {
 	Input,
 	Button,
 } from '@ya.praktikum/react-developer-burger-ui-components';
 import { Link, useNavigate } from 'react-router';
 import { getPasswordResetCode } from '../utils/api';
-import { Preloader } from '@components/preloader/preloader';
+import { Preloader } from '@/components/preloader/preloader';
 
-export const ForgotPasswordPage = () => {
+export const ForgotPasswordPage = (): React.JSX.Element => {
 	const [email, setEmail] = useState('');
 	const [loading, setLoading] = useState(false);
 	const [error, setError] = useState(false);
 	const navigate = useNavigate();
 
-	const handleSubmit = (e) => {
+	const handleSubmit = (e: FormEvent<HTMLFormElement>): void => {
 		e.preventDefault();
 		setLoading(true);
 		setError(false);
 		getPasswordResetCode(email)
 			.then(
 				(res) => {
-					if (res.success) {
-						localStorage.setItem('passwordResetCodeSent', true);
+					if (res && res.success) {
+						localStorage.setItem('passwordResetCodeSent', 'true');
 						navigate('/reset-password');
 					}
 				},

@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, FormEvent } from 'react';
 import {
 	Input,
 	PasswordInput,
@@ -6,14 +6,14 @@ import {
 } from '@ya.praktikum/react-developer-burger-ui-components';
 import { Link, Navigate, useNavigate } from 'react-router';
 import { resetPassword } from '../utils/api';
-import { Preloader } from '@components/preloader/preloader';
+import { Preloader } from '@/components/preloader/preloader';
 
-export const ResetPasswordPage = () => {
-	const [isCodeSent, setIsCodeSent] = useState(null);
+export const ResetPasswordPage = (): React.JSX.Element => {
+	const [isCodeSent, setIsCodeSent] = useState<boolean | null>(null);
 	const [password, setPassword] = useState('');
 	const [code, setCode] = useState('');
 	const [loading, setLoading] = useState(false);
-	const [error, setError] = useState(false);
+	const [error, setError] = useState<string | false>(false);
 	const navigate = useNavigate();
 
 	useEffect(() => {
@@ -22,14 +22,14 @@ export const ResetPasswordPage = () => {
 			: setIsCodeSent(false);
 	}, []);
 
-	const handleSubmit = (e) => {
+	const handleSubmit = (e: FormEvent<HTMLFormElement>): void => {
 		e.preventDefault();
 		setLoading(true);
 		setError(false);
 		resetPassword(password, code)
 			.then(
 				(res) => {
-					if (res.success) {
+					if (res && res.success) {
 						localStorage.removeItem('passwordResetCodeSent');
 						navigate('/login');
 					}

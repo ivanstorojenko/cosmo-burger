@@ -1,10 +1,19 @@
+import { TUser } from '@/utils/types';
+// @ts-expect-error: Could not find a declaration file for module '@services/auth/reducer'.
 import { getIsAuthChecked, getUserInfo } from '@services/auth/reducer';
 import { useSelector } from 'react-redux';
 import { Navigate, useLocation } from 'react-router';
 
-const Protected = ({ onlyUnAuth = false, component }) => {
-	const isAuthChecked = useSelector(getIsAuthChecked);
-	const user = useSelector(getUserInfo);
+type TProtectedProps = {
+	onlyUnAuth?: boolean;
+	component: React.ReactNode;
+};
+
+type TOnlyUnAuthProps = Pick<TProtectedProps, 'component'>;
+
+const Protected = ({ onlyUnAuth = false, component }: TProtectedProps) => {
+	const isAuthChecked: boolean = useSelector(getIsAuthChecked);
+	const user: TUser = useSelector(getUserInfo);
 	const location = useLocation();
 
 	if (!isAuthChecked) {
@@ -30,6 +39,8 @@ const Protected = ({ onlyUnAuth = false, component }) => {
 };
 
 export const OnlyAuth = Protected;
-export const OnlyUnAuth = ({ component }) => (
+export const OnlyUnAuth = ({
+	component,
+}: TOnlyUnAuthProps): React.JSX.Element => (
 	<Protected onlyUnAuth={true} component={component} />
 );

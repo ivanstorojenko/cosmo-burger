@@ -5,26 +5,43 @@ import {
 } from '@ya.praktikum/react-developer-burger-ui-components';
 import styles from './draggable-element.module.css';
 import { useDispatch } from 'react-redux';
-import {
-	deleteIngredient,
-	moveIngredient,
-} from '@services/burger-constructor/actions';
+// @ts-expect-error: Could not find a declaration file for module '@services/burger-constructor/actions'.
+import { deleteIngredient } from '@services/burger-constructor/actions';
+// @ts-expect-error: Could not find a declaration file for module '@services/burger-constructor/actions'.
+import { moveIngredient } from '@services/burger-constructor/actions';
 import { useDrag, useDrop } from 'react-dnd';
-import { ingredientPropType } from '@utils/prop-types';
-import * as PropTypes from 'prop-types';
+import { TDraggableItem, TConstructorIngredient } from '@/utils/types';
 
-export const DraggableElement = ({ ingredient, index }) => {
-	const { uid, name, image, price } = ingredient;
+type TDraggableElementProps = {
+	ingredient: TConstructorIngredient;
+	index: number;
+};
+
+type TDragCollectedProps = {
+	isDragging: boolean;
+};
+
+export const DraggableElement = ({
+	ingredient,
+	index,
+}: TDraggableElementProps): React.JSX.Element => {
+	const {
+		uid,
+		name,
+		image,
+		price,
+	}: Pick<TConstructorIngredient, 'uid' | 'name' | 'image' | 'price'> =
+		ingredient;
 	const dispatch = useDispatch();
-	const ref = useRef(null);
+	const ref = useRef<HTMLLIElement>(null);
 
-	const handleDelete = (uid) => {
+	const handleDelete = (uid: string): void => {
 		dispatch(deleteIngredient(uid));
 	};
 
-	const [, dropRef] = useDrop({
+	const [, dropRef] = useDrop<TDraggableItem, unknown, unknown>({
 		accept: 'constructor_ingredient',
-		hover: (item, monitor) => {
+		hover: (item: TDraggableItem, monitor) => {
 			if (!ref.current) {
 				return;
 			}
@@ -40,6 +57,9 @@ export const DraggableElement = ({ ingredient, index }) => {
 			const hoverMiddleY =
 				(hoverBoundingRect.bottom - hoverBoundingRect.top) / 2;
 			const clientOffset = monitor.getClientOffset();
+			if (!clientOffset) {
+				return;
+			}
 			const hoverClientY = clientOffset.y - hoverBoundingRect.top;
 
 			if (dragIndex < hoverIndex && hoverClientY < hoverMiddleY) {
@@ -55,7 +75,11 @@ export const DraggableElement = ({ ingredient, index }) => {
 		},
 	});
 
-	const [{ isDragging }, dragRef] = useDrag({
+	const [{ isDragging }, dragRef] = useDrag<
+		TDraggableItem,
+		unknown,
+		TDragCollectedProps
+	>({
 		type: 'constructor_ingredient',
 		item: () => {
 			return { uid, index };
@@ -79,9 +103,4 @@ export const DraggableElement = ({ ingredient, index }) => {
 			/>
 		</li>
 	);
-};
-
-DraggableElement.propTypes = {
-	ingredient: ingredientPropType.isRequired,
-	index: PropTypes.number.isRequired,
 };

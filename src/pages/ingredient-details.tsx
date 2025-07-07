@@ -1,6 +1,6 @@
 import { IngredientDetails } from '../components/burger-ingredients/ingredient-details/ingredient-details';
 
-export const IngredientDetailsPage = () => {
+export const IngredientDetailsPage = (): React.JSX.Element => {
 	return (
 		<div className='container padding-top-120 profile'>
 			<div className='centered'>

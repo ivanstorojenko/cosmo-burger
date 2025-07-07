@@ -1,7 +1,7 @@
 import { Button } from '@ya.praktikum/react-developer-burger-ui-components';
 import { Link } from 'react-router';
 
-export const NotFoundPage = () => {
+export const NotFoundPage = (): React.JSX.Element => {
 	return (
 		<div className='container padding-top-180'>
 			<div className='centered'>

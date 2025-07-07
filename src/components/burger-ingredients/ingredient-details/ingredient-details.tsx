@@ -1,12 +1,14 @@
 import { useSelector } from 'react-redux';
 import styles from './ingredient-details.module.css';
+// @ts-expect-error:Could not find a declaration file for module '@services/burger-ingredients/reducer'.
 import { getAllIngredients } from '@services/burger-ingredients/reducer';
 import { Navigate, useParams } from 'react-router';
+import { TIngredient } from '@/utils/types';
 
-export const IngredientDetails = () => {
+export const IngredientDetails = (): React.JSX.Element => {
 	const { ingredientId } = useParams();
-	const ingredients = useSelector(getAllIngredients);
-	const ingredient = ingredients.find(
+	const ingredients: Array<TIngredient> = useSelector(getAllIngredients);
+	const ingredient: TIngredient | undefined = ingredients.find(
 		(ingredient) => ingredient._id === ingredientId
 	);
 

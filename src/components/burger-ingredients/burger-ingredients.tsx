@@ -2,29 +2,33 @@ import { useCallback, useEffect, useRef } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import styles from './burger-ingredients.module.css';
 import { Tab } from '@ya.praktikum/react-developer-burger-ui-components';
-import { IngredientsGroup } from '../burger-ingredients/ingredients-group/ingredients-group';
-import {
-	getAllIngredients,
-	getIngredientTypes,
-	getActiveTab,
-} from '@services/burger-ingredients/reducer';
+import { IngredientsGroup } from './ingredients-group/ingredients-group';
+// @ts-expect-error: Could not find a declaration file for module '@services/burger-ingredients/reducer'.
+import { getAllIngredients } from '@services/burger-ingredients/reducer';
+// @ts-expect-error: Could not find a declaration file for module '@services/burger-ingredients/reducer'.
+import { getIngredientTypes } from '@services/burger-ingredients/reducer';
+// @ts-expect-error: Could not find a declaration file for module '@services/burger-ingredients/reducer'.
+import { getActiveTab } from '@services/burger-ingredients/reducer';
+// @ts-expect-error: Could not find a declaration file for module '@services/burger-ingredients/actions'.
 import { setActiveTab } from '@services/burger-ingredients/actions';
+import { TIngredient, TIngredientCategory } from '@/utils/types';
 
-export const BurgerIngredients = () => {
-	const ingredients = useSelector(getAllIngredients);
-	const ingredientTypes = useSelector(getIngredientTypes);
-	const activeTab = useSelector(getActiveTab);
-	const ingredientsContainerRef = useRef(null);
+export const BurgerIngredients = (): React.JSX.Element => {
+	const ingredients: Array<TIngredient> = useSelector(getAllIngredients);
+	const ingredientTypes: Array<TIngredientCategory> =
+		useSelector(getIngredientTypes);
+	const activeTab: string = useSelector(getActiveTab);
+	const ingredientsContainerRef = useRef<HTMLDivElement>(null);
 	const dispatch = useDispatch();
 
 	const handleSetActiveTab = useCallback(
-		(type) => {
+		(type: string): void => {
 			dispatch(setActiveTab(type));
 		},
 		[dispatch]
 	);
 
-	const scrollToSection = (type) => {
+	const scrollToSection = (type: string): void => {
 		handleSetActiveTab(type);
 		const element = document.getElementById(type);
 		if (element && ingredientsContainerRef.current) {
@@ -83,13 +87,9 @@ export const BurgerIngredients = () => {
 			<div
 				ref={ingredientsContainerRef}
 				className={`${styles.ingredients_group_list} custom-scroll mt-10`}>
-				{ingredientTypes.map(({ type, name }) => (
+				{ingredientTypes.map(({ type }) => (
 					<div key={type} id={type}>
-						<IngredientsGroup
-							type={type}
-							ingredients={ingredients.filter((ing) => ing.type === type)}
-							title={name}
-						/>
+						<IngredientsGroup type={type} />
 					</div>
 				))}
 			</div>

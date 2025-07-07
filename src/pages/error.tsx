@@ -1,6 +1,8 @@
-import * as PropTypes from 'prop-types';
+type TErrorPageProps = {
+	message: string;
+};
 
-export const ErrorPage = ({ message }) => {
+export const ErrorPage = ({ message }: TErrorPageProps): React.JSX.Element => {
 	return (
 		<div className='container padding-top-180'>
 			<div className='centered'>
@@ -8,8 +10,4 @@ export const ErrorPage = ({ message }) => {
 			</div>
 		</div>
 	);
-};
-
-ErrorPage.propTypes = {
-	message: PropTypes.string.isRequired,
 };

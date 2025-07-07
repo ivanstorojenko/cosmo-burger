@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { FormEvent, useState } from 'react';
 import {
 	Input,
 	PasswordInput,
@@ -6,21 +6,25 @@ import {
 } from '@ya.praktikum/react-developer-burger-ui-components';
 import { Link, Navigate } from 'react-router';
 import { useDispatch, useSelector } from 'react-redux';
-import { login } from '@services/auth/actions';
+// @ts-expect-error: Could not find a declaration file for module '@services/auth/actions'
+import { registration } from '@services/auth/actions';
+// @ts-expect-error: Could not find a declaration file for module '@services/auth/reducer'
 import { getUserInfo, getLoading, getError } from '@services/auth/reducer';
-import { Preloader } from '@components/preloader/preloader';
+import { Preloader } from '@/components/preloader/preloader';
+import { TUser } from '@/utils/types';
 
-export const LoginPage = () => {
+export const RegisterPage = (): React.JSX.Element => {
+	const [name, setName] = useState('');
 	const [email, setEmail] = useState('');
 	const [password, setPassword] = useState('');
+	const user: TUser = useSelector(getUserInfo);
+	const registrationPending: boolean = useSelector(getLoading);
+	const registrationError: boolean = useSelector(getError);
 	const dispatch = useDispatch();
-	const user = useSelector(getUserInfo);
-	const loginPending = useSelector(getLoading);
-	const loginError = useSelector(getError);
 
-	const handleSubmit = (e) => {
+	const handleSubmit = (e: FormEvent<HTMLFormElement>): void => {
 		e.preventDefault();
-		dispatch(login({ email, password }));
+		dispatch(registration({ name, email, password }));
 	};
 
 	if (user) {
@@ -30,8 +34,18 @@ export const LoginPage = () => {
 	return (
 		<div className='container padding-top-180'>
 			<div className='centered'>
-				<h1 className='text text_type_main-medium mb-6'>Вход</h1>
+				<h1 className='text text_type_main-medium mb-6'>Регистрация</h1>
 				<form className='form mb-20' onSubmit={(e) => handleSubmit(e)}>
+					<Input
+						type={'text'}
+						placeholder={'Имя'}
+						onChange={(e) => setName(e.target.value)}
+						value={name}
+						name={'name'}
+						error={false}
+						errorText={'Введите имя'}
+						size={'default'}
+					/>
 					<Input
 						type={'email'}
 						placeholder={'E-mail'}
@@ -41,46 +55,34 @@ export const LoginPage = () => {
 						error={false}
 						errorText={'Введите корректный e-mail'}
 						size={'default'}
-						extraClass=''
 					/>
 					<PasswordInput
 						onChange={(e) => setPassword(e.target.value)}
 						value={password}
 						name={'password'}
-						extraClass=''
 					/>
-					{loginPending ? (
+					{registrationPending ? (
 						<Preloader />
 					) : (
 						<Button htmlType='submit' type='primary' size='medium'>
-							Войти
+							Зарегистрироваться
 						</Button>
 					)}
-					{loginError && (
+					{registrationError && (
 						<span className='text text_type_main-default'>
-							При авторизации возникла ошибка, повторите попытку
+							При регистрации возникла ошибка, повторите попытку
 						</span>
 					)}
 				</form>
 				<section className='centered'>
-					<div className='text_row mb-4'>
-						<span className='text text_type_main-default text_color_inactive'>
-							Вы — новый пользователь?
-						</span>
-						<Link
-							to='/register'
-							className='text text_type_main-default text_color_link'>
-							Зарегистрироваться
-						</Link>
-					</div>
 					<div className='text_row'>
 						<span className='text text_type_main-default text_color_inactive'>
-							Забыли пароль?
+							Уже зарегистрированы?
 						</span>
 						<Link
-							to='/forgot-password'
+							to='/login'
 							className='text text_type_main-default text_color_link'>
-							Восстановить пароль
+							Войти
 						</Link>
 					</div>
 				</section>

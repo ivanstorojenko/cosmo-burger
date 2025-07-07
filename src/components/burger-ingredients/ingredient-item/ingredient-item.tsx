@@ -5,13 +5,22 @@ import {
 } from '@ya.praktikum/react-developer-burger-ui-components';
 import { useSelector } from 'react-redux';
 import { useDrag } from 'react-dnd';
-import { ingredientPropType } from '@utils/prop-types';
+// @ts-expect-error: Could not find a declaration file for module '@services/burger-constructor/reducer'.
 import { getConstructorIngredients } from '@services/burger-constructor/reducer';
 import { useLocation, Link } from 'react-router';
+import { TConstructorIngredients, TIngredient } from '@/utils/types';
 
-export const IngredientItem = ({ ingredient }) => {
+type TIngredientItemProps = {
+	ingredient: TIngredient;
+};
+
+export const IngredientItem = ({
+	ingredient,
+}: TIngredientItemProps): React.JSX.Element => {
 	const { _id, type, name, price, image } = ingredient;
-	const constructorIngredients = useSelector(getConstructorIngredients);
+	const constructorIngredients: TConstructorIngredients = useSelector(
+		getConstructorIngredients
+	);
 	const location = useLocation();
 
 	let counter = 0;
@@ -23,7 +32,7 @@ export const IngredientItem = ({ ingredient }) => {
 		).length;
 	}
 
-	const [, dragRef] = useDrag({
+	const [, dragRef] = useDrag<TIngredient, unknown, unknown>({
 		type: 'ingredient',
 		item: { ...ingredient },
 	});
@@ -46,14 +55,10 @@ export const IngredientItem = ({ ingredient }) => {
 				/>
 				<div className={styles.price}>
 					<span className='text text_type_digits-default mr-2'>{price}</span>
-					<CurrencyIcon />
+					<CurrencyIcon type='primary' />
 				</div>
 				<h3 className={styles.title}>{name}</h3>
 			</Link>
 		</li>
 	);
-};
-
-IngredientItem.propTypes = {
-	ingredient: ingredientPropType.isRequired,
 };
