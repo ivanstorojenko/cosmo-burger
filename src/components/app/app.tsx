@@ -30,6 +30,7 @@ import { IngredientDetailsPage } from '../../pages/ingredient-details';
 import { ErrorPage } from '../../pages/error';
 import { OrdersPage } from '../../pages/orders';
 import { TIngredient } from '@/utils/types';
+import { FeedPage } from '@/pages/feed';
 
 export const App = (): React.JSX.Element => {
 	const dispatch = useDispatch();
@@ -59,6 +60,7 @@ export const App = (): React.JSX.Element => {
 
 			<Routes location={background || location}>
 				<Route path='/' element={<HomePage />} />
+				<Route path='/feed' element={<FeedPage />} />
 				<Route
 					path='/login'
 					element={<OnlyUnAuth component={<LoginPage />} />}

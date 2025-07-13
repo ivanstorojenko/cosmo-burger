@@ -1,3 +1,4 @@
+import { OrderFeed } from '@/components/order/order-feed/order-feed';
 import { ProfileMenu } from '../components/profile-menu/profile-menu';
 
 export const OrdersPage = (): React.JSX.Element => {
@@ -9,7 +10,7 @@ export const OrdersPage = (): React.JSX.Element => {
 					В этом разделе вы можете просмотреть свою историю заказов
 				</p>
 			</section>
-			<div></div>
+			<OrderFeed />
 		</div>
 	);
 };
