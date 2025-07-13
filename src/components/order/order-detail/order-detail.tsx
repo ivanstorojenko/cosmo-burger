@@ -2,11 +2,11 @@ import styles from './order-detail.module.css';
 import doneIcon from './done.png';
 import { useSelector } from 'react-redux';
 // @ts-expect-error: Could not find a declaration file for module '../../services/order/reducer'.
-import { getOrderError } from '../../services/order/reducer';
+import { getOrderError } from '../../../services/order/reducer';
 // @ts-expect-error: Could not find a declaration file for module '../../services/order/reducer'.
-import { getOrderInfo } from '../../services/order/reducer';
+import { getOrderInfo } from '../../../services/order/reducer';
 // @ts-expect-error: Could not find a declaration file for module '../../services/order/reducer'.
-import { getOrderLoading } from '../../services/order/reducer';
+import { getOrderLoading } from '../../../services/order/reducer';
 import { Preloader } from '@components/preloader/preloader';
 import { TOrder } from '@/utils/types';
 

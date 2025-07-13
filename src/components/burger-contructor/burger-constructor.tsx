@@ -6,7 +6,7 @@ import {
 	Button,
 } from '@ya.praktikum/react-developer-burger-ui-components';
 import { Modal } from '../modal/modal';
-import { OrderDetail } from '../order-detail/order-detail';
+import { OrderDetail } from '../order/order-detail/order-detail';
 // @ts-expect-error: Could not find a declaration file for module '@services/burger-constructor/reducer'.
 import { getConstructorIngredients } from '@services/burger-constructor/reducer';
 // @ts-expect-error: Could not find a declaration file for module '@services/burger-constructor/reducer'.
