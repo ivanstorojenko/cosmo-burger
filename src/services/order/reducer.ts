@@ -1,7 +1,15 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { placeOrder, hideOrderDetails } from './actions';
+import { TOrder } from '@/utils/types';
 
-const initialState = {
+type TOrderState = {
+	order: TOrder | null;
+	loading: boolean;
+	error: string | null;
+	showOrderDetails: boolean;
+};
+
+const initialState: TOrderState = {
 	order: null,
 	loading: false,
 	error: null,
@@ -13,10 +21,10 @@ export const orderSlice = createSlice({
 	initialState,
 	reducers: {},
 	selectors: {
-		getOrderInfo: (state) => state.order,
-		getOrderLoading: (state) => state.loading,
-		getOrderError: (state) => state.error,
-		getShowOrderDetails: (state) => state.showOrderDetails,
+		getOrderInfo: (state: TOrderState) => state.order,
+		getOrderLoading: (state: TOrderState) => state.loading,
+		getOrderError: (state: TOrderState) => state.error,
+		getShowOrderDetails: (state: TOrderState) => state.showOrderDetails,
 	},
 	extraReducers: (builder) => {
 		builder
@@ -25,13 +33,13 @@ export const orderSlice = createSlice({
 				state.showOrderDetails = true;
 				state.error = null;
 			})
-			.addCase(placeOrder.fulfilled, (state, action) => {
+			.addCase(placeOrder.fulfilled, (state, action: PayloadAction<TOrder>) => {
 				state.order = action.payload;
 				state.loading = false;
 			})
 			.addCase(placeOrder.rejected, (state, action) => {
 				state.loading = false;
-				state.error = action.error.message;
+				state.error = action.payload || action.error.message || 'Unknown error';
 			})
 			.addCase(hideOrderDetails, (state) => {
 				state.showOrderDetails = false;
@@ -46,3 +54,7 @@ export const {
 	getOrderError,
 	getShowOrderDetails,
 } = orderSlice.selectors;
+
+export type TOrderSlice = {
+	[orderSlice.name]: TOrderState;
+};
