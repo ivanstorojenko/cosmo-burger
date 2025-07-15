@@ -1,7 +1,16 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { loadIngredients, setActiveTab } from './actions';
+import { TIngredient } from '@/utils/types';
 
-const initialState = {
+type TState = {
+	ingredients: Array<TIngredient>;
+	loading: boolean;
+	error: null | string;
+	ingredientTypes: Array<{ type: TIngredient['type']; name: string }>;
+	activeTab: TIngredient['type'];
+};
+
+const initialState: TState = {
 	ingredients: [],
 	loading: true,
 	error: null,
@@ -36,7 +45,10 @@ export const burgerIngredientsSlice = createSlice({
 			})
 			.addCase(loadIngredients.rejected, (state, action) => {
 				state.loading = false;
-				state.error = action.error.message;
+				state.error =
+					action.payload?.message ||
+					action.error.message ||
+					'Unknown error occurred';
 			})
 			.addCase(setActiveTab, (state, action) => {
 				state.activeTab = action.payload;

@@ -39,8 +39,8 @@ type TRefreshTokenRes = Pick<
 	TAuthRes,
 	'success' | 'accessToken' | 'refreshToken'
 >;
-type TIngredientsRes = {
-	succcess: boolean;
+export type TIngredientsRes = {
+	success: boolean;
 	data: Array<TIngredient>;
 };
 

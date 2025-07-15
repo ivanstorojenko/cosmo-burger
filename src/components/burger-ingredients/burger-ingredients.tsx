@@ -4,13 +4,13 @@ import styles from './burger-ingredients.module.css';
 import { Tab } from '@ya.praktikum/react-developer-burger-ui-components';
 import { IngredientsGroup } from './ingredients-group/ingredients-group';
 // @ts-expect-error: Could not find a declaration file for module '@services/burger-ingredients/reducer'.
-import { getAllIngredients } from '@services/burger-ingredients/reducer';
+import { getAllIngredients } from '@/services/burger-ingredients/reducer';
 // @ts-expect-error: Could not find a declaration file for module '@services/burger-ingredients/reducer'.
-import { getIngredientTypes } from '@services/burger-ingredients/reducer';
+import { getIngredientTypes } from '@/services/burger-ingredients/reducer';
 // @ts-expect-error: Could not find a declaration file for module '@services/burger-ingredients/reducer'.
-import { getActiveTab } from '@services/burger-ingredients/reducer';
+import { getActiveTab } from '@/services/burger-ingredients/reducer';
 // @ts-expect-error: Could not find a declaration file for module '@services/burger-ingredients/actions'.
-import { setActiveTab } from '@services/burger-ingredients/actions';
+import { setActiveTab } from '@/services/burger-ingredients/actions';
 import { TIngredient, TIngredientCategory } from '@/utils/types';
 
 export const BurgerIngredients = (): React.JSX.Element => {

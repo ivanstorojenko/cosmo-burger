@@ -18,13 +18,13 @@ import { checkAuth } from '@/services/auth/actions';
 import { useEffect } from 'react';
 import { OnlyAuth, OnlyUnAuth } from '../protected-route/protected-route';
 // @ts-expect-error: Could not find a declaration file for module '@services/burger-ingredients/actions'.
-import { loadIngredients } from '@services/burger-ingredients/actions';
+import { loadIngredients } from '@/services/burger-ingredients/actions';
 // @ts-expect-error: Could not find a declaration file for module '@services/burger-ingredients/reducer'.
-import { getAllIngredients } from '@services/burger-ingredients/reducer';
+import { getAllIngredients } from '@/services/burger-ingredients/reducer';
 // @ts-expect-error: Could not find a declaration file for module '@services/burger-ingredients/reducer'.
-import { getIngredientsLoading } from '@services/burger-ingredients/reducer';
+import { getIngredientsLoading } from '@/services/burger-ingredients/reducer';
 // @ts-expect-error: Could not find a declaration file for module '@services/burger-ingredients/reducer'.
-import { getIngredientsError } from '@services/burger-ingredients/reducer';
+import { getIngredientsError } from '@/services/burger-ingredients/reducer';
 import { Preloader } from '../preloader/preloader';
 import { IngredientDetailsPage } from '../../pages/ingredient-details';
 import { ErrorPage } from '../../pages/error';

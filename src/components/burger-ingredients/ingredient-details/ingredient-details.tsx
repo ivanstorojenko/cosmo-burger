@@ -1,7 +1,7 @@
 import { useSelector } from 'react-redux';
 import styles from './ingredient-details.module.css';
 // @ts-expect-error:Could not find a declaration file for module '@services/burger-ingredients/reducer'.
-import { getAllIngredients } from '@services/burger-ingredients/reducer';
+import { getAllIngredients } from '@/services/burger-ingredients/reducer';
 import { Navigate, useParams } from 'react-router';
 import { TIngredient } from '@/utils/types';
 
