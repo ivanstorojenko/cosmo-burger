@@ -6,9 +6,9 @@ import {
 import styles from './draggable-element.module.css';
 import { useDispatch } from 'react-redux';
 // @ts-expect-error: Could not find a declaration file for module '@services/burger-constructor/actions'.
-import { deleteIngredient } from '@services/burger-constructor/actions';
+import { deleteIngredient } from '@/services/burger-constructor/actions';
 // @ts-expect-error: Could not find a declaration file for module '@services/burger-constructor/actions'.
-import { moveIngredient } from '@services/burger-constructor/actions';
+import { moveIngredient } from '@/services/burger-constructor/actions';
 import { useDrag, useDrop } from 'react-dnd';
 import { TDraggableItem, TConstructorIngredient } from '@/utils/types';
 

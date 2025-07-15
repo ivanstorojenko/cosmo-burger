@@ -58,3 +58,8 @@ export type TOrder = {
 		price: number;
 	};
 };
+
+export type TMoveIngredientPayload = {
+	dragIndex: number;
+	hoverIndex: number;
+};

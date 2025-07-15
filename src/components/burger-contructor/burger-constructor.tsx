@@ -8,13 +8,13 @@ import {
 import { Modal } from '../modal/modal';
 import { OrderDetail } from '../order/order-detail/order-detail';
 // @ts-expect-error: Could not find a declaration file for module '@services/burger-constructor/reducer'.
-import { getConstructorIngredients } from '@services/burger-constructor/reducer';
+import { getConstructorIngredients } from '@/services/burger-constructor/reducer';
 // @ts-expect-error: Could not find a declaration file for module '@services/burger-constructor/reducer'.
-import { getIntgredientsIdArray } from '@services/burger-constructor/reducer';
+import { getIntgredientsIdArray } from '@/services/burger-constructor/reducer';
 // @ts-expect-error: Could not find a declaration file for module '@services/burger-constructor/reducer'.
-import { getOrderPrice } from '@services/burger-constructor/reducer';
+import { getOrderPrice } from '@/services/burger-constructor/reducer';
 // @ts-expect-error: Could not find a declaration file for module '@services/burger-constructor/actions'.
-import { addIngredient } from '@services/burger-constructor/actions';
+import { addIngredient } from '@/services/burger-constructor/actions';
 import { useDrop } from 'react-dnd';
 import { DraggableElement } from './draggable-element/draggable-element';
 // @ts-expect-error: Could not find a declaration file for module '@services/order/reducer'.
