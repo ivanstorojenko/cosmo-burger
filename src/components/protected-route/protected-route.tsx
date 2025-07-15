@@ -1,6 +1,6 @@
 import { TUser } from '@/utils/types';
 // @ts-expect-error: Could not find a declaration file for module '@services/auth/reducer'.
-import { getIsAuthChecked, getUserInfo } from '@services/auth/reducer';
+import { getIsAuthChecked, getUserInfo } from '@/services/auth/reducer';
 import { useSelector } from 'react-redux';
 import { Navigate, useLocation } from 'react-router';
 

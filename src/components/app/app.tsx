@@ -14,7 +14,7 @@ import { Modal } from '@/components/modal/modal';
 import { IngredientDetails } from '@/components/burger-ingredients/ingredient-details/ingredient-details';
 import { useDispatch, useSelector } from 'react-redux';
 // @ts-expect-error: Could not find a declaration file for module '@services/auth/actions'.
-import { checkAuth } from '@services/auth/actions';
+import { checkAuth } from '@/services/auth/actions';
 import { useEffect } from 'react';
 import { OnlyAuth, OnlyUnAuth } from '../protected-route/protected-route';
 // @ts-expect-error: Could not find a declaration file for module '@services/burger-ingredients/actions'.

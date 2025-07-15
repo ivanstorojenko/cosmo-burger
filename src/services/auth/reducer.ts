@@ -1,45 +1,63 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { registration, login, logout, changeInfo } from './actions';
+import { TAuthRes, TUserData, TUserInfoRes } from '@/utils/api';
 
-const initialState = {
+type TState = {
+	user: null | Pick<TUserData, 'name' | 'email'>;
+	isAuthChecked: boolean;
+	loading: boolean;
+	error: null | string;
+};
+
+type TAuthFulfilledAction = PayloadAction<TAuthRes | TUserInfoRes>;
+
+const initialState: TState = {
 	user: null,
 	isAuthChecked: false,
 	loading: false,
-	error: false,
+	error: null,
 };
 
-const handlePending = (state) => {
+const handlePending = (state: TState): void => {
 	state.loading = true;
 	state.error = null;
 };
 
-const handleFulfilled = (state, action) => {
+const handleFulfilled = (state: TState, action: TAuthFulfilledAction): void => {
 	state.loading = false;
 
 	if (action.payload?.success) {
 		state.user = action.payload.user;
 	} else {
-		state.error = action.error?.message || 'Ошибка';
+		state.error = 'Unknown error occurred';
 	}
 };
 
-const handleRejected = (state, action) => {
+const handleRejected = (
+	state: TState,
+	action: PayloadAction<string | undefined>
+) => {
 	state.loading = false;
-	state.error = action.error?.message || 'Ошибка';
+	state.error = action.payload || 'Unknown error occurred';
 };
+
+type TSetUserAction = PayloadAction<
+	{ success: boolean; user: Pick<TUserData, 'name' | 'email'> } | undefined
+>;
+type TSetAuthCheckedAction = PayloadAction<boolean>;
 
 export const authSlice = createSlice({
 	name: 'auth',
 	initialState,
 	reducers: {
-		setUser: (state, action) => {
+		setUser: (state, action: TSetUserAction) => {
 			if (action.payload?.success) {
 				state.user = action.payload.user;
 			} else {
 				state.user = null;
 			}
 		},
-		setIsAuthChecked: (state, action) => {
+		setIsAuthChecked: (state, action: TSetAuthCheckedAction) => {
 			state.isAuthChecked = action.payload;
 		},
 	},
@@ -64,7 +82,9 @@ export const authSlice = createSlice({
 			})
 			.addCase(logout.rejected, (state, action) => {
 				state.loading = false;
-				state.error = action.payload;
+				if (action.payload) {
+					state.error = action.payload || 'Unknown error occurred';
+				}
 				state.user = null;
 			})
 			.addCase(changeInfo.pending, handlePending)
@@ -73,7 +93,7 @@ export const authSlice = createSlice({
 				if (action.payload?.success) {
 					state.user = action.payload.user;
 				} else {
-					state.error = action.error?.message || 'Ошибка авторизации';
+					state.error = 'Unknown error occurred';
 				}
 			})
 			.addCase(changeInfo.rejected, handleRejected);

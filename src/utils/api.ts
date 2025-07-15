@@ -10,22 +10,22 @@ type TResponseData<T> = T | undefined;
 type TFetchOptions = Omit<RequestInit, 'headers'> & {
 	headers?: Record<string, string>;
 };
-type TUserData = {
+export type TUserData = {
 	name: string;
 	email: string;
 	password: string;
 };
-type TAuthData = Omit<TUserData, 'name'>;
+export type TAuthData = Omit<TUserData, 'name'>;
 type TRefreshData = {
 	success: boolean;
 	accessToken: string;
 	refreshToken: string;
 };
-type TDefaultRes = {
+export type TDefaultRes = {
 	success: boolean;
 	message: string;
 };
-type TAuthRes = {
+export type TAuthRes = {
 	success: boolean;
 	accessToken: string;
 	refreshToken: string;
@@ -34,7 +34,7 @@ type TAuthRes = {
 		name: string;
 	};
 };
-type TUserInfoRes = Pick<TAuthRes, 'success' | 'user'>;
+export type TUserInfoRes = Pick<TAuthRes, 'success' | 'user'>;
 type TRefreshTokenRes = Pick<
 	TAuthRes,
 	'success' | 'accessToken' | 'refreshToken'
