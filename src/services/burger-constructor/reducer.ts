@@ -1,21 +1,17 @@
 import { createSlice, createSelector, PayloadAction } from '@reduxjs/toolkit';
 import { addIngredient, deleteIngredient, moveIngredient } from './actions';
-// @ts-expect-error: Could not find a declaration file for module '../order/actions'. 'c:/Users/I_Storozhenko.NGVLG/Documents/projects/cosmo-burger/src/services/order/actions.js' implicitly has an 'any' type.
 import { placeOrder } from '../order/actions';
 import {
-	TIngredient,
+	TConstructorIngredients,
 	TIngredientWithUid,
 	TMoveIngredientPayload,
 } from '@/utils/types';
 
-type TState = {
-	constructorIngredients: {
-		bun: null | TIngredient;
-		ingredients: Array<TIngredientWithUid>;
-	};
+type TConstructorState = {
+	constructorIngredients: TConstructorIngredients;
 };
 
-const initialState: TState = {
+const initialState: TConstructorState = {
 	constructorIngredients: {
 		bun: null,
 		ingredients: [],
@@ -29,8 +25,8 @@ export const constructorSlice = createSlice({
 	selectors: {
 		getConstructorIngredients: (state) => state.constructorIngredients,
 		getIntgredientsIdArray: createSelector(
-			(state: TState) => state.constructorIngredients.bun,
-			(state: TState) => state.constructorIngredients.ingredients,
+			(state: TConstructorState) => state.constructorIngredients.bun,
+			(state: TConstructorState) => state.constructorIngredients.ingredients,
 			(bun, ingredients) => {
 				if (bun && ingredients.length > 0) {
 					return [
@@ -102,3 +98,7 @@ export const {
 	getIntgredientsIdArray,
 	getOrderPrice,
 } = constructorSlice.selectors;
+
+export type TConstructorSlice = {
+	[constructorSlice.name]: TConstructorState;
+};

@@ -2,15 +2,15 @@ import { createSlice } from '@reduxjs/toolkit';
 import { loadIngredients, setActiveTab } from './actions';
 import { TIngredient } from '@/utils/types';
 
-type TState = {
+type TBurgerIngredientsState = {
 	ingredients: Array<TIngredient>;
 	loading: boolean;
 	error: null | string;
 	ingredientTypes: Array<{ type: TIngredient['type']; name: string }>;
-	activeTab: TIngredient['type'];
+	activeTab: string;
 };
 
-const initialState: TState = {
+const initialState: TBurgerIngredientsState = {
 	ingredients: [],
 	loading: true,
 	error: null,
@@ -63,3 +63,7 @@ export const {
 	getIngredientTypes,
 	getActiveTab,
 } = burgerIngredientsSlice.selectors;
+
+export type TBurgerIngredientsSlice = {
+	[burgerIngredientsSlice.name]: TBurgerIngredientsState;
+};

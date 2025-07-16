@@ -13,10 +13,16 @@ const rootReducer = combineSlices(
 	authSlice
 );
 
-export const configureStore = (initialState) => {
+export const configureStore = () => {
 	return createStore({
 		reducer: rootReducer,
 		devTools: process.env.NODE_ENV !== 'production',
-		preloadedState: initialState,
 	});
 };
+
+export type RootState = ReturnType<typeof rootReducer>;
+// type AppActions = LiveTableActionTypes;
+// export type AppDispatch = ThunkDispatch<RootState, unknown, AppActions>;
+
+// export const useDispatch = dispatchHook.withTypes<AppDispatch>();
+// export const useSelector = selectorHook.withTypes<RootState>();

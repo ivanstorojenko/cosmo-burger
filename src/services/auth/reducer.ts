@@ -2,7 +2,7 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { registration, login, logout, changeInfo } from './actions';
 import { TAuthRes, TUserData, TUserInfoRes } from '@/utils/api';
 
-type TState = {
+type TAuthState = {
 	user: null | Pick<TUserData, 'name' | 'email'>;
 	isAuthChecked: boolean;
 	loading: boolean;
@@ -11,19 +11,22 @@ type TState = {
 
 type TAuthFulfilledAction = PayloadAction<TAuthRes | TUserInfoRes>;
 
-const initialState: TState = {
+const initialState: TAuthState = {
 	user: null,
 	isAuthChecked: false,
 	loading: false,
 	error: null,
 };
 
-const handlePending = (state: TState): void => {
+const handlePending = (state: TAuthState): void => {
 	state.loading = true;
 	state.error = null;
 };
 
-const handleFulfilled = (state: TState, action: TAuthFulfilledAction): void => {
+const handleFulfilled = (
+	state: TAuthState,
+	action: TAuthFulfilledAction
+): void => {
 	state.loading = false;
 
 	if (action.payload?.success) {
@@ -34,7 +37,7 @@ const handleFulfilled = (state: TState, action: TAuthFulfilledAction): void => {
 };
 
 const handleRejected = (
-	state: TState,
+	state: TAuthState,
 	action: PayloadAction<string | undefined>
 ) => {
 	state.loading = false;
@@ -103,3 +106,7 @@ export const authSlice = createSlice({
 export const { setUser, setIsAuthChecked } = authSlice.actions;
 export const { getUserInfo, getIsAuthChecked, getLoading, getError } =
 	authSlice.selectors;
+
+export type TAuthSlice = {
+	[authSlice.name]: TAuthState;
+};

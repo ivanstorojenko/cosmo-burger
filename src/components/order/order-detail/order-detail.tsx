@@ -1,18 +1,17 @@
 import styles from './order-detail.module.css';
 import doneIcon from './done.png';
 import { useSelector } from 'react-redux';
-// @ts-expect-error: Could not find a declaration file for module '../../services/order/reducer'.
-import { getOrderError } from '../../../services/order/reducer';
-// @ts-expect-error: Could not find a declaration file for module '../../services/order/reducer'.
-import { getOrderInfo } from '../../../services/order/reducer';
-// @ts-expect-error: Could not find a declaration file for module '../../services/order/reducer'.
-import { getOrderLoading } from '../../../services/order/reducer';
+import {
+	getOrderError,
+	getOrderInfo,
+	getOrderLoading,
+} from '../../../services/order/reducer';
 import { Preloader } from '@components/preloader/preloader';
 import { TOrder } from '@/utils/types';
 
 export const OrderDetail = (): React.JSX.Element => {
-	const orderError: boolean = useSelector(getOrderError);
-	const orderInfo: TOrder = useSelector(getOrderInfo);
+	const orderError: string | null = useSelector(getOrderError);
+	const orderInfo: TOrder | null = useSelector(getOrderInfo);
 	const orderLoading: boolean = useSelector(getOrderLoading);
 
 	return (
@@ -29,7 +28,7 @@ export const OrderDetail = (): React.JSX.Element => {
 			) : (
 				<>
 					<h3 className={`${styles.number} text text_type_digits-large mb-8`}>
-						{orderInfo.order.number}
+						{orderInfo && orderInfo.order.number}
 					</h3>
 					<span className='text text_type_main-medium mb-15'>
 						идентификатор заказа

@@ -20,9 +20,13 @@ export type TIngredientCategory = {
 
 export type TConstructorIngredient = TIngredient & { uid: string };
 
+// export type TConstructorIngredients = {
+// 	bun: TConstructorIngredient | null;
+// 	ingredients: Array<TConstructorIngredient> | [];
+// };
 export type TConstructorIngredients = {
-	bun: TConstructorIngredient | null;
-	ingredients: Array<TConstructorIngredient> | [];
+	bun: null | TIngredient;
+	ingredients: Array<TIngredientWithUid>;
 };
 
 export type TIngredientWithUid = TIngredient & {

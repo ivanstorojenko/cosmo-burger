@@ -1,10 +1,10 @@
 import { useSelector } from 'react-redux';
 import { IngredientItem } from '../ingredient-item/ingredient-item';
 import styles from './ingredients-group.module.css';
-// @ts-expect-error: Could not find a declaration file for module '@services/burger-ingredients/reducer'.
-import { getAllIngredients } from '@/services/burger-ingredients/reducer';
-// @ts-expect-error: Could not find a declaration file for module '@services/burger-ingredients/reducer'.
-import { getIngredientTypes } from '@/services/burger-ingredients/reducer';
+import {
+	getAllIngredients,
+	getIngredientTypes,
+} from '@/services/burger-ingredients/reducer';
 import { TIngredient, TIngredientCategory } from '@/utils/types';
 
 type TIngredientsGroupProps = {

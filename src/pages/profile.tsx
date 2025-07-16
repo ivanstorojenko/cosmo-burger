@@ -7,30 +7,33 @@ import {
 import { ProfileMenu } from '../components/profile-menu/profile-menu';
 import styles from './profile.module.css';
 import { useDispatch, useSelector } from 'react-redux';
-// @ts-expect-error: Could not find a declaration file for module
 import { getError, getLoading, getUserInfo } from '../services/auth/reducer';
-// @ts-expect-error: Could not find a declaration file for module '../services/auth/actions'
 import { changeInfo } from '../services/auth/actions';
 import { Preloader } from '@/components/preloader/preloader';
-import { TUser } from '@/utils/types';
+import { TUserData } from '@/utils/api';
 
 export const ProfilePage = (): React.JSX.Element => {
-	const { name, email }: TUser = useSelector(getUserInfo);
+	const userInfo: Pick<TUserData, 'name' | 'email'> | null =
+		useSelector(getUserInfo);
 	const loading: boolean = useSelector(getLoading);
-	const error: boolean = useSelector(getError);
-	const [changedName, setChangedName] = useState(name);
-	const [changedEmail, setChangedEmail] = useState(email);
+	const error: string | null = useSelector(getError);
+	const [changedName, setChangedName] = useState(userInfo?.name ?? '');
+	const [changedEmail, setChangedEmail] = useState(userInfo?.email ?? '');
 	const [password, setPassword] = useState('');
 	const [infoChanged, setInfoChanged] = useState(false);
 	const dispatch = useDispatch();
 
 	useEffect(() => {
-		if (name !== changedName || email !== changedEmail || password !== '') {
+		if (
+			userInfo?.name !== changedName ||
+			userInfo?.email !== changedEmail ||
+			password !== ''
+		) {
 			setInfoChanged(true);
 		} else {
 			setInfoChanged(false);
 		}
-	}, [name, email, changedName, changedEmail, password]);
+	}, [userInfo, changedName, changedEmail, password]);
 
 	const handleSave = (e: FormEvent<HTMLFormElement>) => {
 		e.preventDefault();
@@ -38,8 +41,8 @@ export const ProfilePage = (): React.JSX.Element => {
 	};
 
 	const handleCancel = (): void => {
-		setChangedName(name);
-		setChangedEmail(email);
+		setChangedName(userInfo?.name ?? '');
+		setChangedEmail(userInfo?.email ?? '');
 		setPassword('');
 		setInfoChanged(false);
 	};

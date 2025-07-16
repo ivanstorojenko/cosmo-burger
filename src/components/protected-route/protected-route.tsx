@@ -1,6 +1,5 @@
-import { TUser } from '@/utils/types';
-// @ts-expect-error: Could not find a declaration file for module '@services/auth/reducer'.
 import { getIsAuthChecked, getUserInfo } from '@/services/auth/reducer';
+import { TUserData } from '@/utils/api';
 import { useSelector } from 'react-redux';
 import { Navigate, useLocation } from 'react-router';
 
@@ -13,7 +12,8 @@ type TOnlyUnAuthProps = Pick<TProtectedProps, 'component'>;
 
 const Protected = ({ onlyUnAuth = false, component }: TProtectedProps) => {
 	const isAuthChecked: boolean = useSelector(getIsAuthChecked);
-	const user: TUser = useSelector(getUserInfo);
+	const user: Pick<TUserData, 'name' | 'email'> | null =
+		useSelector(getUserInfo);
 	const location = useLocation();
 
 	if (!isAuthChecked) {

@@ -5,7 +5,6 @@ import {
 } from '@ya.praktikum/react-developer-burger-ui-components';
 import { useSelector } from 'react-redux';
 import { useDrag } from 'react-dnd';
-// @ts-expect-error: Could not find a declaration file for module '@services/burger-constructor/reducer'.
 import { getConstructorIngredients } from '@/services/burger-constructor/reducer';
 import { useLocation, Link } from 'react-router';
 import { TConstructorIngredients, TIngredient } from '@/utils/types';

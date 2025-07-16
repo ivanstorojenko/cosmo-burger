@@ -6,20 +6,19 @@ import {
 } from '@ya.praktikum/react-developer-burger-ui-components';
 import { Link, Navigate } from 'react-router';
 import { useDispatch, useSelector } from 'react-redux';
-// @ts-expect-error: Could not find a declaration file for module '@services/auth/actions'
 import { login } from '@/services/auth/actions';
-// @ts-expect-error: Could not find a declaration file for module '@services/auth/reducer'.
 import { getUserInfo, getLoading, getError } from '@/services/auth/reducer';
 import { Preloader } from '@/components/preloader/preloader';
-import { TUser } from '@/utils/types';
+import { TUserData } from '@/utils/api';
 
 export const LoginPage = (): React.JSX.Element => {
 	const [email, setEmail] = useState('');
 	const [password, setPassword] = useState('');
 	const dispatch = useDispatch();
-	const user: TUser = useSelector(getUserInfo);
+	const user: Pick<TUserData, 'email' | 'name'> | null =
+		useSelector(getUserInfo);
 	const loginPending: boolean = useSelector(getLoading);
-	const loginError: boolean = useSelector(getError);
+	const loginError: string | null = useSelector(getError);
 
 	const handleSubmit = (e: FormEvent<HTMLFormElement>): void => {
 		e.preventDefault();

@@ -1,12 +1,11 @@
 import { useSelector } from 'react-redux';
 import { BurgerIngredients } from '@/components/burger-ingredients/burger-ingredients';
 import { BurgerConstructor } from '@/components/burger-contructor/burger-constructor';
-// @ts-expect-error: Could not find a declaration file for module '@services/burger-ingredients/reducer'
-import { getAllIngredients } from '@/services/burger-ingredients/reducer';
-// @ts-expect-error: Could not find a declaration file for module '@services/burger-ingredients/reducer'
-import { getIngredientsLoading } from '@/services/burger-ingredients/reducer';
-// @ts-expect-error: Could not find a declaration file for module '@services/burger-ingredients/reducer'
-import { getIngredientsError } from '@/services/burger-ingredients/reducer';
+import {
+	getAllIngredients,
+	getIngredientsLoading,
+	getIngredientsError,
+} from '@/services/burger-ingredients/reducer';
 import { DndProvider } from 'react-dnd';
 import { HTML5Backend } from 'react-dnd-html5-backend';
 import { Preloader } from '@/components/preloader/preloader';
@@ -15,7 +14,7 @@ import { TIngredient } from '@/utils/types';
 export const HomePage = (): React.JSX.Element => {
 	const ingredients: TIngredient[] = useSelector(getAllIngredients);
 	const loading: boolean = useSelector(getIngredientsLoading);
-	const error: boolean = useSelector(getIngredientsError);
+	const error: string | null = useSelector(getIngredientsError);
 
 	return (
 		<>

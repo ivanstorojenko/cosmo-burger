@@ -1,7 +1,6 @@
 import { NavLink } from 'react-router';
 import styles from './profile-menu.module.css';
 import { useDispatch } from 'react-redux';
-// @ts-expect-error: Could not find a declaration file for module '../../services/auth/actions'.
 import { logout } from '../../services/auth/actions';
 
 export const ProfileMenu = (): React.JSX.Element => {
