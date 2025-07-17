@@ -1,6 +1,18 @@
+import { OrderFeedCard } from './order-feed-card/order-feed-card';
+import styles from './order-feed.module.css';
+
 export const OrderFeed = (): React.JSX.Element => {
 	// определить где показывается компонент
 	// общая лента или персональная (статус только на персональной)
 
-	return <ul>карточки заказов</ul>;
+	return (
+		<ul className={styles.card_list}>
+			<OrderFeedCard />
+			<OrderFeedCard />
+			<OrderFeedCard />
+			<OrderFeedCard />
+			<OrderFeedCard />
+			<OrderFeedCard />
+		</ul>
+	);
 };

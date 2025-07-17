@@ -1,0 +1,8 @@
+.card_list {
+	display: flex;
+	flex-direction: column;
+	gap: 16px;
+	margin: 0 8px 0 0;
+	padding: 0;
+	list-style: none;
+}

@@ -13,8 +13,8 @@ body {
 }
 
 .profile {
-	display: flex;
-	flex-wrap: wrap;
+	display: grid;
+	grid-template-columns: 320px auto;
 	gap: 60px;
 }
 
@@ -75,6 +75,13 @@ a:hover {
 	height: 100%;
 	margin: 0 auto;
 	overflow: hidden;
+}
+
+.number-shadow {
+	text-shadow:
+		0 4px 32px rgb(51 51 255 / 50%),
+		0 0 8px rgb(51 51 255 / 25%),
+		0 0 16px rgb(51 51 255 / 25%);
 }
 
 /* Fix for scrollbar */

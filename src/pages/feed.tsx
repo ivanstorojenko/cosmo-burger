@@ -1,11 +1,10 @@
 import { OrderFeed } from '@/components/order/order-feed/order-feed';
 import { OrderSummary } from '@/components/order/order-summary/order-summary';
+import styles from './feed.module.css';
 
 export const FeedPage = () => {
-	// const ingredients: TIngredient[] = useSelector(getAllIngredients);
-	// const loading: boolean = useSelector(getIngredientsLoading);
-	// const error: boolean = useSelector(getIngredientsError);
-
+	// обработка ошибок
+	// прелоадер
 	// создать ws
 
 	return (
@@ -14,22 +13,12 @@ export const FeedPage = () => {
 				Лента заказов
 			</h1>
 			<main className={'main pl-5 pr-5'}>
-				{/* {loading ? (
-					<Preloader />
-				) : error ? (
-					<span className='text text_type_main-medium'>
-						Произошла ошибка при загрузке ингредиентов
-					</span>
-				) : ingredients && ingredients.length > 0 ? (
-					<DndProvider backend={HTML5Backend}>
-						<BurgerIngredients />
-						<BurgerConstructor />
-					</DndProvider>
-				) : (
-					<span className='text text_type_main-medium'>Нет ингредиентов</span>
-				)} */}
-				<OrderFeed />
-				<OrderSummary />
+				<div className={`${styles.feed} custom-scroll`}>
+					<OrderFeed />
+				</div>
+				<div className={`${styles.summary} custom-scroll`}>
+					<OrderSummary />
+				</div>
 			</main>
 		</>
 	);

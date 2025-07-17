@@ -1,0 +1,14 @@
+.status_board {
+	display: grid;
+	grid-template-columns: 1fr 1fr;
+	gap: 36px;
+}
+
+.status_list {
+	padding: 0;
+	list-style: none;
+}
+
+.status_list_ready {
+	color: var(--colors-interface-success);
+}

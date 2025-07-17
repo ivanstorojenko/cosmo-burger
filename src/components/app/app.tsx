@@ -28,6 +28,7 @@ import { ErrorPage } from '../../pages/error';
 import { OrdersPage } from '../../pages/orders';
 import { TIngredient } from '@/utils/types';
 import { FeedPage } from '@/pages/feed';
+import { OrderDetailsPage } from '@/pages/order-details';
 
 export const App = (): React.JSX.Element => {
 	const dispatch = useDispatch();
@@ -91,6 +92,18 @@ export const App = (): React.JSX.Element => {
 							<ErrorPage message={'При загрузке ингредиента возникла ошибка'} />
 						) : (
 							ingredients.length && <IngredientDetailsPage />
+						)
+					}
+				/>
+				<Route
+					path='/feed/:number'
+					element={
+						ingredientsLoading ? (
+							<Preloader />
+						) : ingredientsError ? (
+							<ErrorPage message={'При загрузке ингредиента возникла ошибка'} />
+						) : (
+							ingredients.length && <OrderDetailsPage />
 						)
 					}
 				/>
