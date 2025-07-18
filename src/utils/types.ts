@@ -67,3 +67,24 @@ export type TMoveIngredientPayload = {
 	dragIndex: number;
 	hoverIndex: number;
 };
+
+export enum WebsocketStatus {
+	CONNECTING = 'CONNECTING...',
+	ONLINE = 'ONLINE',
+	OFFLINE = 'OFFLINE',
+}
+
+export type TFeedOrder = {
+	ingredients: Array<string>;
+	_id: string;
+	status: string;
+	number: number;
+	createdAt: string;
+	updatedAt: string;
+};
+
+export type TFeed = {
+	orders: Array<TFeedOrder>;
+	total: number;
+	totalToday: number;
+};
