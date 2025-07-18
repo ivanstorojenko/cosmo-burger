@@ -6,7 +6,7 @@ export const OrderFeed = (): React.JSX.Element => {
 	// общая лента или персональная (статус только на персональной)
 
 	return (
-		<ul className={styles.card_list}>
+		<ul className={`${styles.card_list} custom-scroll`}>
 			<OrderFeedCard />
 			<OrderFeedCard />
 			<OrderFeedCard />
