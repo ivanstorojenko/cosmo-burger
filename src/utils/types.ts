@@ -79,6 +79,7 @@ export type TFeedOrder = {
 	_id: string;
 	status: string;
 	number: number;
+	name: string;
 	createdAt: string;
 	updatedAt: string;
 };
@@ -87,4 +88,4 @@ export type TFeed = {
 	orders: Array<TFeedOrder>;
 	total: number;
 	totalToday: number;
-};
+} | null;

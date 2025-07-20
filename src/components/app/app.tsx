@@ -58,7 +58,18 @@ export const App = (): React.JSX.Element => {
 
 			<Routes location={background || location}>
 				<Route path='/' element={<HomePage />} />
-				<Route path='/feed' element={<FeedPage />} />
+				<Route
+					path='/feed'
+					element={
+						ingredientsLoading ? (
+							<Preloader />
+						) : ingredientsError ? (
+							<ErrorPage message={'При загрузке ингредиента возникла ошибка'} />
+						) : (
+							<FeedPage />
+						)
+					}
+				/>
 				<Route
 					path='/login'
 					element={<OnlyUnAuth component={<LoginPage />} />}

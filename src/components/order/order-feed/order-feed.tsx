@@ -1,18 +1,23 @@
+import { useSelector } from '@/services/store';
 import { OrderFeedCard } from './order-feed-card/order-feed-card';
 import styles from './order-feed.module.css';
+import { getFeed } from '@/services/general-order-feed/slice';
 
-export const OrderFeed = (): React.JSX.Element => {
-	// определить где показывается компонент
-	// общая лента или персональная (статус только на персональной)
+type TOrderFeedProps = {
+	showStatus: boolean;
+};
+
+export const OrderFeed = ({
+	showStatus,
+}: TOrderFeedProps): React.JSX.Element => {
+	const feed = useSelector(getFeed);
+	const orders = feed?.orders;
 
 	return (
 		<ul className={`${styles.card_list} custom-scroll`}>
-			<OrderFeedCard />
-			<OrderFeedCard />
-			<OrderFeedCard />
-			<OrderFeedCard />
-			<OrderFeedCard />
-			<OrderFeedCard />
+			{orders?.map((order) => (
+				<OrderFeedCard key={order._id} showStatus={showStatus} order={order} />
+			))}
 		</ul>
 	);
 };

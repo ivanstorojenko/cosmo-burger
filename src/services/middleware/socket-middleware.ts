@@ -41,8 +41,8 @@ export const socketMiddleware = <R, S>(
 
 		return (next) => (action) => {
 			if (connect.match(action)) {
-				socket = new WebSocket(action.payload);
 				url = action.payload;
+				socket = new WebSocket(url);
 				isConnected = true;
 				onConnecting && dispatch(onConnecting());
 
