@@ -4,7 +4,6 @@ import {
 	DragIcon,
 } from '@ya.praktikum/react-developer-burger-ui-components';
 import styles from './draggable-element.module.css';
-import { useDispatch } from 'react-redux';
 import {
 	deleteIngredient,
 	moveIngredient,
@@ -12,6 +11,7 @@ import {
 
 import { useDrag, useDrop } from 'react-dnd';
 import { TDraggableItem, TConstructorIngredient } from '@/utils/types';
+import { useDispatch } from '@/services/store';
 
 type TDraggableElementProps = {
 	ingredient: TConstructorIngredient;

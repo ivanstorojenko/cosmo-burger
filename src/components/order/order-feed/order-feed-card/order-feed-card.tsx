@@ -4,9 +4,9 @@ import {
 } from '@ya.praktikum/react-developer-burger-ui-components';
 import { Link, useLocation } from 'react-router';
 import styles from './order-feed-card.module.css';
-import { useSelector } from 'react-redux';
 import { getAllIngredients } from '@/services/burger-ingredients/reducer';
 import { TFeedOrder, TIngredient } from '@/utils/types';
+import { useSelector } from '@/services/store';
 
 type TOrderFeedCardProps = {
 	showStatus: boolean;

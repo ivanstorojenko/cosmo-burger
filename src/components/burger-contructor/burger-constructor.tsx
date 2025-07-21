@@ -1,4 +1,3 @@
-import { useSelector, useDispatch } from 'react-redux';
 import styles from './burger-constructor.module.css';
 import {
 	ConstructorElement,
@@ -25,9 +24,10 @@ import {
 	TIngredient,
 } from '@/utils/types';
 import { TUserData } from '@/utils/api';
+import { useDispatch, useSelector } from '@/services/store';
 
 export const BurgerConstructor = (): React.JSX.Element => {
-	const orderPrice: number = useSelector(getOrderPrice);
+	const orderPrice = useSelector(getOrderPrice);
 	const ingredients: TConstructorIngredients = useSelector(
 		getConstructorIngredients
 	);

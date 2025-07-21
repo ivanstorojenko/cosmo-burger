@@ -12,7 +12,6 @@ import styles from './app.module.css';
 import { AppHeader } from '@/components/app-header/app-header.js';
 import { Modal } from '@/components/modal/modal';
 import { IngredientDetails } from '@/components/burger-ingredients/ingredient-details/ingredient-details';
-import { useDispatch, useSelector } from 'react-redux';
 import { checkAuth } from '@/services/auth/actions';
 import { useEffect } from 'react';
 import { OnlyAuth, OnlyUnAuth } from '../protected-route/protected-route';
@@ -26,9 +25,9 @@ import { Preloader } from '../preloader/preloader';
 import { IngredientDetailsPage } from '../../pages/ingredient-details';
 import { ErrorPage } from '../../pages/error';
 import { OrdersPage } from '../../pages/orders';
-import { TIngredient } from '@/utils/types';
 import { FeedPage } from '@/pages/feed';
 import { OrderDetailsPage } from '@/pages/order-details';
+import { useDispatch, useSelector } from '@/services/store';
 
 export const App = (): React.JSX.Element => {
 	const dispatch = useDispatch();
@@ -44,9 +43,9 @@ export const App = (): React.JSX.Element => {
 		dispatch(loadIngredients());
 	}, [dispatch]);
 
-	const ingredientsLoading: boolean = useSelector(getIngredientsLoading);
+	const ingredientsLoading = useSelector(getIngredientsLoading);
 	const ingredientsError = useSelector(getIngredientsError);
-	const ingredients: TIngredient[] = useSelector(getAllIngredients);
+	const ingredients = useSelector(getAllIngredients);
 
 	const handleModalClose = (): void => {
 		navigate(-1);

@@ -1,7 +1,7 @@
 import { CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 
 export const OrderDetailsPage = (): React.JSX.Element => {
-	// проверить путь и в зав-ти от этого показывать/не показывать статус
+	// todo проверить путь и в зав-ти от этого показывать/не показывать статус
 
 	return (
 		<div className='container padding-top-120 profile'>

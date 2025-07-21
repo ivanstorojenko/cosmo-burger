@@ -1,6 +1,6 @@
 import { getIsAuthChecked, getUserInfo } from '@/services/auth/reducer';
+import { useSelector } from '@/services/store';
 import { TUserData } from '@/utils/api';
-import { useSelector } from 'react-redux';
 import { Navigate, useLocation } from 'react-router';
 
 type TProtectedProps = {

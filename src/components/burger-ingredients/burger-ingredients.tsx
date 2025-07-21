@@ -1,5 +1,4 @@
 import { useCallback, useEffect, useRef } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
 import styles from './burger-ingredients.module.css';
 import { Tab } from '@ya.praktikum/react-developer-burger-ui-components';
 import { IngredientsGroup } from './ingredients-group/ingredients-group';
@@ -10,6 +9,7 @@ import {
 } from '@/services/burger-ingredients/reducer';
 import { setActiveTab } from '@/services/burger-ingredients/actions';
 import { TIngredient, TIngredientCategory } from '@/utils/types';
+import { useDispatch, useSelector } from '@/services/store';
 
 export const BurgerIngredients = (): React.JSX.Element => {
 	const ingredients: Array<TIngredient> = useSelector(getAllIngredients);

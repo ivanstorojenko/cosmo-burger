@@ -1,6 +1,5 @@
 import styles from './order-detail.module.css';
 import doneIcon from './done.png';
-import { useSelector } from 'react-redux';
 import {
 	getOrderError,
 	getOrderInfo,
@@ -8,6 +7,7 @@ import {
 } from '../../../services/order/reducer';
 import { Preloader } from '@components/preloader/preloader';
 import { TOrder } from '@/utils/types';
+import { useSelector } from '@/services/store';
 
 export const OrderDetail = (): React.JSX.Element => {
 	const orderError: string | null = useSelector(getOrderError);

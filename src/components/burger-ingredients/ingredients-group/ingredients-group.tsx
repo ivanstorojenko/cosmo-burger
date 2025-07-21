@@ -1,4 +1,4 @@
-import { useSelector } from 'react-redux';
+import { useSelector } from '@/services/store';
 import { IngredientItem } from '../ingredient-item/ingredient-item';
 import styles from './ingredients-group.module.css';
 import {

@@ -1,4 +1,3 @@
-import { useSelector } from 'react-redux';
 import { BurgerIngredients } from '@/components/burger-ingredients/burger-ingredients';
 import { BurgerConstructor } from '@/components/burger-contructor/burger-constructor';
 import {
@@ -10,6 +9,7 @@ import { DndProvider } from 'react-dnd';
 import { HTML5Backend } from 'react-dnd-html5-backend';
 import { Preloader } from '@/components/preloader/preloader';
 import { TIngredient } from '@/utils/types';
+import { useSelector } from '@/services/store';
 
 export const HomePage = (): React.JSX.Element => {
 	const ingredients: TIngredient[] = useSelector(getAllIngredients);

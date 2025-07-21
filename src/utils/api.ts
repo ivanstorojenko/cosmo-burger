@@ -1,4 +1,4 @@
-import { TIngredient, TIngredientWithUid, TOrder } from './types';
+import { TIngredient, TOrder } from './types';
 
 type THeaders = {
 	headers: Record<string, string>;
@@ -132,7 +132,7 @@ const getAuthizationHeader = () => {
 	return headers;
 };
 
-export const createOrder = (ingredients: Array<TIngredientWithUid>) => {
+export const createOrder = (ingredients: Array<string>) => {
 	const headers: HeadersInit = getAuthizationHeader();
 
 	return request<TOrder>('/orders', {

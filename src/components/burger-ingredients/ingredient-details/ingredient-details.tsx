@@ -1,8 +1,8 @@
-import { useSelector } from 'react-redux';
 import styles from './ingredient-details.module.css';
 import { getAllIngredients } from '@/services/burger-ingredients/reducer';
 import { Navigate, useParams } from 'react-router';
 import { TIngredient } from '@/utils/types';
+import { useSelector } from '@/services/store';
 
 export const IngredientDetails = (): React.JSX.Element => {
 	const { ingredientId } = useParams();

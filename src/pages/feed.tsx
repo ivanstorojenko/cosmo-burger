@@ -1,9 +1,9 @@
 import { OrderFeed } from '@/components/order/order-feed/order-feed';
 import { OrderSummary } from '@/components/order/order-summary/order-summary';
 import styles from './feed.module.css';
-import { useDispatch } from 'react-redux';
 import { useEffect } from 'react';
 import { connect, disconnect } from '@/services/general-order-feed/actions';
+import { useDispatch } from '@/services/store';
 
 export const ORDER_FEED_URL = 'wss://norma.nomoreparties.space/orders/all';
 

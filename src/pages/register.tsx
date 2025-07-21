@@ -5,11 +5,11 @@ import {
 	Button,
 } from '@ya.praktikum/react-developer-burger-ui-components';
 import { Link, Navigate } from 'react-router';
-import { useDispatch, useSelector } from 'react-redux';
 import { registration } from '@/services/auth/actions';
 import { getUserInfo, getLoading, getError } from '@/services/auth/reducer';
 import { Preloader } from '@/components/preloader/preloader';
 import { TUserData } from '@/utils/api';
+import { useDispatch, useSelector } from '@/services/store';
 
 export const RegisterPage = (): React.JSX.Element => {
 	const [name, setName] = useState('');

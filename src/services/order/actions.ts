@@ -1,8 +1,8 @@
 import { createAction, createAsyncThunk } from '@reduxjs/toolkit';
 import { createOrder } from '../../utils/api';
-import { TIngredientWithUid, TOrder } from '@/utils/types';
+import { TOrder } from '@/utils/types';
 
-type TPlaceOrderArgs = Array<TIngredientWithUid>;
+type TPlaceOrderArgs = Array<string>;
 
 export const placeOrder = createAsyncThunk<
 	TOrder,

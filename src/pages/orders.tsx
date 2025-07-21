@@ -10,7 +10,7 @@ export const OrdersPage = (): React.JSX.Element => {
 					В этом разделе вы можете просмотреть свою историю заказов
 				</p>
 			</section>
-			<OrderFeed />
+			<OrderFeed showStatus={true} />
 		</div>
 	);
 };

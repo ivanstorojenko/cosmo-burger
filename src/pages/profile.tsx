@@ -6,11 +6,11 @@ import {
 } from '@ya.praktikum/react-developer-burger-ui-components';
 import { ProfileMenu } from '../components/profile-menu/profile-menu';
 import styles from './profile.module.css';
-import { useDispatch, useSelector } from 'react-redux';
 import { getError, getLoading, getUserInfo } from '../services/auth/reducer';
 import { changeInfo } from '../services/auth/actions';
 import { Preloader } from '@/components/preloader/preloader';
 import { TUserData } from '@/utils/api';
+import { useDispatch, useSelector } from '@/services/store';
 
 export const ProfilePage = (): React.JSX.Element => {
 	const userInfo: Pick<TUserData, 'name' | 'email'> | null =

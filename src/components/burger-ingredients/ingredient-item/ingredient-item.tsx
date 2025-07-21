@@ -3,11 +3,11 @@ import {
 	Counter,
 	CurrencyIcon,
 } from '@ya.praktikum/react-developer-burger-ui-components';
-import { useSelector } from 'react-redux';
 import { useDrag } from 'react-dnd';
 import { getConstructorIngredients } from '@/services/burger-constructor/reducer';
 import { useLocation, Link } from 'react-router';
 import { TConstructorIngredients, TIngredient } from '@/utils/types';
+import { useSelector } from '@/services/store';
 
 type TIngredientItemProps = {
 	ingredient: TIngredient;

@@ -24,6 +24,14 @@ import {
 	useSelector as selectorHook,
 	useDispatch as dispatchHook,
 } from 'react-redux';
+import {
+	addIngredient,
+	deleteIngredient,
+	moveIngredient,
+} from './burger-constructor/actions';
+import { hideOrderDetails } from './order/actions';
+
+import { setActiveTab } from './burger-ingredients/actions';
 
 const rootReducer = combineSlices(
 	constructorSlice,
@@ -54,9 +62,36 @@ export const configureStore = () => {
 };
 
 export type RootState = ReturnType<typeof rootReducer>;
-// todo добавить остальные экшены
-// type AuthActions = ReturnType<typeof authSlice.actions[keyof typeof authSlice.actions]>;
-type AppActions = generalFeedActionTypes;
+
+type AuthActions = ReturnType<
+	(typeof authSlice.actions)[keyof typeof authSlice.actions]
+>;
+type constructorActions =
+	| ReturnType<
+			(typeof constructorSlice.actions)[keyof typeof constructorSlice.actions]
+	  >
+	| ReturnType<typeof addIngredient>
+	| ReturnType<typeof deleteIngredient>
+	| ReturnType<typeof moveIngredient>;
+type ingredientsActions =
+	| ReturnType<
+			(typeof burgerIngredientsSlice.actions)[keyof typeof burgerIngredientsSlice.actions]
+	  >
+	| ReturnType<typeof setActiveTab>;
+type orderActions =
+	| ReturnType<(typeof orderSlice.actions)[keyof typeof orderSlice.actions]>
+	| ReturnType<typeof hideOrderDetails>;
+type resetPasswordActions = ReturnType<
+	(typeof resetPasswordSlice.actions)[keyof typeof resetPasswordSlice.actions]
+>;
+
+type AppActions =
+	| generalFeedActionTypes
+	| AuthActions
+	| constructorActions
+	| ingredientsActions
+	| orderActions
+	| resetPasswordActions;
 export type AppDispatch = ThunkDispatch<RootState, unknown, AppActions>;
 
 export const useDispatch = dispatchHook.withTypes<AppDispatch>();
