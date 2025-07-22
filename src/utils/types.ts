@@ -85,7 +85,9 @@ export type TFeedOrder = {
 };
 
 export type TFeed = {
+	success: boolean;
 	orders: Array<TFeedOrder>;
 	total: number;
 	totalToday: number;
+	error: null | string;
 } | null;

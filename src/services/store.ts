@@ -13,13 +13,23 @@ import { socketMiddleware } from './middleware/socket-middleware';
 import {
 	connect,
 	disconnect,
-	generalFeedActionTypes,
 	onClose,
 	onConnecting,
 	onError,
 	onMessage,
 	onOpen,
+	generalFeedActionTypes,
 } from './general-order-feed/actions';
+import {
+	connect as userFeedConnect,
+	disconnect as userFeedDisconnect,
+	onClose as userFeedOnClose,
+	onConnecting as userFeedOnConnecting,
+	onError as userFeedOnError,
+	onMessage as userFeedOnMessage,
+	onOpen as userFeedOnOpen,
+	userFeedActionTypes,
+} from './user-order-feed/actions';
 import {
 	useSelector as selectorHook,
 	useDispatch as dispatchHook,
@@ -32,6 +42,7 @@ import {
 import { hideOrderDetails } from './order/actions';
 
 import { setActiveTab } from './burger-ingredients/actions';
+import { UserFeedSlice } from './user-order-feed/slice';
 
 const rootReducer = combineSlices(
 	constructorSlice,
@@ -39,7 +50,8 @@ const rootReducer = combineSlices(
 	orderSlice,
 	resetPasswordSlice,
 	authSlice,
-	generalFeedSlice
+	generalFeedSlice,
+	UserFeedSlice
 );
 
 const generalFeedMiddleware = socketMiddleware({
@@ -51,13 +63,22 @@ const generalFeedMiddleware = socketMiddleware({
 	onError,
 	onMessage,
 });
+const userFeedMiddleware = socketMiddleware({
+	connect: userFeedConnect,
+	disconnect: userFeedDisconnect,
+	onConnecting: userFeedOnConnecting,
+	onOpen: userFeedOnOpen,
+	onClose: userFeedOnClose,
+	onError: userFeedOnError,
+	onMessage: userFeedOnMessage,
+});
 
 export const configureStore = () => {
 	return createStore({
 		reducer: rootReducer,
 		devTools: process.env.NODE_ENV !== 'production',
 		middleware: (getDefaultMiddleware) =>
-			getDefaultMiddleware().concat(generalFeedMiddleware),
+			getDefaultMiddleware().concat(generalFeedMiddleware, userFeedMiddleware),
 	});
 };
 
@@ -87,6 +108,7 @@ type resetPasswordActions = ReturnType<
 
 type AppActions =
 	| generalFeedActionTypes
+	| userFeedActionTypes
 	| AuthActions
 	| constructorActions
 	| ingredientsActions

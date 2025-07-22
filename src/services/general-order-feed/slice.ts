@@ -1,8 +1,6 @@
 import { TFeed, WebsocketStatus } from '@/utils/types';
 import { onClose, onConnecting, onError, onMessage, onOpen } from './actions';
-import { createSlice } from '@reduxjs/toolkit';
-
-// если статус будет не нужен - удалить
+import { createSelector, createSlice } from '@reduxjs/toolkit';
 
 export type TGeneralFeedState = {
 	status: WebsocketStatus;
@@ -41,7 +39,23 @@ export const generalFeedSlice = createSlice({
 	},
 	selectors: {
 		getStatus: (state: TGeneralFeedState) => state.status,
-		getFeed: (state: TGeneralFeedState) => state.feed,
+		getFeed: createSelector(
+			[(state: TGeneralFeedState) => state.feed],
+			(feed) => {
+				if (!feed) return null;
+
+				// Важно: создаем новый массив только если orders действительно изменился
+				const sortedOrders = [...feed.orders].sort(
+					(a, b) =>
+						new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
+				);
+
+				return {
+					...feed,
+					orders: sortedOrders,
+				};
+			}
+		),
 		getError: (state: TGeneralFeedState) => state.error,
 	},
 });

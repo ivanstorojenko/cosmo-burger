@@ -1,9 +1,13 @@
 import { Routes, Route, useLocation, useNavigate } from 'react-router';
 import {
+	ErrorPage,
+	FeedPage,
 	ForgotPasswordPage,
 	HomePage,
 	LoginPage,
 	NotFoundPage,
+	OrderDetailsPage,
+	OrdersPage,
 	ProfilePage,
 	RegisterPage,
 	ResetPasswordPage,
@@ -23,11 +27,8 @@ import {
 } from '@/services/burger-ingredients/reducer';
 import { Preloader } from '../preloader/preloader';
 import { IngredientDetailsPage } from '../../pages/ingredient-details';
-import { ErrorPage } from '../../pages/error';
-import { OrdersPage } from '../../pages/orders';
-import { FeedPage } from '@/pages/feed';
-import { OrderDetailsPage } from '@/pages/order-details';
 import { useDispatch, useSelector } from '@/services/store';
+import { OrderFeedDetail } from '../order/order-feed/order-feed_detail/order-feed-detail';
 
 export const App = (): React.JSX.Element => {
 	const dispatch = useDispatch();
@@ -111,7 +112,23 @@ export const App = (): React.JSX.Element => {
 						ingredientsLoading ? (
 							<Preloader />
 						) : ingredientsError ? (
-							<ErrorPage message={'При загрузке ингредиента возникла ошибка'} />
+							<ErrorPage
+								message={'При загрузке ингредиентов возникла ошибка'}
+							/>
+						) : (
+							ingredients.length && <OrderDetailsPage />
+						)
+					}
+				/>
+				<Route
+					path='/profile/orders/:number'
+					element={
+						ingredientsLoading ? (
+							<Preloader />
+						) : ingredientsError ? (
+							<ErrorPage
+								message={'При загрузке ингредиентов возникла ошибка'}
+							/>
 						) : (
 							ingredients.length && <OrderDetailsPage />
 						)
@@ -133,6 +150,34 @@ export const App = (): React.JSX.Element => {
 										handleClose={handleModalClose}
 										title={'Детали ингредиента'}>
 										<IngredientDetails />
+									</Modal>
+								)
+							)
+						}
+					/>
+					<Route
+						path='/feed/:number'
+						element={
+							ingredientsLoading ? (
+								<Preloader />
+							) : (
+								ingredients.length && (
+									<Modal handleClose={handleModalClose} title={''}>
+										<OrderFeedDetail />
+									</Modal>
+								)
+							)
+						}
+					/>
+					<Route
+						path='/profile/orders/:number'
+						element={
+							ingredientsLoading ? (
+								<Preloader />
+							) : (
+								ingredients.length && (
+									<Modal handleClose={handleModalClose} title={''}>
+										<OrderFeedDetail />
 									</Modal>
 								)
 							)
