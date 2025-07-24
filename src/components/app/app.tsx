@@ -146,9 +146,7 @@ export const App = (): React.JSX.Element => {
 								<Preloader />
 							) : (
 								ingredients.length && (
-									<Modal
-										handleClose={handleModalClose}
-										title={'Детали ингредиента'}>
+									<Modal handleClose={handleModalClose}>
 										<IngredientDetails />
 									</Modal>
 								)
@@ -162,7 +160,7 @@ export const App = (): React.JSX.Element => {
 								<Preloader />
 							) : (
 								ingredients.length && (
-									<Modal handleClose={handleModalClose} title={''}>
+									<Modal handleClose={handleModalClose}>
 										<OrderFeedDetail />
 									</Modal>
 								)
@@ -176,7 +174,7 @@ export const App = (): React.JSX.Element => {
 								<Preloader />
 							) : (
 								ingredients.length && (
-									<Modal handleClose={handleModalClose} title={''}>
+									<Modal handleClose={handleModalClose}>
 										<OrderFeedDetail />
 									</Modal>
 								)

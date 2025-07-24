@@ -1,4 +1,4 @@
-import { TIngredient, TOrder } from './types';
+import { TGetOrdersRes, TIngredient, TOrder } from './types';
 
 type THeaders = {
 	headers: Record<string, string>;
@@ -145,6 +145,10 @@ export const createOrder = (ingredients: Array<string>) => {
 			ingredients,
 		}),
 	});
+};
+
+export const requestOrder = (number: string) => {
+	return request<TGetOrdersRes>(`/orders/${number}`);
 };
 
 export const getPasswordResetCode = (

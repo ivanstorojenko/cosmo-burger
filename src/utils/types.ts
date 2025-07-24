@@ -63,6 +63,23 @@ export type TOrder = {
 	};
 };
 
+export type TOrderInfo = {
+	id: string;
+	ingredients: Array<string>;
+	owner: string;
+	status: string;
+	name: string;
+	createdAt: string;
+	updatedAt: string;
+	number: number;
+	__v: number;
+};
+
+export type TGetOrdersRes = {
+	success: true;
+	orders: Array<TOrderInfo>;
+};
+
 export type TMoveIngredientPayload = {
 	dragIndex: number;
 	hoverIndex: number;

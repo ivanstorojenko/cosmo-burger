@@ -1,17 +1,35 @@
 import { getFeed as getGeneralFeed } from '@/services/general-order-feed/slice';
-import { useSelector } from '@/services/store';
+import { useDispatch, useSelector } from '@/services/store';
 import { getFeed as getUserFeed } from '@/services/user-order-feed/slice';
-import { CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
-import { useMemo } from 'react';
+import {
+	CurrencyIcon,
+	FormattedDate,
+} from '@ya.praktikum/react-developer-burger-ui-components';
+import { useEffect, useMemo } from 'react';
 import { useParams } from 'react-router';
 import styles from './order-feed-detail.module.css';
+import { getAllIngredients } from '@/services/burger-ingredients/reducer';
+import { OrderIngredientImage } from '../../order-ingredient-image/order-ingredient-image';
+import { ErrorPage, NotFoundPage } from '@/pages';
+import { getOrder } from '@/services/order/actions';
+import {
+	getOrderError,
+	getOrderLoading,
+	getRequestedOrderInfro,
+} from '@/services/order/reducer';
+import { Preloader } from '@/components/preloader/preloader';
 
 export const OrderFeedDetail = (): React.JSX.Element => {
+	const dispatch = useDispatch();
 	const { number } = useParams();
 	const userFeed = useSelector(getUserFeed);
 	const generalFeed = useSelector(getGeneralFeed);
+	const orderFromStore = useSelector(getRequestedOrderInfro);
+	const orderLoading = useSelector(getOrderLoading);
+	const orderError = useSelector(getOrderError);
+	const allIngredients = useSelector(getAllIngredients);
 
-	const order = useMemo(() => {
+	const orderFromFeeds = useMemo(() => {
 		if (userFeed && number) {
 			const foundOrder = userFeed.orders.find((o) => o.number === +number);
 			if (foundOrder) return foundOrder;
@@ -21,11 +39,50 @@ export const OrderFeedDetail = (): React.JSX.Element => {
 		}
 		return null;
 	}, [userFeed, generalFeed, number]);
-	// если нет - сделать запрос на получение данных
+
+	// Загрузка заказа, если его нет в feeds
+	useEffect(() => {
+		if (!orderFromFeeds && number) {
+			dispatch(getOrder(number));
+		}
+	}, [orderFromFeeds, number, dispatch]);
+
+	// Приоритет: orderFromFeeds > orderFromStore
+	const order = orderFromFeeds || orderFromStore;
+
+	if (orderLoading && !order) {
+		return <Preloader />;
+	}
+
+	if (orderError) {
+		return <ErrorPage message='Не удалось загрузить заказ' />;
+	}
 
 	if (!order) {
-		return <div>Заказ не найден</div>;
+		return <NotFoundPage />;
 	}
+
+	const countIngredients = order.ingredients.reduce<Record<string, number>>(
+		(acc, id) => {
+			acc[id] = (acc[id] || 0) + 1;
+			return acc;
+		},
+		{}
+	);
+	const burgerIngredients = Object.entries(countIngredients).flatMap(
+		([id, qty]) => {
+			const foundItem = allIngredients.find((item) => item._id === id);
+			if (!foundItem) return [];
+
+			return foundItem.type === 'bun'
+				? [{ ...foundItem, qty: 2 }]
+				: [{ ...foundItem, qty }];
+		}
+	);
+	const burgerPrice = burgerIngredients.reduce(
+		(acc, ingredient) => acc + ingredient.price * ingredient.qty,
+		0
+	);
 
 	let status = 'Неизвестный статус';
 	let colorHighlight = '';
@@ -43,24 +100,51 @@ export const OrderFeedDetail = (): React.JSX.Element => {
 	}
 
 	return (
-		<>
-			<span className='text text_type_digits-default'>{order.number}</span>
-			<h1 className='text text_type_main-medium'>{order.name}</h1>
-			<span
-				className={`${styles[colorHighlight]} text text_type_main-default mb-6`}>
-				{status}
-			</span>
-			<h2 className='text text_type_main-medium'>Состав:</h2>
-			<ul>
-				<li>
-					картинка в рамке
-					<span className='text text_type_main-default'>название</span>
-					<div>
-						<span className='text text_type_digits-default'>2 x 410</span>
-						<CurrencyIcon type='primary' />
-					</div>
-				</li>
+		<section className={styles.card}>
+			<div className={styles.top}>
+				<h1 className='text text_type_main-medium mb-2'>{order.name}</h1>
+				<span
+					className={`${styles[colorHighlight]} text text_type_main-default`}>
+					{status}
+				</span>
+			</div>
+			<h2 className='text text_type_main-medium mb-6'>Состав:</h2>
+			<ul className={`${styles.ingredient_list} custom-scroll`}>
+				{burgerIngredients.map(
+					(item) =>
+						item && (
+							<li key={item._id} className={styles.ingredient_item}>
+								<div className={styles.description}>
+									<OrderIngredientImage
+										src={item.image_mobile}
+										alt={item.name}
+									/>
+									<span className='text text_type_main-default ml-16'>
+										{item.name}
+									</span>
+								</div>
+
+								<div className={styles.price}>
+									<span className='text text_type_digits-default'>
+										{item.qty} x {item.price}
+									</span>
+									<CurrencyIcon type='primary' />
+								</div>
+							</li>
+						)
+				)}
 			</ul>
-		</>
+
+			<div className={styles.summary}>
+				<span className='text text_type_main-default text_color_inactive'>
+					<FormattedDate date={new Date(order.createdAt)} />
+				</span>
+
+				<div className={styles.price}>
+					<span className='text text_type_digits-default'>{burgerPrice}</span>
+					<CurrencyIcon type='primary' />
+				</div>
+			</div>
+		</section>
 	);
 };

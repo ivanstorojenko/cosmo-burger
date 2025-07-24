@@ -1,3 +1,45 @@
+.card {
+	max-width: 640px;
+}
+
+.top {
+	margin-bottom: 48px;
+}
+
 .status_done {
 	color: var(--colors-interface-success);
+}
+
+.ingredient_list {
+	display: flex;
+	flex-direction: column;
+	gap: 16px;
+	margin: 0 0 40px;
+	padding: 0 24px 0 0;
+	overflow-y: auto;
+	list-style: none;
+}
+
+.ingredient_item {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+}
+
+.description {
+	display: flex;
+	align-items: center;
+	gap: 16px;
+}
+
+.price {
+	display: flex;
+	align-items: center;
+	gap: 8px;
+}
+
+.summary {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
 }
