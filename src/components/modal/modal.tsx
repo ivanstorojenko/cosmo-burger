@@ -4,6 +4,7 @@ import { ModalOverlay } from './modal-overlay/modal-overlay';
 import styles from './modal.module.css';
 import { CloseIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import { useLocation, useParams } from 'react-router';
+import { useFocusTrap } from '@/hooks/useFocusTrap';
 
 const modalRoot = document.getElementById('modal-root')!;
 type TModalProps = {
@@ -17,6 +18,7 @@ export const Modal = ({
 }: TModalProps): React.JSX.Element => {
 	const location = useLocation();
 	const { number } = useParams();
+	const modalRef = useFocusTrap(true);
 	let title: React.JSX.Element | null;
 	const orderNumber = (
 		<h2 className='text text_type_digits-default'>#{number}</h2>
@@ -54,7 +56,11 @@ export const Modal = ({
 	return createPortal(
 		<>
 			<ModalOverlay handleClose={handleClose} />
-			<div className={styles.modal}>
+			<div
+				className={styles.modal}
+				ref={modalRef}
+				role='dialog'
+				aria-modal='true'>
 				<header className={`${styles.header} mb-6`}>
 					{title}
 					<button
