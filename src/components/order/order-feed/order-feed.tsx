@@ -11,10 +11,6 @@ export const OrderFeed = ({
 	showStatus,
 	orders,
 }: TOrderFeedProps): React.JSX.Element => {
-	// const sortedOrders = orders && [...orders].sort((a, b) =>
-	// 	new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
-	// );
-
 	return (
 		<ul className={`${styles.card_list} custom-scroll`}>
 			{orders?.map((order) => (

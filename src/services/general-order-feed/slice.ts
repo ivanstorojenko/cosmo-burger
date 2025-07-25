@@ -26,6 +26,7 @@ export const generalFeedSlice = createSlice({
 			})
 			.addCase(onOpen, (state) => {
 				state.status = WebsocketStatus.ONLINE;
+				state.error = null;
 			})
 			.addCase(onClose, (state) => {
 				state.status = WebsocketStatus.OFFLINE;

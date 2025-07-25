@@ -4,7 +4,9 @@ import styles from './feed.module.css';
 import { useEffect } from 'react';
 import { connect, disconnect } from '@/services/general-order-feed/actions';
 import { useDispatch, useSelector } from '@/services/store';
-import { getFeed } from '@/services/general-order-feed/slice';
+import { getError, getFeed } from '@/services/general-order-feed/slice';
+import { ErrorPage } from './error';
+import { Preloader } from '@/components/preloader/preloader';
 
 export const ORDER_FEED_URL = 'wss://norma.nomoreparties.space/orders/all';
 
@@ -12,6 +14,7 @@ export const FeedPage = () => {
 	const dispatch = useDispatch();
 	const feed = useSelector(getFeed);
 	const orders = feed?.orders;
+	const error = useSelector(getError);
 
 	useEffect(() => {
 		dispatch(connect(ORDER_FEED_URL));
@@ -20,6 +23,13 @@ export const FeedPage = () => {
 			dispatch(disconnect());
 		};
 	}, [dispatch]);
+
+	if (error) {
+		return <ErrorPage message={error} />;
+	}
+	if (!feed) {
+		return <Preloader />;
+	}
 
 	return (
 		<>
