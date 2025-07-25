@@ -4,7 +4,7 @@ import {
 } from '@ya.praktikum/react-developer-burger-ui-components';
 import { Link, useLocation } from 'react-router';
 import styles from './order-feed-card.module.css';
-import { getAllIngredients } from '@/services/burger-ingredients/reducer';
+import { getAllIngredientsWithIdKey } from '@/services/burger-ingredients/reducer';
 import { TFeedOrder, TIngredient } from '@/utils/types';
 import { useSelector } from '@/services/store';
 import { OrderIngredientImage } from '../../order-ingredient-image/order-ingredient-image';
@@ -38,10 +38,10 @@ export const OrderFeedCard = ({
 	order,
 }: TOrderFeedCardProps): React.JSX.Element | null => {
 	const location = useLocation();
-	const allIngredients = useSelector(getAllIngredients);
-	const burgerIngredients = allIngredients.filter((item) =>
-		order.ingredients.includes(item._id)
-	);
+	const allIngredients = useSelector(getAllIngredientsWithIdKey);
+	const burgerIngredients = order.ingredients
+		.map((id) => allIngredients.get(id))
+		.filter((item): item is TIngredient => item !== undefined);
 	let shownIngredients: null | TIngredient[] = null;
 	let countUnshown = 0;
 
@@ -49,6 +49,7 @@ export const OrderFeedCard = ({
 		!isTFeedOrder(order) ||
 		burgerIngredients.length < order.ingredients.length
 	) {
+		// не показываем заказ, если в заказе неизвестные ингредиенты
 		return null;
 	}
 

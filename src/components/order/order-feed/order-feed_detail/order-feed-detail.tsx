@@ -8,7 +8,7 @@ import {
 import { useEffect, useMemo } from 'react';
 import { useParams } from 'react-router';
 import styles from './order-feed-detail.module.css';
-import { getAllIngredients } from '@/services/burger-ingredients/reducer';
+import { getAllIngredientsWithIdKey } from '@/services/burger-ingredients/reducer';
 import { OrderIngredientImage } from '../../order-ingredient-image/order-ingredient-image';
 import { ErrorPage, NotFoundPage } from '@/pages';
 import { getOrder } from '@/services/order/actions';
@@ -27,7 +27,7 @@ export const OrderFeedDetail = (): React.JSX.Element => {
 	const orderFromStore = useSelector(getRequestedOrderInfro);
 	const orderLoading = useSelector(getOrderLoading);
 	const orderError = useSelector(getOrderError);
-	const allIngredients = useSelector(getAllIngredients);
+	const allIngredients = useSelector(getAllIngredientsWithIdKey);
 
 	const orderFromFeeds = useMemo(() => {
 		if (userFeed && number) {
@@ -71,7 +71,7 @@ export const OrderFeedDetail = (): React.JSX.Element => {
 	);
 	const burgerIngredients = Object.entries(countIngredients).flatMap(
 		([id, qty]) => {
-			const foundItem = allIngredients.find((item) => item._id === id);
+			const foundItem = allIngredients.get(id);
 			if (!foundItem) return [];
 
 			return foundItem.type === 'bun'
