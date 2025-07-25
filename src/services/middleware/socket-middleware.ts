@@ -4,6 +4,7 @@ import {
 	Middleware,
 } from '@reduxjs/toolkit';
 import { RootState } from '../store';
+import { refreshToken } from '@/utils/api';
 
 export type TWsActions<R, S> = {
 	connect: ActionCreatorWithPayload<string>;
@@ -19,8 +20,8 @@ export type TWsActions<R, S> = {
 const RECONNECT_PERIOD = 3000;
 
 export const socketMiddleware = <R, S>(
-	wsActions: TWsActions<R, S>
-	// withTokenRefresh: boolean = false
+	wsActions: TWsActions<R, S>,
+	withTokenRefresh: boolean = false
 ): Middleware<object, RootState> => {
 	return (store) => {
 		let socket: WebSocket | null = null;
@@ -69,20 +70,26 @@ export const socketMiddleware = <R, S>(
 					try {
 						const parsedData = JSON.parse(data);
 
-						// if (withTokenRefresh && parsedData.message === "Invalid or missing token") {
-						// 	refreshToken().
-						// 		then((refreshedData) => {
-						// 			const wssUrl = new URL(url);
-						// 			wssUrl.searchParams.set("token", refreshedData.accessToken.replace("Bearer ", ""));
-						// 			dispatch(connect(wssUrl.toString()));
-						// 		})
-						// 		.catch((error) => {
-						// 			dispatch(onError((error as Error).message));
-						// 		});
+						if (
+							withTokenRefresh &&
+							parsedData.message === 'Invalid or missing token'
+						) {
+							refreshToken()
+								.then((refreshedData) => {
+									const wssUrl = new URL(url);
+									wssUrl.searchParams.set(
+										'token',
+										refreshedData.accessToken.replace('Bearer ', '')
+									);
+									dispatch(connect(wssUrl.toString()));
+								})
+								.catch((error) => {
+									dispatch(onError((error as Error).message));
+								});
 
-						// 	dispatch(disconnect());
-						// 	return;
-						// }
+							dispatch(disconnect());
+							return;
+						}
 
 						dispatch(onMessage(parsedData));
 					} catch (error) {

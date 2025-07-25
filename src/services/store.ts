@@ -63,15 +63,18 @@ const generalFeedMiddleware = socketMiddleware({
 	onError,
 	onMessage,
 });
-const userFeedMiddleware = socketMiddleware({
-	connect: userFeedConnect,
-	disconnect: userFeedDisconnect,
-	onConnecting: userFeedOnConnecting,
-	onOpen: userFeedOnOpen,
-	onClose: userFeedOnClose,
-	onError: userFeedOnError,
-	onMessage: userFeedOnMessage,
-});
+const userFeedMiddleware = socketMiddleware(
+	{
+		connect: userFeedConnect,
+		disconnect: userFeedDisconnect,
+		onConnecting: userFeedOnConnecting,
+		onOpen: userFeedOnOpen,
+		onClose: userFeedOnClose,
+		onError: userFeedOnError,
+		onMessage: userFeedOnMessage,
+	},
+	true
+);
 
 export const configureStore = () => {
 	return createStore({
