@@ -20,9 +20,13 @@ export type TIngredientCategory = {
 
 export type TConstructorIngredient = TIngredient & { uid: string };
 
+// export type TConstructorIngredients = {
+// 	bun: TConstructorIngredient | null;
+// 	ingredients: Array<TConstructorIngredient> | [];
+// };
 export type TConstructorIngredients = {
-	bun: TConstructorIngredient | null;
-	ingredients: Array<TConstructorIngredient> | [];
+	bun: null | TIngredient;
+	ingredients: Array<TIngredientWithUid>;
 };
 
 export type TIngredientWithUid = TIngredient & {
@@ -58,3 +62,49 @@ export type TOrder = {
 		price: number;
 	};
 };
+
+export type TOrderInfo = {
+	id: string;
+	ingredients: Array<string>;
+	owner: string;
+	status: string;
+	name: string;
+	createdAt: string;
+	updatedAt: string;
+	number: number;
+	__v: number;
+};
+
+export type TGetOrdersRes = {
+	success: true;
+	orders: Array<TOrderInfo>;
+};
+
+export type TMoveIngredientPayload = {
+	dragIndex: number;
+	hoverIndex: number;
+};
+
+export enum WebsocketStatus {
+	CONNECTING = 'CONNECTING...',
+	ONLINE = 'ONLINE',
+	OFFLINE = 'OFFLINE',
+}
+
+export type TFeedOrder = {
+	ingredients: Array<string>;
+	_id: string;
+	status: string;
+	number: number;
+	name: string;
+	createdAt: string;
+	updatedAt: string;
+};
+
+export type TFeed = {
+	success: boolean;
+	orders: Array<TFeedOrder>;
+	total: number;
+	totalToday: number;
+	error: null | string;
+} | null;

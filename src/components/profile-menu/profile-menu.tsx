@@ -1,8 +1,7 @@
 import { NavLink } from 'react-router';
 import styles from './profile-menu.module.css';
-import { useDispatch } from 'react-redux';
-// @ts-expect-error: Could not find a declaration file for module '../../services/auth/actions'.
 import { logout } from '../../services/auth/actions';
+import { useDispatch } from '@/services/store';
 
 export const ProfileMenu = (): React.JSX.Element => {
 	const navLinkClass = `${styles.menu_item} text text_type_main-medium text_color_inactive`;

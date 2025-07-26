@@ -1,0 +1,29 @@
+.image_wrapper {
+	position: relative;
+	width: 64px;
+	height: 64px;
+	padding: 2px;
+	background: linear-gradient(45deg, #801ab2, #4c4cff);
+	border-radius: 50%;
+}
+
+.image {
+	position: relative;
+	display: block;
+	width: 100%;
+	height: 100%;
+	background: var(--background-alt);
+	border-radius: 50%;
+	object-fit: cover;
+}
+
+.image_muted {
+	filter: brightness(0.6);
+}
+
+.count_unshown {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+}

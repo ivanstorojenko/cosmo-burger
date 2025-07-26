@@ -1,7 +1,16 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { createSelector, createSlice } from '@reduxjs/toolkit';
 import { loadIngredients, setActiveTab } from './actions';
+import { TIngredient } from '@/utils/types';
 
-const initialState = {
+type TBurgerIngredientsState = {
+	ingredients: Array<TIngredient>;
+	loading: boolean;
+	error: null | string;
+	ingredientTypes: Array<{ type: TIngredient['type']; name: string }>;
+	activeTab: string;
+};
+
+const initialState: TBurgerIngredientsState = {
 	ingredients: [],
 	loading: true,
 	error: null,
@@ -19,6 +28,13 @@ export const burgerIngredientsSlice = createSlice({
 	reducers: {},
 	selectors: {
 		getAllIngredients: (state) => state.ingredients,
+		// getAllIngredientsWithIdKey: (state) => (
+		// 	new Map(state.ingredients.map(item => [item._id, item]))
+		// ),
+		getAllIngredientsWithIdKey: createSelector(
+			[(state: TBurgerIngredientsState) => state.ingredients],
+			(ingredients) => new Map(ingredients.map((item) => [item._id, item]))
+		),
 		getIngredientsLoading: (state) => state.loading,
 		getIngredientsError: (state) => state.error,
 		getIngredientTypes: (state) => state.ingredientTypes,
@@ -36,7 +52,10 @@ export const burgerIngredientsSlice = createSlice({
 			})
 			.addCase(loadIngredients.rejected, (state, action) => {
 				state.loading = false;
-				state.error = action.error.message;
+				state.error =
+					action.payload?.message ||
+					action.error.message ||
+					'Unknown error occurred';
 			})
 			.addCase(setActiveTab, (state, action) => {
 				state.activeTab = action.payload;
@@ -46,8 +65,13 @@ export const burgerIngredientsSlice = createSlice({
 
 export const {
 	getAllIngredients,
+	getAllIngredientsWithIdKey,
 	getIngredientsLoading,
 	getIngredientsError,
 	getIngredientTypes,
 	getActiveTab,
 } = burgerIngredientsSlice.selectors;
+
+export type TBurgerIngredientsSlice = {
+	[burgerIngredientsSlice.name]: TBurgerIngredientsState;
+};

@@ -1,7 +1,14 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { requestPasswordResetCode, requestResetPassword } from './actions';
 
-const initialState = {
+type TResetPasswordState = {
+	isCodeSent: boolean;
+	isPasswordReseted: boolean;
+	loading: boolean;
+	error: string | null;
+};
+
+const initialState: TResetPasswordState = {
 	isCodeSent: false,
 	isPasswordReseted: false,
 	loading: false,
@@ -13,10 +20,10 @@ export const resetPasswordSlice = createSlice({
 	initialState,
 	reducers: {},
 	selectors: {
-		isCodeSent: (state) => state.resetPassword.isCodeSent,
-		isPasswordReseted: (state) => state.resetPassword.isPasswordReseted,
-		resetPasswordLoading: (state) => state.resetPassword.loading,
-		resetPasswordError: (state) => state.resetPassword.error,
+		isCodeSent: (state: TResetPasswordState) => state.isCodeSent,
+		isPasswordReseted: (state: TResetPasswordState) => state.isPasswordReseted,
+		resetPasswordLoading: (state: TResetPasswordState) => state.loading,
+		resetPasswordError: (state: TResetPasswordState) => state.error,
 	},
 	extraReducers: (builder) => {
 		builder
@@ -30,7 +37,7 @@ export const resetPasswordSlice = createSlice({
 			})
 			.addCase(requestPasswordResetCode.rejected, (state, action) => {
 				state.loading = false;
-				state.error = action.error.message;
+				state.error = action.payload || 'Ошибка при запросе кода';
 			})
 			.addCase(requestResetPassword.pending, (state) => {
 				state.loading = true;
@@ -42,7 +49,7 @@ export const resetPasswordSlice = createSlice({
 			})
 			.addCase(requestResetPassword.rejected, (state, action) => {
 				state.loading = false;
-				state.error = action.error.message;
+				state.error = action.payload || 'Ошибка при сбросе пароля';
 			});
 	},
 });
@@ -53,3 +60,7 @@ export const {
 	resetPasswordLoading,
 	resetPasswordError,
 } = resetPasswordSlice.selectors;
+
+export type TResetPasswordSlice = {
+	[resetPasswordSlice.name]: TResetPasswordState;
+};

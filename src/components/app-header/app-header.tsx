@@ -1,4 +1,4 @@
-import { NavLink } from 'react-router';
+import { Link, NavLink } from 'react-router';
 import styles from './app-header.module.css';
 import {
 	BurgerIcon,
@@ -45,9 +45,11 @@ export const AppHeader = (): React.JSX.Element => {
 						)}
 					</NavLink>
 				</div>
-				<div className={styles.logo}>
-					<Logo />
-				</div>
+				<Link to='/'>
+					<div className={styles.logo}>
+						<Logo />
+					</div>
+				</Link>
 				<NavLink
 					to='/profile'
 					className={({ isActive }) =>

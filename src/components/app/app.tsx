@@ -1,9 +1,13 @@
 import { Routes, Route, useLocation, useNavigate } from 'react-router';
 import {
+	ErrorPage,
+	FeedPage,
 	ForgotPasswordPage,
 	HomePage,
 	LoginPage,
 	NotFoundPage,
+	OrderDetailsPage,
+	OrdersPage,
 	ProfilePage,
 	RegisterPage,
 	ResetPasswordPage,
@@ -12,24 +16,19 @@ import styles from './app.module.css';
 import { AppHeader } from '@/components/app-header/app-header.js';
 import { Modal } from '@/components/modal/modal';
 import { IngredientDetails } from '@/components/burger-ingredients/ingredient-details/ingredient-details';
-import { useDispatch, useSelector } from 'react-redux';
-// @ts-expect-error: Could not find a declaration file for module '@services/auth/actions'.
-import { checkAuth } from '@services/auth/actions';
+import { checkAuth } from '@/services/auth/actions';
 import { useEffect } from 'react';
 import { OnlyAuth, OnlyUnAuth } from '../protected-route/protected-route';
-// @ts-expect-error: Could not find a declaration file for module '@services/burger-ingredients/actions'.
-import { loadIngredients } from '@services/burger-ingredients/actions';
-// @ts-expect-error: Could not find a declaration file for module '@services/burger-ingredients/reducer'.
-import { getAllIngredients } from '@services/burger-ingredients/reducer';
-// @ts-expect-error: Could not find a declaration file for module '@services/burger-ingredients/reducer'.
-import { getIngredientsLoading } from '@services/burger-ingredients/reducer';
-// @ts-expect-error: Could not find a declaration file for module '@services/burger-ingredients/reducer'.
-import { getIngredientsError } from '@services/burger-ingredients/reducer';
+import { loadIngredients } from '@/services/burger-ingredients/actions';
+import {
+	getAllIngredients,
+	getIngredientsLoading,
+	getIngredientsError,
+} from '@/services/burger-ingredients/reducer';
 import { Preloader } from '../preloader/preloader';
 import { IngredientDetailsPage } from '../../pages/ingredient-details';
-import { ErrorPage } from '../../pages/error';
-import { OrdersPage } from '../../pages/orders';
-import { TIngredient } from '@/utils/types';
+import { useDispatch, useSelector } from '@/services/store';
+import { OrderFeedDetail } from '../order/order-feed/order-feed_detail/order-feed-detail';
 
 export const App = (): React.JSX.Element => {
 	const dispatch = useDispatch();
@@ -45,9 +44,9 @@ export const App = (): React.JSX.Element => {
 		dispatch(loadIngredients());
 	}, [dispatch]);
 
-	const ingredientsLoading: boolean = useSelector(getIngredientsLoading);
-	const ingredientsError: boolean = useSelector(getIngredientsError);
-	const ingredients: TIngredient[] = useSelector(getAllIngredients);
+	const ingredientsLoading = useSelector(getIngredientsLoading);
+	const ingredientsError = useSelector(getIngredientsError);
+	const ingredients = useSelector(getAllIngredients);
 
 	const handleModalClose = (): void => {
 		navigate(-1);
@@ -59,6 +58,18 @@ export const App = (): React.JSX.Element => {
 
 			<Routes location={background || location}>
 				<Route path='/' element={<HomePage />} />
+				<Route
+					path='/feed'
+					element={
+						ingredientsLoading ? (
+							<Preloader />
+						) : ingredientsError ? (
+							<ErrorPage message={'При загрузке ингредиента возникла ошибка'} />
+						) : (
+							<FeedPage />
+						)
+					}
+				/>
 				<Route
 					path='/login'
 					element={<OnlyUnAuth component={<LoginPage />} />}
@@ -95,6 +106,34 @@ export const App = (): React.JSX.Element => {
 						)
 					}
 				/>
+				<Route
+					path='/feed/:number'
+					element={
+						ingredientsLoading ? (
+							<Preloader />
+						) : ingredientsError ? (
+							<ErrorPage
+								message={'При загрузке ингредиентов возникла ошибка'}
+							/>
+						) : (
+							ingredients.length && <OrderDetailsPage />
+						)
+					}
+				/>
+				<Route
+					path='/profile/orders/:number'
+					element={
+						ingredientsLoading ? (
+							<Preloader />
+						) : ingredientsError ? (
+							<ErrorPage
+								message={'При загрузке ингредиентов возникла ошибка'}
+							/>
+						) : (
+							ingredients.length && <OrderDetailsPage />
+						)
+					}
+				/>
 				<Route path='*' element={<NotFoundPage />} />
 			</Routes>
 
@@ -107,10 +146,36 @@ export const App = (): React.JSX.Element => {
 								<Preloader />
 							) : (
 								ingredients.length && (
-									<Modal
-										handleClose={handleModalClose}
-										title={'Детали ингредиента'}>
+									<Modal handleClose={handleModalClose}>
 										<IngredientDetails />
+									</Modal>
+								)
+							)
+						}
+					/>
+					<Route
+						path='/feed/:number'
+						element={
+							ingredientsLoading ? (
+								<Preloader />
+							) : (
+								ingredients.length && (
+									<Modal handleClose={handleModalClose}>
+										<OrderFeedDetail />
+									</Modal>
+								)
+							)
+						}
+					/>
+					<Route
+						path='/profile/orders/:number'
+						element={
+							ingredientsLoading ? (
+								<Preloader />
+							) : (
+								ingredients.length && (
+									<Modal handleClose={handleModalClose}>
+										<OrderFeedDetail />
 									</Modal>
 								)
 							)

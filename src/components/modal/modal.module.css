@@ -2,10 +2,12 @@
 	position: absolute;
 	top: 50%;
 	left: 50%;
+	z-index: 11;
 	display: flex;
 	flex-direction: column;
 	box-sizing: border-box;
 	min-width: 720px;
+	max-height: 720px;
 	padding: 40px 40px 60px;
 	background: #1c1c21;
 	border: 1px solid rgb(76 76 255 / 20%);
@@ -22,6 +24,7 @@
 }
 
 .close_btn {
+	margin-left: auto;
 	padding: 0;
 	background: none;
 	border: none;
