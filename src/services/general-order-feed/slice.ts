@@ -8,7 +8,7 @@ export type TGeneralFeedState = {
 	error: string | null;
 };
 
-const initialState: TGeneralFeedState = {
+export const initialState: TGeneralFeedState = {
 	status: WebsocketStatus.OFFLINE,
 	feed: null,
 	error: null,
