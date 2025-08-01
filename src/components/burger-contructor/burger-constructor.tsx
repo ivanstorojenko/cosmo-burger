@@ -79,7 +79,8 @@ export const BurgerConstructor = (): React.JSX.Element => {
 		<section className={`${styles.burger_constructor}  mt-25`}>
 			<div
 				ref={dropRef}
-				className={`${styles.ingredients} ${isHover ? styles.onHover : ''}`}>
+				className={`${styles.ingredients} ${isHover ? styles.onHover : ''}`}
+				data-testid='drop-zone'>
 				{bun === null ? (
 					<div className={`${styles.empty_bun_top} ml-8 mr-8`}></div>
 				) : (
@@ -137,7 +138,8 @@ export const BurgerConstructor = (): React.JSX.Element => {
 					type='primary'
 					size='medium'
 					onClick={() => ingredientsId && handlePlaceOrder(ingredientsId)}
-					disabled={!ingredientsId || orderLoading}>
+					disabled={!ingredientsId || orderLoading}
+					data-testid='place-order-btn'>
 					Оформить заказ
 				</Button>
 			</div>

@@ -60,7 +60,8 @@ export const Modal = ({
 				className={styles.modal}
 				ref={modalRef}
 				role='dialog'
-				aria-modal='true'>
+				aria-modal='true'
+				data-testid='modal'>
 				<header className={`${styles.header} mb-6`}>
 					{title}
 					<button
