@@ -8,7 +8,7 @@ type TResetPasswordState = {
 	error: string | null;
 };
 
-const initialState: TResetPasswordState = {
+export const initialState: TResetPasswordState = {
 	isCodeSent: false,
 	isPasswordReseted: false,
 	loading: false,
