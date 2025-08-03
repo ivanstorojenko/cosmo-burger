@@ -10,7 +10,7 @@ type TOrderState = {
 	showOrderDetails: boolean;
 };
 
-const initialState: TOrderState = {
+export const initialState: TOrderState = {
 	placedOrder: null,
 	requestedOrder: null,
 	loading: false,

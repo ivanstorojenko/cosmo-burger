@@ -8,7 +8,7 @@ export type TUserFeedState = {
 	error: string | null;
 };
 
-const initialState: TUserFeedState = {
+export const initialState: TUserFeedState = {
 	status: WebsocketStatus.OFFLINE,
 	feed: null,
 	error: null,

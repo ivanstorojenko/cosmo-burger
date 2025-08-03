@@ -60,13 +60,15 @@ export const Modal = ({
 				className={styles.modal}
 				ref={modalRef}
 				role='dialog'
-				aria-modal='true'>
+				aria-modal='true'
+				data-testid='modal'>
 				<header className={`${styles.header} mb-6`}>
 					{title}
 					<button
 						aria-label='Закрыть окно'
 						onClick={handleClose}
-						className={styles.close_btn}>
+						className={styles.close_btn}
+						data-testid='modal-close'>
 						<CloseIcon type='primary' />
 					</button>
 				</header>

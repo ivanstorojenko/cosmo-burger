@@ -27,7 +27,9 @@ export const IngredientDetails = (): React.JSX.Element => {
 						<span className='text text_type_main-default text_color_inactive'>
 							Калории,ккал
 						</span>
-						<span className='text text_type_digits-default text_color_inactive'>
+						<span
+							className='text text_type_digits-default text_color_inactive'
+							data-testid='calories'>
 							{ingredient.calories}
 						</span>
 					</li>

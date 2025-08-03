@@ -10,7 +10,7 @@ type TBurgerIngredientsState = {
 	activeTab: string;
 };
 
-const initialState: TBurgerIngredientsState = {
+export const initialState: TBurgerIngredientsState = {
 	ingredients: [],
 	loading: true,
 	error: null,
@@ -28,9 +28,6 @@ export const burgerIngredientsSlice = createSlice({
 	reducers: {},
 	selectors: {
 		getAllIngredients: (state) => state.ingredients,
-		// getAllIngredientsWithIdKey: (state) => (
-		// 	new Map(state.ingredients.map(item => [item._id, item]))
-		// ),
 		getAllIngredientsWithIdKey: createSelector(
 			[(state: TBurgerIngredientsState) => state.ingredients],
 			(ingredients) => new Map(ingredients.map((item) => [item._id, item]))
