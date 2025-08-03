@@ -16,5 +16,5 @@
 			"@pages/*": ["src/pages/*"]
 		}
 	},
-	"include": ["**/*.ts", "e2e/main.cy.ts"]
+	"include": ["**/*.ts", "e2e/place-order.cy.ts"]
 }
