@@ -67,7 +67,8 @@ export const Modal = ({
 					<button
 						aria-label='Закрыть окно'
 						onClick={handleClose}
-						className={styles.close_btn}>
+						className={styles.close_btn}
+						data-testid='modal-close'>
 						<CloseIcon type='primary' />
 					</button>
 				</header>
