@@ -11,7 +11,7 @@ type TAuthState = {
 
 type TAuthFulfilledAction = PayloadAction<TAuthRes | TUserInfoRes>;
 
-const initialState: TAuthState = {
+export const initialState: TAuthState = {
 	user: null,
 	isAuthChecked: false,
 	loading: false,

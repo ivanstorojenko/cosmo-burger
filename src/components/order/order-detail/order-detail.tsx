@@ -27,7 +27,9 @@ export const OrderDetail = (): React.JSX.Element => {
 				</>
 			) : (
 				<>
-					<h3 className={'number-shadow text text_type_digits-large mb-8'}>
+					<h3
+						className={'number-shadow text text_type_digits-large mb-8'}
+						data-testid='title-order-number'>
 						{orderInfo && orderInfo.order.number}
 					</h3>
 					<span className='text text_type_main-medium mb-15'>

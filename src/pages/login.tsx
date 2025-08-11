@@ -32,7 +32,11 @@ export const LoginPage = (): React.JSX.Element => {
 	return (
 		<div className='container padding-top-180'>
 			<div className='centered'>
-				<h1 className='text text_type_main-medium mb-6'>Вход</h1>
+				<h1
+					className='text text_type_main-medium mb-6'
+					data-testid='title-login'>
+					Вход
+				</h1>
 				<form className='form mb-20' onSubmit={(e) => handleSubmit(e)}>
 					<Input
 						type={'email'}
@@ -44,22 +48,30 @@ export const LoginPage = (): React.JSX.Element => {
 						errorText={'Введите корректный e-mail'}
 						size={'default'}
 						extraClass=''
+						data-testid='email-input'
 					/>
 					<PasswordInput
 						onChange={(e) => setPassword(e.target.value)}
 						value={password}
 						name={'password'}
 						extraClass=''
+						data-testid='password-input'
 					/>
 					{loginPending ? (
 						<Preloader />
 					) : (
-						<Button htmlType='submit' type='primary' size='medium'>
+						<Button
+							htmlType='submit'
+							type='primary'
+							size='medium'
+							data-testid='submit-button'>
 							Войти
 						</Button>
 					)}
 					{loginError && (
-						<span className='text text_type_main-default'>
+						<span
+							className='text text_type_main-default'
+							data-testid='error-message'>
 							При авторизации возникла ошибка, повторите попытку
 						</span>
 					)}

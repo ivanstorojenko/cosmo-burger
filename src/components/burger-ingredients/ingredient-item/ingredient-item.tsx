@@ -37,7 +37,13 @@ export const IngredientItem = ({
 	});
 
 	return (
-		<li ref={dragRef} draggable className={styles.ingredient_item_wrapper}>
+		<li
+			ref={dragRef}
+			draggable
+			className={styles.ingredient_item_wrapper}
+			data-testid={
+				ingredient.type === 'bun' ? 'ingredient-bun' : 'ingredient-main'
+			}>
 			<Link
 				to={`/ingredients/${_id}`}
 				state={{ background: location }}
