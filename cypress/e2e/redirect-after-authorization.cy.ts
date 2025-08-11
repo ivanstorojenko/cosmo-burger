@@ -8,8 +8,8 @@ describe('should redirect to initialy requested page after authorization', () =>
 
 	it('should redirect to login page while trying to open profile page', () => {
 		cy.visit('/profile');
-		cy.contains('Вход');
+		cy.get('[data-testid="title-login"]').should('be.visible');
 		cy.login(user.email, user.password);
-		cy.contains('Профиль');
+		cy.get('[data-testid="title-profile"]').should('be.visible');
 	});
 });

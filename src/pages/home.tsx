@@ -18,7 +18,9 @@ export const HomePage = (): React.JSX.Element => {
 
 	return (
 		<>
-			<h1 className={'title text text_type_main-large mt-10 mb-5 pl-5'}>
+			<h1
+				className={'title text text_type_main-large mt-10 mb-5 pl-5'}
+				data-testid='home-title'>
 				Соберите бургер
 			</h1>
 			<main className={'main pl-5 pr-5'}>

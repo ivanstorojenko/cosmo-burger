@@ -33,7 +33,13 @@ export const Modal = ({
 			title = orderNumber;
 			break;
 		case '/':
-			title = <h2 className='text text_type_main-large'>Детали ингредиента</h2>;
+			title = (
+				<h2
+					className='text text_type_main-large'
+					data-testid='title-ingredient-details'>
+					Детали ингредиента
+				</h2>
+			);
 			break;
 		default:
 			title = null;

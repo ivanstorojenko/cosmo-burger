@@ -8,7 +8,7 @@ describe('authorize and place order', () => {
 
 	it('should drag and drop bun', () => {
 		cy.login(user.email, user.password);
-		cy.contains('h1', 'Соберите бургер').should('be.visible');
+		cy.get('[data-testid="home-title"]').should('be.visible');
 
 		cy.get('[data-testid="ingredient-bun"]')
 			.first()
@@ -40,6 +40,8 @@ describe('authorize and place order', () => {
 
 		cy.get('[data-testid="modal"]').should('be.visible');
 		cy.wait(16000);
-		cy.contains('p', 'Ваш заказ начали готовить').should('be.visible');
+		cy.get('[data-testid="title-order-number"]')
+			.contains(/^\d+$/)
+			.should('be.visible');
 	});
 });

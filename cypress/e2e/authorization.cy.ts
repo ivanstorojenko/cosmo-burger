@@ -8,14 +8,11 @@ describe('authorization', () => {
 
 	it('successful authorization', () => {
 		cy.login(user.email, user.password);
-		cy.contains('h1', 'Соберите бургер').should('be.visible');
+		cy.get('[data-testid="home-title"]').should('be.visible');
 	});
 
 	it('authorization error due to wrong data', () => {
-		cy.visit('/login');
-		cy.get('[data-testid="email-input"]').type('wrong@email.com');
-		cy.get('[data-testid="password-input"]').type('wrongpassword');
-		cy.get('[data-testid="submit-button"]').click();
+		cy.login('wrong@email.com', 'wrongpassword');
 		cy.get('[data-testid="error-message"]').should('be.visible');
 	});
 });

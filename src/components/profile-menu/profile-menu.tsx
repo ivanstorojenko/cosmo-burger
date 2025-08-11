@@ -21,7 +21,8 @@ export const ProfileMenu = (): React.JSX.Element => {
 						end
 						className={({ isActive }) =>
 							isActive ? navLinkActiveClass : navLinkClass
-						}>
+						}
+						data-testid='title-profile'>
 						Профиль
 					</NavLink>
 				</li>

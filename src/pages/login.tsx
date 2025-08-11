@@ -32,7 +32,11 @@ export const LoginPage = (): React.JSX.Element => {
 	return (
 		<div className='container padding-top-180'>
 			<div className='centered'>
-				<h1 className='text text_type_main-medium mb-6'>Вход</h1>
+				<h1
+					className='text text_type_main-medium mb-6'
+					data-testid='title-login'>
+					Вход
+				</h1>
 				<form className='form mb-20' onSubmit={(e) => handleSubmit(e)}>
 					<Input
 						type={'email'}

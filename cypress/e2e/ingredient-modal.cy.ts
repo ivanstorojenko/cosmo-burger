@@ -4,9 +4,9 @@ describe('open ingredient details modal and then close modal', () => {
 	it('should open ingredient details modal and then close modal', () => {
 		cy.log('open ingredient details modal');
 		cy.visit('/');
-		cy.contains('Соберите бургер');
+		cy.get('[data-testid="home-title"]').should('be.visible');
 		cy.get('[data-testid="ingredient-bun"]').first().click();
-		cy.contains('Детали ингредиента');
+		cy.get('[data-testid="title-ingredient-details"]').should('be.visible');
 
 		cy.log('ingredient details shown');
 		cy.get('[data-testid="modal"]').contains('h3', 'булка');
